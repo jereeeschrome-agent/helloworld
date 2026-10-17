@@ -9,7 +9,7 @@ import torch
 import torch.nn.functional as F
 
 from .model import PAD, Config, JevZip
-from .schedule import filtered_order, round_bounds
+from .schedule import reveal_plan
 
 LN2 = math.log(2)
 
@@ -27,14 +27,14 @@ def make_batch(data, cfg: Config, bs, rng, p_noctx=0.2, p_trunc=0.05, rounds=Non
     for i, o in enumerate(rng.integers(0, len(data) - L, bs)):
         win = data[o : o + L]
         n = int(rng.integers(1, B)) if rng.random() < p_trunc else B
-        order = filtered_order(B, n, cfg.order)
+        k = rounds or int(round(math.exp(rng.uniform(math.log(kmin), math.log(kmax)))))
+        order, bounds = reveal_plan(cfg.order, B, n, k, cfg.first)
+        bounds = np.asarray(bounds)
         if rng.random() >= p_noctx:
             ctok[i, :C] = win[:C]
         blk = win[C:][order]
         ctok[i, C : C + n] = blk
         cpos[i, C : C + n] = C + order
-        k = rounds or int(round(math.exp(rng.uniform(math.log(kmin), math.log(kmax)))))
-        bounds = np.asarray(round_bounds(n, k, cfg.first))
         group = np.searchsorted(bounds, np.arange(n), side="right") - 1
         qpos[i, :n] = C + order
         qvis[i, :n] = C + bounds[group]
@@ -62,7 +62,7 @@ def main():
     ap.add_argument("--init", type=Path, help="warm-start from exported weights")
     ap.add_argument("--kmin", type=int, default=8, help="training schedules: K log-uniform in [kmin, kmax]")
     ap.add_argument("--kmax", type=int, default=128)
-    ap.add_argument("--order", choices=["bitrev", "linear"], default="bitrev", help="linear + --kmin/--kmax 512 = AR control")
+    ap.add_argument("--order", choices=["bitrev", "lanes", "linear"], default="bitrev", help="linear + --kmin/--kmax 512 = AR control")
     ap.add_argument("--val-rounds", type=int, default=16)
     args = ap.parse_args()
 
