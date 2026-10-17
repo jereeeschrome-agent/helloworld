@@ -24,8 +24,16 @@ def coding_order(n: int) -> np.ndarray:
     return order
 
 
-def filtered_order(block: int, n: int) -> np.ndarray:
-    """Order for a block truncated to its first n positions."""
+def filtered_order(block: int, n: int, kind: str = "bitrev") -> np.ndarray:
+    """Reveal order for a block truncated to its first n positions.
+
+    "bitrev" is jevzip's coarse-to-fine order; "linear" is plain left-to-right
+    (with one byte per round that is an ordinary autoregressive model, kept as
+    a control)."""
+    if kind == "linear":
+        return np.arange(n, dtype=np.int64)
+    if kind != "bitrev":
+        raise ValueError(f"unknown reveal order {kind!r}")
     order = coding_order(block)
     return order if n == block else order[order < n]
 

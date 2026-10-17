@@ -27,7 +27,7 @@ def make_batch(data, cfg: Config, bs, rng, p_noctx=0.2, p_trunc=0.05, rounds=Non
     for i, o in enumerate(rng.integers(0, len(data) - L, bs)):
         win = data[o : o + L]
         n = int(rng.integers(1, B)) if rng.random() < p_trunc else B
-        order = filtered_order(B, n)
+        order = filtered_order(B, n, cfg.order)
         if rng.random() >= p_noctx:
             ctok[i, :C] = win[:C]
         blk = win[C:][order]
@@ -62,6 +62,8 @@ def main():
     ap.add_argument("--init", type=Path, help="warm-start from exported weights")
     ap.add_argument("--kmin", type=int, default=8, help="training schedules: K log-uniform in [kmin, kmax]")
     ap.add_argument("--kmax", type=int, default=128)
+    ap.add_argument("--order", choices=["bitrev", "linear"], default="bitrev", help="linear + --kmin/--kmax 512 = AR control")
+    ap.add_argument("--val-rounds", type=int, default=16)
     args = ap.parse_args()
 
     torch.set_num_threads(args.threads)
@@ -71,12 +73,12 @@ def main():
         model = JevZip.load(args.init).train()
         cfg = model.cfg
     else:
-        cfg = Config()
+        cfg = Config(order=args.order)
         model = JevZip(cfg)
     print(f"params {sum(p.numel() for p in model.parameters()) / 1e6:.2f}M", flush=True)
     train = np.memmap(args.data / "train.bin", dtype=np.uint8, mode="r")
     val = np.memmap(args.data / "val.bin", dtype=np.uint8, mode="r")
-    val_batches = [make_batch(val, cfg, 16, np.random.default_rng(1000 + i), p_noctx=0, p_trunc=0, rounds=16) for i in range(4)]
+    val_batches = [make_batch(val, cfg, 16, np.random.default_rng(1000 + i), p_noctx=0, p_trunc=0, rounds=args.val_rounds) for i in range(4)]
 
     decay = [p for n, p in model.named_parameters() if p.dim() >= 2 and "pos" not in n and "tok" not in n]
     other = [p for n, p in model.named_parameters() if not (p.dim() >= 2 and "pos" not in n and "tok" not in n)]
@@ -115,7 +117,7 @@ def evaluate(model, batches, step):
     model.eval()
     bpb = sum(loss_bits(model, b).item() for b in batches) / len(batches)
     model.train()
-    print(f"step {step} VAL {bpb:.3f} bpb (K=16)", flush=True)
+    print(f"step {step} VAL {bpb:.3f} bpb", flush=True)
 
 
 if __name__ == "__main__":
