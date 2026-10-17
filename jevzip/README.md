@@ -131,7 +131,23 @@ hard for a small model; a left-to-right model never faces that task. With a
 perfect model the chain rule makes every order cost the same, so this is a
 learnability cost, not an information-theoretic one.
 
-STREAMS_PLACEHOLDER
+**Cross-block context barely matters, so full parallelism is cheap.** At
+K=16, "no ctx" means every block is independent: the whole file's
+dependency depth is 16 rounds.
+
+| file | streams | dependency depth | bits/byte | enc / dec KB/s |
+|---|---|---:|---:|---:|
+| networkx | 2048 (no ctx) | 16 | 2.444 | 10.9 / 10.1 |
+| networkx | 256 (default, 8-block chains) | 128 | 2.413 | 10.1 / 11.0 |
+| networkx | 32 (64-block chains) | 1024 | 2.409 | 10.7 / 10.4 |
+| pydoc | 1130 (no ctx) | 16 | 2.548 | 10.4 / 10.1 |
+| pydoc | 141 (default, 8–9-block chains) | 144 | 2.518 | 10.4 / 10.4 |
+| pydoc | 32 | 576 | 2.515 | 10.0 / 9.7 |
+
+Dropping the 256 bytes of previous-block context costs about 1.3%. On this
+CPU, speed is set by total compute, not by the number of sequential calls.
+The low dependency depth would pay off on hardware that can run every block
+at once.
 
 **RoPE mattered most.** The same recipe with learned absolute positions only
 reached 4.52 / 4.10 val bpb at steps 500 / 1000. With RoPE it reached
