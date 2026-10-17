@@ -25,7 +25,7 @@ import torch
 
 from .model import PAD, JevZip
 from .rans import Decoder, Encoder, quantize
-from .schedule import filtered_order, round_bounds
+from .schedule import reveal_plan
 
 MAGIC = b"JEVZ"
 VERSION = 1
@@ -86,8 +86,7 @@ def _run_batch(model, buf, plan: Plan, batch, rounds, use_bf16, emit):
     cfg = model.cfg
     C, B = cfg.ctx, cfg.block
     n = plan.length(batch[0][0])
-    order = filtered_order(B, n, cfg.order)
-    bounds = round_bounds(n, rounds, cfg.first)
+    order, bounds = reveal_plan(cfg.order, B, n, rounds, cfg.first)
     starts = np.array([b * B for b, _ in batch])
     ctx = np.full((len(batch), C), PAD, np.int64)
     for i, (b, has_ctx) in enumerate(batch):

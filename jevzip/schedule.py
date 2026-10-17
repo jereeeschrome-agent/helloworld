@@ -1,10 +1,15 @@
-"""Coarse-to-fine decoding schedules.
+"""Decoding schedules: a reveal order plus its cut into K parallel groups.
 
-A block of n bytes is revealed in a fixed permuted order (bit-reversal, so the
-first bytes coded are spread evenly across the block and every later byte has
-known neighbours on both sides). The permuted order is cut into K groups whose
-sizes grow geometrically; every byte in a group is predicted in parallel from
-the bytes revealed by earlier groups.
+* "bitrev": coarse-to-fine bit-reversal order (first bytes spread across the
+  block, later bytes have known neighbours on both sides), cut into K groups
+  whose revealed count grows geometrically.
+* "lanes": the block is split into ceil(block/K) contiguous lanes, each
+  decoded left to right, all lanes advancing one byte per round. Every byte
+  keeps its immediate left neighbour; K = block is plain autoregression.
+* "linear": left to right, cut like "bitrev" (with K = block, the AR control).
+
+Every byte in a group is predicted in parallel from the bytes revealed by
+earlier groups.
 """
 from functools import lru_cache
 
@@ -32,7 +37,7 @@ def filtered_order(block: int, n: int, kind: str = "bitrev") -> np.ndarray:
     a control)."""
     if kind == "linear":
         return np.arange(n, dtype=np.int64)
-    if kind != "bitrev":
+    if kind != "bitrev":  # "lanes" depends on K: use reveal_plan
         raise ValueError(f"unknown reveal order {kind!r}")
     order = coding_order(block)
     return order if n == block else order[order < n]
@@ -57,3 +62,16 @@ def round_bounds(n: int, rounds: int, first: int = 8) -> list[int]:
         v = min(max(v, bounds[-1] + 1), n - (rounds - r))
         bounds.append(v)
     return bounds
+
+
+def reveal_plan(kind: str, block: int, n: int, rounds: int, first: int = 8) -> tuple[np.ndarray, list[int]]:
+    """(order, bounds) for a block whose first n bytes exist: group r is order[bounds[r]:bounds[r+1]]."""
+    if kind == "lanes":
+        span = max(1, min(rounds, block))  # bytes per lane = rounds
+        lanes = -(-block // span)
+        pos = (np.arange(span)[:, None] + span * np.arange(lanes)[None, :]).reshape(-1)
+        rnd = np.repeat(np.arange(span), lanes)
+        keep = pos < n
+        order, rnd = pos[keep], rnd[keep]
+        return order, np.unique(np.searchsorted(rnd, np.arange(span + 1))).tolist()
+    return filtered_order(block, n, kind), round_bounds(n, rounds, first)

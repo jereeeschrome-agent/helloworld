@@ -8,7 +8,7 @@ import torch
 from .codec import HEADER, MODE_RAW, compress, decompress
 from .model import Config, JevZip
 from .rans import Decoder, Encoder, quantize
-from .schedule import coding_order, filtered_order, round_bounds
+from .schedule import coding_order, filtered_order, reveal_plan, round_bounds
 
 
 def tiny_model(seed=0, order="bitrev"):
@@ -23,6 +23,20 @@ class ScheduleTest(unittest.TestCase):
         self.assertEqual(coding_order(8).tolist(), [0, 4, 2, 6, 1, 5, 3, 7])
         self.assertEqual(filtered_order(8, 5).tolist(), [0, 4, 2, 1, 3])
         self.assertEqual(filtered_order(8, 5, "linear").tolist(), [0, 1, 2, 3, 4])
+
+    def test_lanes(self):
+        order, bounds = reveal_plan("lanes", 8, 8, 4)
+        self.assertEqual(order.tolist(), [0, 4, 1, 5, 2, 6, 3, 7])
+        self.assertEqual(bounds, [0, 2, 4, 6, 8])
+        order, bounds = reveal_plan("lanes", 8, 6, 4)  # truncated block
+        self.assertEqual(order.tolist(), [0, 4, 1, 5, 2, 3])
+        self.assertEqual(bounds, [0, 2, 4, 5, 6])
+        for n in (1, 7, 32):
+            for k in (1, 3, 8, 32, 100):
+                order, bounds = reveal_plan("lanes", 32, n, k)
+                self.assertEqual(sorted(order.tolist()), list(range(n)))
+                self.assertEqual((bounds[0], bounds[-1]), (0, n))
+                self.assertTrue(all(x < y for x, y in zip(bounds, bounds[1:])))
 
     def test_bounds(self):
         for n in (1, 5, 32, 512):
@@ -74,10 +88,14 @@ class CodecTest(unittest.TestCase):
             for streams in (1, 2, 5, 1000):
                 self.roundtrip(data, rounds=rounds, streams=streams)
 
-    def test_linear_order(self):
-        model = tiny_model(order="linear")
+    def test_other_orders(self):
+        for order in ("linear", "lanes"):
+            self._roundtrip_order(order)
+
+    def _roundtrip_order(self, order):
+        model = tiny_model(order=order)
         data = b"import os\nimport sys\n" * 9
-        for rounds in (4, 32):
+        for rounds in (4, 7, 32):
             blob = compress(data, model, rounds, threads=1, raw_fallback=False)
             self.assertEqual(decompress(blob, model), data)
 

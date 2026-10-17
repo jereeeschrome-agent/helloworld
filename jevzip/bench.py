@@ -12,7 +12,7 @@ from pathlib import Path
 from .__main__ import DEFAULT_WEIGHTS
 from .codec import Plan, compress, decompress
 from .model import JevZip
-from .schedule import round_bounds
+from .schedule import reveal_plan
 
 
 def baselines(data: bytes) -> dict[str, int]:
@@ -65,7 +65,8 @@ def main():
             plan = Plan(n, model.cfg.block, streams or max(1, nb // 8))
             for k in args.rounds:
                 # sequential model calls this implementation makes (both sides make the same ones)
-                calls = sum(len(round_bounds(plan.length(b[0][0]), k, model.cfg.first)) - 1 for b in plan.steps())
+                cfg = model.cfg
+                calls = sum(len(reveal_plan(cfg.order, cfg.block, plan.length(b[0][0]), k, cfg.first)[1]) - 1 for b in plan.steps())
                 t = time.time()
                 blob = compress(data, model, k, plan.streams, args.threads)
                 enc = n / (time.time() - t) / 1e3
