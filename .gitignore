@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# jevzip corpus (python -m jevzip.data --out data)
+/data

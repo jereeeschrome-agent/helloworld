@@ -56,6 +56,48 @@ Decode speeds are from the 4-core CPU, which is compute-bound: going from 16
 to 512 rounds costs only ~6× in speed here. On a GPU, where the per-round
 batch runs in parallel, round count decides latency much more directly.
 
+### A bigger lanes model: 11M parameters, 8 hours on an M4 Pro
+
+The recipe was the same lanes order, with d_model 384, 6 layers, 6 heads,
+512 bytes of context, and fp32 training on the Apple GPU (MPS) for 480 minutes:
+16.3k steps of 32 windows, about 267M supervised bytes. Validation fell to
+1.562 bpb at K=32, against 1.961 for the 5M model, and was flat over the last
+~1,500 steps. Every row below is a verified round-trip, run on the M4 Pro's
+CPU in fp32 with 8 threads.
+
+networkx: the same 1.05 MB file as above, so the baselines are identical.
+
+| method | rounds | bits/byte | vs xz -9e | vs brotli -q11 | decode KB/s |
+|---|---:|---:|---:|---:|---:|
+| xz -9e | | 1.525 | | | |
+| brotli -q11 | | 1.498 | | | |
+| jevzip lanes, 11M | 32 | **1.413** | −7.4% | −5.7% | 15.3 |
+| jevzip lanes, 11M | 128 | **1.237** | −18.9% | −17.4% | 5.3 |
+
+pydoc: that machine's Python ships a different 0.52 MB topics file, so these
+are compared with their own baselines.
+
+| method | rounds | bits/byte | vs xz -9e | vs brotli -q11 | decode KB/s |
+|---|---:|---:|---:|---:|---:|
+| xz -9e | | 1.582 | | | |
+| brotli -q11 | | 1.530 | | | |
+| jevzip lanes, 11M | 32 | **1.501** | −5.2% | −1.9% | 14.8 |
+| jevzip lanes, 11M | 128 | **1.340** | −15.3% | −12.4% | 5.2 |
+
+Model cross-entropy on networkx windows (`evalk`), by rounds K:
+
+| K | 16 | 32 | 64 | 128 | 512 |
+|---|---:|---:|---:|---:|---:|
+| bits/byte | 1.56 | 1.37 | 1.26 | 1.19 | 1.13 |
+
+What changed with scale:
+
+- **More compute closed the gap on prose.** The model now beats xz and brotli
+  on prose too, even at K=32 with 16× fewer rounds than AR.
+- **The 22 MB weights are still not counted.**
+- **Real files come out ~3.5% larger than `evalk`'s estimates.** That's
+  first-block-of-chain context loss plus coding overhead.
+
 ## How it works
 
 A neural compressor needs a probability for each byte that the decoder can
