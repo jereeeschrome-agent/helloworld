@@ -57,6 +57,26 @@ def _rotate(x, rot):
     return torch.cat([x1 * cos - x2 * sin, x1 * sin + x2 * cos], -1).to(x.dtype)
 
 
+class KVCache:
+    """Preallocated keys/values for one layer: extending by a group copies only the new rows."""
+
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.k = self.v = None
+        self.n = 0
+
+    def extend(self, k, v):
+        if self.k is None:
+            b, h, _, hd = k.shape
+            self.k = k.new_empty(b, h, self.capacity, hd)
+            self.v = v.new_empty(b, h, self.capacity, hd)
+        t = k.shape[2]
+        self.k[:, :, self.n : self.n + t] = k
+        self.v[:, :, self.n : self.n + t] = v
+        self.n += t
+        return self.k[:, :, : self.n], self.v[:, :, : self.n]
+
+
 class Layer(nn.Module):
     def __init__(self, cfg: Config):
         super().__init__()
@@ -101,18 +121,16 @@ class Layer(nn.Module):
         """Incremental path: append new content h to the KV cache, then score slots g against all of it."""
         b, n, _ = h.shape
         qh, kh, vh = self._qkv(h, rh)
-        if cache is not None:
-            kh = torch.cat([cache[0], kh], 2)
-            vh = torch.cat([cache[1], vh], 2)
+        kh, vh = cache.extend(kh, vh)
         past = kh.shape[2] - n
         allow = torch.ones(n, past + n, dtype=torch.bool).tril(past)
         h = h + self.proj(self._merge(F.scaled_dot_product_attention(qh, kh, vh, attn_mask=allow)))
         h = h + self.ff(self.ln2(h))
         if g is None:
-            return (kh, vh), h, None
+            return h, None
         qg, kg, vg = self._qkv(g, rg)
         g = g + self.proj(self._merge(self._slots(qg, kg, vg, kh, vh)))
-        return (kh, vh), h, g + self.ff(self.ln2(g))
+        return h, g + self.ff(self.ln2(g))
 
 
 class JevZip(nn.Module):
@@ -159,16 +177,17 @@ class JevZip(nn.Module):
 
     @torch.no_grad()
     def step(self, cache, ctok, cpos, qpos):
-        """Reveal content (ctok at cpos), then score slots at qpos (or None). Returns (cache, logits)."""
+        """Reveal content (ctok at cpos), then score slots at qpos (or None). Returns (cache, logits);
+        pass cache=None on the first call of a block batch."""
         h = self.tok(ctok) + self.pos(cpos)
         g = None if qpos is None else self._slot_embed(qpos)
         hd = self.cfg.d_model // self.cfg.n_heads
         rh, rg = rotary(cpos, hd), None if qpos is None else rotary(qpos, hd)
-        new = []
-        for i, layer in enumerate(self.layers):
-            c, h, g = layer.step(None if cache is None else cache[i], h, g, rh, rg)
-            new.append(c)
-        return new, None if g is None else self.score_options(g)
+        if cache is None:
+            cache = [KVCache(self.cfg.seq) for _ in self.layers]
+        for layer, c in zip(self.layers, cache):
+            h, g = layer.step(c, h, g, rh, rg)
+        return cache, None if g is None else self.score_options(g)
 
     def export(self) -> dict:
         return {"config": asdict(self.cfg), "state": {k: v.to(torch.bfloat16) for k, v in self.state_dict().items()}}
