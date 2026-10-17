@@ -43,8 +43,14 @@ class RansTest(unittest.TestCase):
         enc = Encoder()
         for s, c in zip(syms[::-1], cdfs[::-1]):
             enc.push(int(c[s]), int(c[s + 1] - c[s]))
-        dec = Decoder(enc.finish())
+        buf = enc.finish()
+        dec = Decoder(buf)
         self.assertEqual([dec.pop(c) for c in cdfs], syms)
+        self.assertTrue(dec.exhausted())
+        with self.assertRaises(ValueError):
+            short = Decoder(buf[: len(buf) // 2 // 4 * 4])
+            for c in cdfs:
+                short.pop(c)
 
 
 class CodecTest(unittest.TestCase):
@@ -73,6 +79,17 @@ class CodecTest(unittest.TestCase):
     def test_incompressible_falls_back_to_raw(self):
         blob = self.roundtrip(os.urandom(300), raw_fallback=True)
         self.assertEqual(HEADER.unpack_from(blob)[2], MODE_RAW)
+
+    def test_corrupt_stream_rejected(self):
+        blob = bytearray(compress(b"def g(y):\n    pass\n" * 20, self.model, threads=1, raw_fallback=False))
+        blob[-5] ^= 0x40
+        with self.assertRaises(ValueError):
+            decompress(bytes(blob), self.model)
+
+    def test_bad_args(self):
+        with self.assertRaises(ValueError):
+            compress(b"x" * 10, self.model, threads=256)
+        self.roundtrip(b"abc" * 30, rounds=100000)  # clamped, still fits the header
 
     def test_wrong_model_rejected(self):
         blob = compress(b"some text " * 20, self.model, threads=1, raw_fallback=False)

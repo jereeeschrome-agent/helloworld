@@ -42,6 +42,8 @@ class Encoder:
 
 class Decoder:
     def __init__(self, buf: bytes):
+        if len(buf) < 8 or len(buf) % 4:
+            raise ValueError("truncated or corrupt rANS stream")
         self.words = np.frombuffer(buf, dtype="<u4").tolist()
         self.x = (self.words[0] << 32) | self.words[1]
         self.i = 2
@@ -54,7 +56,13 @@ class Decoder:
         start = int(cdf[s])
         x = (int(cdf[s + 1]) - start) * (x >> PROB_BITS) + slot - start
         if x < RANS_L:
+            if self.i >= len(self.words):
+                raise ValueError("rANS stream exhausted: decoder diverged or stream is truncated")
             x = (x << 32) | self.words[self.i]
             self.i += 1
         self.x = x
         return s
+
+    def exhausted(self) -> bool:
+        """True once every word was consumed and the state is back at its initial value."""
+        return self.i == len(self.words) and self.x == RANS_L

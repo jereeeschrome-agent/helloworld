@@ -34,7 +34,9 @@ def round_bounds(n: int, rounds: int, first: int = 8) -> list[int]:
     """Cumulative group boundaries [0, m_1, ..., m_K = n] in the permuted order.
 
     Group r covers permuted indices [m_r, m_{r+1}) and is predicted from the
-    m_r bytes already revealed. Sizes grow geometrically from `first` to n.
+    m_r bytes already revealed. The revealed count m_r grows geometrically from
+    `first` to n (so each group is a fixed fraction of what is already known),
+    and every group holds at least one byte.
     """
     rounds = max(1, min(rounds, n))
     first = max(1, min(first, n))
