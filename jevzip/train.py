@@ -52,7 +52,7 @@ def loss_bits(model, batch, device="cpu", amp=True):
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--data", type=Path, default=Path("data"))
-    ap.add_argument("--out", type=Path, default=Path(__file__).parent / "weights" / "jevzip-py.pt")
+    ap.add_argument("--out", type=Path, default=Path(__file__).parent / "weights" / "jevzip-custom.pt")
     ap.add_argument("--minutes", type=float, default=100)
     ap.add_argument("--bs", type=int, default=16)
     ap.add_argument("--lr", type=float, default=2e-3)
