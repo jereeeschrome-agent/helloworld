@@ -1,0 +1,5 @@
+torch>=2.4
+numpy
+# optional, only for baselines in bench.py
+zstandard
+brotli
