@@ -18,8 +18,9 @@ at once:
 
 1. **Coarse-to-fine reveal order.** Each 512-byte block is revealed in
    bit-reversal order (0, 256, 128, 384, 64, ...). This order is cut into K
-   groups that grow geometrically: 8 bytes first, with growth (512/8)^(1/(K-1)),
-   e.g. ×1.32 per round at K=16.
+   groups. The number of revealed bytes grows geometrically, from 8 up to
+   512, by (512/8)^(1/(K-1)) per round (×1.32 at K=16). So each group is a
+   fixed fraction of what's already known.
    Early groups are sparse "anchors". Later groups fill gaps that have known
    bytes on **both** sides.
 2. **Two streams, shared weights** (XLNet-style):
@@ -41,9 +42,13 @@ at once:
 
 Blocks are dealt into `streams` independent chains. Each block sees its
 predecessor in the chain as context, and every chain decodes in lockstep. The
-sequential depth is `K × ceil(blocks / streams)` model passes, not N. With
-`streams = blocks` the whole file decodes in K passes, but no block has
-context.
+dependency depth is `K × ceil(blocks / streams)` rounds, not N bytes. With
+`streams = blocks` it is just K, but then no block has context. This CPU
+build runs each lockstep step's blocks in batches of at most 128, and gives a
+short last block its own batch, so the forward calls actually made are
+`K × Σ_steps ceil(active / 128)`. The bench reports that number. A wider
+batch would reach the dependency depth, but it would change the format,
+because batching is part of what the decoder must replay.
 
 Attention uses RoPE on the original byte offsets. The reveal order scrambles
 sequence order, and a slot mostly needs "what's 1, 2, 4 bytes to my left and
@@ -53,7 +58,10 @@ steps to discover that.
 Training sees every byte at the visibility it will have at decode time, in one
 forward pass. The schedule K is sampled per window, log-uniform over 8..128.
 The content stream doesn't depend on K, and a slot's prediction depends only
-on how much is revealed, so a single model serves any `--rounds` value.
+on its position and how much is revealed. So one model runs with any
+`--rounds`, but it is only *trained* for 8 ≤ K ≤ 128. Below that (e.g. K=4),
+slots see sparser contexts than training ever produced, and compression
+suffers.
 
 ## Results
 
@@ -72,10 +80,13 @@ RESULTS_PLACEHOLDER
   pretrained compressors (like brotli's built-in dictionary), but the weights
   are ~10 MB. You need many MB of similar data before this pays off.
 - **Bitwise reproducibility.** Decoding requires the same weights, the same
-  torch build, the same CPU kernels and the same thread count, all of which
-  are stored in the header. A CRC catches divergence, but a file compressed on
-  one machine isn't guaranteed to decode on a different CPU. This is the usual
-  neural-compression problem (NNCP writes its own deterministic kernels).
+  torch build, the same CPU kernels and the same thread count. The header
+  records the weights fingerprint, the thread count and the bf16 flag, so a
+  wrong model is rejected up front. A different torch build or CPU kernel is
+  not recorded: it is caught only after decoding, by the rANS end-state check
+  plus the CRC. A file compressed on one machine isn't guaranteed to decode on
+  a different CPU. This is the usual neural-compression problem (NNCP writes
+  its own deterministic kernels).
 - **Domain.** The model was trained for about 2 CPU-hours on Python source
   installed on the build box. It does well on Python and badly on anything
   else. Incompressible input falls back to raw storage.
@@ -85,7 +96,7 @@ RESULTS_PLACEHOLDER
 ```
 pip install -r jevzip/requirements.txt
 python -m jevzip.data --out data            # corpus from installed site-packages
-python -m jevzip.train --data data --minutes 110
+python -m jevzip.train --data data --minutes 120
 python -m jevzip.bench data/networkx.py.txt data/pydoc_topics.txt --verify
 python -m unittest jevzip.test_jevzip       # round-trip tests (tiny random model)
 ```

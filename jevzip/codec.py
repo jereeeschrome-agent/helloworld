@@ -3,9 +3,12 @@
 The data is cut into blocks of `cfg.block` bytes and the blocks are dealt out to
 `streams` contiguous chains. A block sees the last `cfg.ctx` bytes of the
 previous block in its chain (the first block of a chain sees PAD). Chains are
-independent, so at each step one block from every chain is decoded as a
-batch, in `rounds` parallel passes: sequential depth is
-rounds * ceil(blocks / streams), not one step per byte.
+independent, so at each step the current block of every chain can be decoded
+together, in `rounds` parallel passes: the dependency depth is
+rounds * ceil(blocks / streams), not one step per byte. On CPU each step's
+blocks run in batches of at most CHUNK (a short final block gets its own
+batch), so the forward calls made are rounds * sum over steps of
+ceil(active / CHUNK).
 
 The decoder must reproduce the encoder's probabilities bit for bit, so both
 sides run the exact same sequence of forward calls (same batches, same thread
@@ -108,6 +111,9 @@ def _header(mode, model_id, n, crc, rounds, streams, threads, bf16):
 
 
 def compress(data: bytes, model: JevZip, rounds: int = 16, streams: int | None = None, threads: int = 4, bf16: bool = True, raw_fallback: bool = True) -> bytes:
+    if not 1 <= threads <= 255:
+        raise ValueError("threads must be in 1..255")
+    rounds = max(1, min(rounds, model.cfg.block))  # round_bounds clamps to the block length anyway
     n = len(data)
     crc = zlib.crc32(data)
     model_id = fingerprint(model)
@@ -157,6 +163,8 @@ def decompress(blob: bytes, model: JevZip) -> bytes:
 
         for batch in plan.steps():
             _run_batch(model, buf, plan, batch, rounds, bool(bf16), emit)
+        if not dec.exhausted():
+            raise ValueError("trailing rANS data: decoder diverged or stream is corrupt")
         out = buf.tobytes()
     if zlib.crc32(out) != crc:
         raise ValueError("CRC mismatch: decoder diverged (different torch build / CPU kernels?)")
