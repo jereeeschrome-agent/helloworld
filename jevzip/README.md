@@ -1,123 +1,120 @@
 # jevzip
 
 A lossless byte compressor built on a Jev-style transformer. Jev is TypeSafe AI's
-non-autoregressive model that scores a closed set of options in parallel. jevzip
-decodes a block in **K parallel rounds** instead of one model step per byte.
+non-autoregressive model that scores a closed set of options in parallel.
+jevzip decodes each 512-byte block in **K parallel rounds**: every round scores
+all 256 byte values for many undecided bytes in one forward pass, instead of
+one model step per byte.
 
 ```
-python -m jevzip c  file.py  file.jz  --rounds 16
+python -m jevzip c  file.py  file.jz             # lanes model, K=128
+python -m jevzip c  file.py  file.jz --rounds 32 # 4x fewer rounds: faster, larger
 python -m jevzip d  file.jz  file.py
 ```
 
-## Idea
-
-A neural compressor needs a probability for each byte that the decoder can
-reproduce exactly. Autoregressive (AR) models give one byte per step, so
-decoding takes N sequential steps. jevzip asks the model to decide many bytes
-at once:
-
-1. **Coarse-to-fine reveal order.** Each 512-byte block is revealed in
-   bit-reversal order (0, 256, 128, 384, 64, ...). This order is cut into K
-   groups. The number of revealed bytes grows geometrically, from 8 up to
-   512, by (512/8)^(1/(K-1)) per round (×1.32 at K=16). So each group is a
-   fixed fraction of what's already known.
-   Early groups are sparse "anchors". Later groups fill gaps that have known
-   bytes on **both** sides.
-2. **Two streams, shared weights** (XLNet-style):
-   - *content stream*: known bytes (256 bytes of previous-block context, then
-     the revealed bytes in reveal order) under causal attention, so it is
-     KV-cached and extended one group at a time;
-   - *slot stream*: one query token per undecided byte. A slot attends to the
-     revealed content and to itself, **never to other slots**. Every slot in a
-     group is therefore scored in one pass, and a slot's prediction doesn't
-     depend on which other slots are being asked about. That makes the
-     decoder's probabilities reproducible.
-3. **Option scoring.** Each slot is scored against the 256 byte values using
-   tied option embeddings. It's a typed choice from a closed label set, which
-   is the Jev idea: "score all allowed options in parallel" instead of
-   generating text.
-4. **rANS** (64-bit state, 24-bit probabilities) turns the scores into bits.
-   The encoder runs the decoder's exact sequence of forward calls, so both
-   sides see bit-identical probabilities.
-
-Blocks are dealt into `streams` independent chains. Each block sees its
-predecessor in the chain as context, and every chain decodes in lockstep. The
-dependency depth is `K × ceil(blocks / streams)` rounds, not N bytes. With
-`streams = blocks` it is just K, but then no block has context. This CPU
-build runs each lockstep step's blocks in batches of at most 128, and gives a
-short last block its own batch, so the forward calls actually made are
-`K × Σ_steps ceil(active / 128)`. The bench reports that number. A wider
-batch would reach the dependency depth, but it would change the format,
-because batching is part of what the decoder must replay.
-
-Attention uses RoPE on the original byte offsets. The reveal order scrambles
-sequence order, and a slot mostly needs "what's 1, 2, 4 bytes to my left and
-right". With learned absolute positions only, the model learned that far more
-slowly (see Results).
-
-Training sees every byte at the visibility it will have at decode time, in one
-forward pass. The schedule K is sampled per window, log-uniform over 8..128.
-The content stream doesn't depend on K, and a slot's prediction depends only
-on its position and how much is revealed. So one model runs with any
-`--rounds`, but it is only *trained* for 8 ≤ K ≤ 128. Below that (e.g. K=4),
-slots see sparser contexts than training ever produced, and compression
-suffers.
-
 ## Results
 
-All numbers were measured on the build box: a 4-core Xeon with AMX, torch
-2.14 on CPU, bf16 inference, 4 threads. Every jevzip row is a real compressed
-file, decompressed and checked bit-exact. The model has 5.0M parameters and
-was trained for 120 minutes: 3.4k steps of 16 windows, about 28M supervised
-bytes. Default streams = blocks/8, so each chain is 8 blocks long.
+Every model below has the same 5.0M-parameter architecture and was trained
+for 120 minutes on a 4-core CPU over a Python-source corpus. They differ only
+in the **reveal order**, i.e. which bytes each round decides. All sizes are
+real files from verified round-trips on held-out data: networkx (Python, 1.05
+MB) and pydoc_data topics (mostly English prose, 0.58 MB). Figures are
+bits per byte.
 
-**networkx**: held-out Python, 1.05 MB
+| method | rounds per block | networkx | pydoc | decode KB/s |
+|---|---:|---:|---:|---:|
+| gzip -9 | | 1.885 | 2.247 | |
+| bzip2 -9 | | 1.558 | 1.610 | |
+| zstd -19 | | 1.554 | 1.571 | |
+| xz -9e | | 1.525 | 1.542 | |
+| brotli -q11 | | 1.498 | 1.497 | |
+| jevzip, linear (plain AR control) | 512 | **1.453** | 1.601 | 2.1 |
+| jevzip, lanes | 512 | **1.485** | 1.628 | 2.2 |
+| jevzip, lanes | 128 | 1.546 | 1.683 | 4.4 |
+| jevzip, lanes | 64 | 1.613 | 1.745 | 6.9 |
+| jevzip, lanes | 32 | 1.735 | 1.856 | 10.0 |
+| jevzip, lanes | 16 | 1.956 | 2.068 | 12.8 |
+| jevzip, bitrev | 32 | 2.355 | 2.468 | 10.3 |
+| jevzip, bitrev | 16 | 2.413 | 2.518 | 11.8 |
 
-| method | bytes | bits/byte | forward calls | enc KB/s | dec KB/s |
+What the table shows:
+
+- **On held-out Python code, the sequential models beat xz -9e and brotli
+  -q11.** The AR control is 4.7% smaller than xz and 3.0% smaller than brotli.
+  The weights (~10 MB) are not counted; see Caveats.
+- **On prose they don't.** The corpus is code, and the AR control is 4% behind
+  xz there.
+- **Parallel rounds trade size for depth.** Lanes at K=128 is within 1.4% of
+  xz with 4× fewer sequential rounds than AR. K=32 cuts rounds 16× and is
+  ~19% larger than AR.
+- **The reveal order matters far more than the number of rounds.** The
+  coarse-to-fine bitrev order was the original design. It loses badly at every
+  K, because a small model struggles with far-apart "anchor" bytes; details
+  below.
+
+Decode speeds are from the 4-core CPU, which is compute-bound: going from 16
+to 512 rounds costs only ~6× in speed here. On a GPU, where the per-round
+batch runs in parallel, round count decides latency much more directly.
+
+## How it works
+
+A neural compressor needs a probability for each byte that the decoder can
+reproduce exactly. jevzip builds those probabilities from four pieces.
+
+1. **A reveal order and its cut into K groups** (`schedule.py`). Every byte in
+   a group is predicted in parallel from the bytes revealed by earlier groups.
+   - `lanes` (default): the block is split into 512/K contiguous lanes, each
+     decoded left to right, and all lanes advance one byte per round. Bytes
+     keep their left neighbour, except the first byte of each lane after lane
+     0. K=512 is plain autoregression.
+   - `bitrev`: coarse-to-fine bit-reversal order (0, 256, 128, 384, ...), cut
+     so that the revealed count grows geometrically. Early rounds reveal sparse
+     anchors; late rounds fill gaps with known bytes on both sides.
+   - `linear`: left to right. With K=512 this is the AR control.
+2. **Two streams with shared weights**, XLNet-style (`model.py`):
+   - the *content stream* holds the known bytes (256 bytes of previous-block
+     context, then the revealed bytes in reveal order) under causal attention.
+     It is KV-cached and extended one group per round;
+   - the *slot stream* has one query per undecided byte. A slot attends to the
+     revealed content and to itself, never to other slots. So a whole group is
+     scored in one pass, and a slot's prediction doesn't depend on which other
+     slots are asked, which keeps the decoder reproducible.
+
+   Attention uses RoPE on the original byte offsets, so "1, 2, 4 bytes to my
+   left" is directly visible however the order scrambles the sequence.
+3. **Option scoring.** Each slot is scored against tied embeddings of the 256
+   byte values: a typed choice from a closed label set, the Jev idea.
+4. **rANS coding** (`rans.py`, 64-bit state, 24-bit probabilities). The encoder
+   replays the decoder's exact sequence of forward calls, so both sides see
+   bit-identical probabilities. The header carries a model+config fingerprint,
+   the thread count, the bf16 flag and a CRC. The decoder also checks the rANS
+   end state.
+
+Blocks are dealt into `streams` independent chains that decode in lockstep, and
+each block uses the end of its chain predecessor as context. The dependency
+depth is `K × ceil(blocks / streams)`. With `streams = blocks` that is K for the
+whole file, at ~1.3% cost (see below). On CPU, each step runs in batches of at
+most 128 blocks, and the bench counts the resulting forward calls.
+
+Training (`train.py`) supervises every byte of a window in one forward pass,
+at exactly the visibility it will have at decode time. K is drawn per window,
+log-uniform over a range: 8..512 for lanes, 8..128 for bitrev. One model then
+serves any `--rounds` in that range.
+
+## Why the order matters
+
+**Learning speed at equal compute.** These are validation bpb on held-out
+`mpmath`, each model at its own operating K:
+
+| step | 500 | 1000 | 2000 | 3000 | final |
 |---|---:|---:|---:|---:|---:|
-| gzip -9 | 247078 | 1.885 | | | |
-| bzip2 -9 | 204202 | 1.558 | | | |
-| xz -9e | 199944 | 1.525 | | | |
-| zstd -19 | 203658 | 1.554 | | | |
-| brotli -q11 | 196333 | 1.498 | | | |
-| jevzip K=8 | 339194 | 2.588 | 128 | 12.7 | 12.6 |
-| jevzip K=16 | 316278 | 2.413 | 256 | 10.1 | 11.0 |
-| jevzip K=32 | 308714 | 2.355 | 512 | 7.4 | 7.9 |
-| jevzip K=64 | 307474 | 2.346 | 1024 | 5.2 | 5.7 |
+| linear / AR (K=512) | 3.10 | 2.12 | 1.81 | 1.69 | 1.687 |
+| lanes (K=32) | 3.32 | 2.41 | 2.14 | 2.01 | 1.961 |
+| bitrev (K=16) | 3.60 | 3.31 | 3.03 | 2.83 | 2.804 |
+| bitrev, learned absolute positions instead of RoPE | 4.52 | 4.10 | | | |
 
-**pydoc_data topics**: held-out, mostly English prose, 0.58 MB
-
-| method | bytes | bits/byte | forward calls | enc KB/s | dec KB/s |
-|---|---:|---:|---:|---:|---:|
-| gzip -9 | 162425 | 2.247 | | | |
-| bzip2 -9 | 116373 | 1.610 | | | |
-| xz -9e | 111508 | 1.542 | | | |
-| zstd -19 | 113580 | 1.571 | | | |
-| brotli -q11 | 108258 | 1.497 | | | |
-| jevzip K=8 | 193490 | 2.676 | 144 | 12.9 | 12.9 |
-| jevzip K=16 | 182034 | 2.518 | 288 | 10.4 | 10.4 |
-| jevzip K=32 | 178390 | 2.468 | 576 | 7.6 | 7.2 |
-| jevzip K=64 | 178054 | 2.463 | 1152 | 4.7 | 5.0 |
-
-**It does not beat xz, or anything else.** At this training budget it is
-~1.55× larger than xz/brotli and ~100× slower. It is worse than every
-baseline on the list, gzip included.
-
-**Fewer rounds are nearly free.** These are model cross-entropy figures on
-sampled networkx windows; the K=512 row is one byte per round, i.e. fully
-sequential any-order decoding.
-
-| K | 8 | 16 | 32 | 64 | 128 | 512 |
-|---|---:|---:|---:|---:|---:|---:|
-| bits/byte | 2.60 | 2.43 | 2.36 | 2.36 | 2.35 | 2.34 |
-
-K=32 decodes in 16× fewer sequential rounds than K=512 and costs about 1%
-more bits. K=16 costs about 4%. The prose test set shows the same shape:
-2.41 bpb at K=512 and 2.43 at K=32.
-
-**Where the bits go: the anchors.** Per-level cost at K=16 on networkx, in
-bits per byte. Each row gives the share of the block in that level, the gap
-to the nearest known neighbour, and the cost:
+**Where bitrev's bits go.** These are per-level costs at K=16 on networkx, in
+bits per byte:
 
 | reveal level | share of block | nearest known neighbour | cost |
 |---|---:|---:|---:|
@@ -125,92 +122,103 @@ to the nearest known neighbour, and the cost:
 | stride 2 | 25% | 2 bytes away | ~3.0 |
 | stride 1 | 50% | adjacent on both sides | ~1.0 |
 
-The anchors are only 25% of the block but account for about half of all
-bits. Filling a byte with a gap of four or more unknown bytes on each side is
-hard for a small model; a left-to-right model never faces that task. With a
+The anchors are a quarter of the block and about half of all bits. With a
 perfect model the chain rule makes every order cost the same, so this is a
-learnability cost, not an information-theoretic one.
+learnability gap, not an information-theoretic one. But a small model can't
+close it, which is why the bitrev design loses.
 
-**Cross-block context barely matters, so full parallelism is cheap.** At
-K=16, "no ctx" means every block is independent: the whole file's
-dependency depth is 16 rounds.
+**Where lanes' bits go.** At K=16 (32 lanes of 16 bytes), the first byte of
+each lane costs ~4.5 bits. That falls to ~2.2 by the fourth byte and to ~1.1–1.5
+deep in the lane. Longer lanes (larger K) spread the lane-start cost over more
+bytes.
 
-| file | streams | dependency depth | bits/byte | enc / dec KB/s |
-|---|---|---:|---:|---:|
-| networkx | 2048 (no ctx) | 16 | 2.444 | 10.9 / 10.1 |
-| networkx | 256 (default, 8-block chains) | 128 | 2.413 | 10.1 / 11.0 |
-| networkx | 32 (64-block chains) | 1024 | 2.409 | 10.7 / 10.4 |
-| pydoc | 1130 (no ctx) | 16 | 2.548 | 10.4 / 10.1 |
-| pydoc | 141 (default, 8–9-block chains) | 144 | 2.518 | 10.4 / 10.4 |
-| pydoc | 32 | 576 | 2.515 | 10.0 / 9.7 |
+**Bits/byte vs K** (model cross-entropy on sampled networkx windows,
+`python -m jevzip.evalk`):
 
-Dropping the 256 bytes of previous-block context costs about 1.3%. On this
-CPU, speed is set by total compute, not by the number of sequential calls.
-The low dependency depth would pay off on hardware that can run every block
-at once.
+| K | 8 | 16 | 32 | 64 | 128 | 512 |
+|---|---:|---:|---:|---:|---:|---:|
+| lanes | 2.32 | 1.93 | 1.71 | 1.59 | 1.52 | 1.47 |
+| bitrev | 2.60 | 2.43 | 2.36 | 2.36 | 2.35 | 2.34 |
+| linear / AR | | | | | | 1.43 |
 
-**RoPE mattered most.** The same recipe with learned absolute positions only
-reached 4.52 / 4.10 val bpb at steps 500 / 1000. With RoPE it reached
-3.60 / 3.31.
+**Context vs parallelism** (bitrev, K=16; "no ctx" means every block is
+independent):
 
-AR_CONTROL_PLACEHOLDER
+| file | streams | dependency depth | bits/byte |
+|---|---|---:|---:|
+| networkx | 2048 (no ctx) | 16 | 2.444 |
+| networkx | 256 (default) | 128 | 2.413 |
+| networkx | 32 | 1024 | 2.409 |
+| pydoc | 1130 (no ctx) | 16 | 2.548 |
+| pydoc | 141 (default) | 144 | 2.518 |
+
+## Weights
+
+| file | order | trained K | notes |
+|---|---|---|---|
+| `weights/jevzip-lanes.pt` | lanes | 8..512 | default; one model from K=8 to plain AR |
+| `weights/jevzip-ar.pt` | linear | 512 | AR control; use `--rounds 512` |
+| `weights/jevzip-bitrev.pt` | bitrev | 8..128 | the original coarse-to-fine design |
 
 ## Caveats
 
-- **Not new from scratch.** Each piece has prior art: two-stream attention
-  (XLNet), any-order AR models (σ-GPT), fixed-schedule parallel context models
-  from learned image compression (checkerboard context, M2T), and neural
-  compressors (NNCP, "Language Modeling Is Compression", ts_zip). As far as I
-  know, the new part is putting them together for byte-level lossless coding:
-  a KV-cached two-stream any-order model, a bit-reversal schedule with
-  geometric groups, and lockstep chains. Treat that claim with suspicion.
-- **The model isn't counted in the sizes.** That is the usual convention for
-  pretrained compressors (like brotli's built-in dictionary), but the weights
-  are ~10 MB. You need many MB of similar data before this pays off.
-- **Bitwise reproducibility.** Decoding requires the same weights, the same
-  torch build, the same CPU kernels and the same thread count. The header
-  records the weights fingerprint, the thread count and the bf16 flag, so a
-  wrong model is rejected up front. A different torch build or CPU kernel is
-  not recorded: it is caught only after decoding, by the rANS end-state check
-  plus the CRC. A file compressed on one machine isn't guaranteed to decode on
-  a different CPU. This is the usual neural-compression problem (NNCP writes
-  its own deterministic kernels).
-- **Domain.** The model was trained for 2 hours on 4 CPU cores, on Python
-  source installed on the build box. Expect it to do worse on anything that
-  isn't Python or English. Incompressible input falls back to raw storage.
+- **Weights aren't counted in the sizes.** That's the usual convention for
+  pretrained compressors (like brotli's built-in dictionary), but each model
+  file is ~10 MB. On a single 1 MB file, the model costs far more than it
+  saves. The win only matters when one model serves lots of similar data.
+- **Not new from scratch.** Each piece has prior art:
+  - two-stream attention (XLNet);
+  - any-order AR models (σ-GPT);
+  - fixed-schedule parallel context models from learned image compression
+    (checkerboard, M2T);
+  - neural compressors (NNCP, "Language Modeling Is Compression", ts_zip).
+
+  As far as I know, the combination is new: KV-cached two-stream decoding,
+  lane / bit-reversal schedules served by one model, and lockstep chains.
+  Treat that claim with suspicion.
+- **Bitwise reproducibility.** Decoding needs the same weights, torch build,
+  CPU kernels and thread count. The header rejects a wrong model or thread
+  count up front. A different torch build or CPU is caught only after
+  decoding, by the end-state check and the CRC. Files aren't portable across
+  CPUs; that's the usual neural-compression problem.
+- **Domain.** The models were trained on Python source installed on the build
+  box. Expect worse results on other data. Incompressible input falls back to
+  raw storage.
 
 ## Reproduce
 
 ```
 pip install -r jevzip/requirements.txt
 python -m jevzip.data --out data            # corpus from installed site-packages
-python -m jevzip.train --data data --minutes 120
-python -m jevzip.bench data/networkx.py.txt data/pydoc_topics.txt --verify
-python -m unittest jevzip.test_jevzip       # round-trip tests (tiny random model)
+python -m jevzip.train --data data --order lanes --kmin 8 --kmax 512 --val-rounds 32 --minutes 120 --out jevzip/weights/jevzip-lanes.pt
+python -m jevzip.train --data data --order linear --kmin 512 --kmax 512 --val-rounds 512 --minutes 120 --out jevzip/weights/jevzip-ar.pt
+python -m jevzip.train --data data --order bitrev --minutes 120 --out jevzip/weights/jevzip-bitrev.pt
+python -m jevzip.bench data/networkx.py.txt data/pydoc_topics.txt --rounds 32 64 128 512 --verify
+python -m jevzip.evalk data/networkx.py.txt --weights jevzip/weights/jevzip-lanes.pt
+python -m unittest jevzip.test_jevzip       # round-trip tests (tiny random models)
 ```
+
+Splits are whole packages, so near-duplicate files can't leak across them:
+`mpmath` is validation, and `networkx` and `pydoc_data` are the benchmarks.
+None of them is in the training set.
 
 ### Bigger models on a Mac (Apple-silicon GPU) or CUDA box
 
 Training takes `--device mps` or `--device cuda` plus model-size flags.
-Compression always runs on the CPU, so weights trained on a GPU work
-anywhere. A file decodes only on the same CPU and torch build that encoded it.
+Compression always runs on the CPU, so weights trained on a GPU work anywhere.
+A compressed file decodes only on the same CPU and torch build that encoded it.
 
 ```
 python3 -m venv .venv && . .venv/bin/activate
 pip install torch numpy networkx mpmath sympy pandas   # corpus + the held-out test packages
 python -m jevzip.data --out data
 python -m jevzip.train --data data --device mps --order lanes --kmin 8 --kmax 512 --val-rounds 32 \
-    --d-model 512 --n-layers 8 --n-heads 8 --ctx 512 --bs 32 --lr 1e-3 --minutes 480 \
+    --d-model 384 --n-layers 6 --n-heads 6 --ctx 512 --bs 32 --lr 1e-3 --warmup 500 --minutes 480 --no-amp \
     --out jevzip/weights/jevzip-lanes-big.pt
-python -m jevzip.bench data/networkx.py.txt data/pydoc_topics.txt \
-    --weights jevzip/weights/jevzip-lanes-big.pt --rounds 16 32 64 --verify --fp32
+python -m jevzip.bench data/networkx.py.txt --weights jevzip/weights/jevzip-lanes-big.pt --rounds 32 128 --verify --fp32
 ```
 
-Add `--no-amp` if your torch/macOS has no bf16 on MPS. With `--order lanes`,
-a model trained over 8 ≤ K ≤ 512 also covers plain autoregression at K=512.
-The corpus is built from whatever Python packages are installed, so numbers
-from another machine are comparable but not identical.
-
-Splits are whole packages, so near-duplicate files can't leak across them:
-`mpmath` is validation, and `networkx` (code) and `pydoc_data` (mostly English
-prose) are the benchmarks. Neither is in the training set.
+On an M4 Pro (64 GB), fp32 was about 10% faster than bf16. The masked slot
+attention makes MPS build full attention matrices, so 26M- and 86M-parameter
+models were too slow for an 8-hour budget. A fused or block-sparse slot
+attention is the obvious next step for scaling.

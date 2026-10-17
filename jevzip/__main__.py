@@ -1,6 +1,6 @@
 """jevzip CLI.
 
-    python -m jevzip c  INPUT OUTPUT [--rounds K] [--streams S]
+    python -m jevzip c  INPUT OUTPUT [--rounds K] [--streams S] [--weights W]
     python -m jevzip d  INPUT OUTPUT
 """
 import argparse
@@ -11,7 +11,7 @@ from pathlib import Path
 from .codec import compress, decompress
 from .model import JevZip
 
-DEFAULT_WEIGHTS = Path(__file__).parent / "weights" / "jevzip-py.pt"
+DEFAULT_WEIGHTS = Path(__file__).parent / "weights" / "jevzip-lanes.pt"
 
 
 def main(argv=None):
@@ -20,7 +20,7 @@ def main(argv=None):
     ap.add_argument("input", type=Path)
     ap.add_argument("output", type=Path)
     ap.add_argument("--weights", type=Path, default=DEFAULT_WEIGHTS)
-    ap.add_argument("--rounds", type=int, default=16, help="parallel passes per block (fewer = faster, larger)")
+    ap.add_argument("--rounds", type=int, default=128, help="parallel passes per block (fewer = faster, larger; 512 = sequential)")
     ap.add_argument("--streams", type=int, default=None, help="independent block chains (default: blocks/8)")
     ap.add_argument("--threads", type=int, default=4)
     ap.add_argument("--fp32", action="store_true", help="fp32 inference instead of bf16")
