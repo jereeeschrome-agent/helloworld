@@ -5,7 +5,10 @@
   whose revealed count grows geometrically.
 * "lanes": the block is split into ceil(block/K) contiguous lanes, each
   decoded left to right, all lanes advancing one byte per round. Every byte
-  keeps its immediate left neighbour; K = block is plain autoregression.
+  except the first of each lane after lane 0 has its immediate left neighbour
+  revealed before it (lane 0 starts after the previous-block context; the other
+  ceil(block/K) - 1 lane starts are predicted in round 0 without one).
+  K = block is plain autoregression.
 * "linear": left to right, cut like "bitrev" (with K = block, the AR control).
 
 Every byte in a group is predicted in parallel from the bytes revealed by

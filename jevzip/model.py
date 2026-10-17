@@ -76,6 +76,16 @@ class KVCache:
         self.n += t
         return self.k[:, :, : self.n], self.v[:, :, : self.n]
 
+    def scratch(self, k, v):
+        """Cache views followed by k, v written into the free tail, which the next extend overwrites.
+
+        Slots' own keys go here, so slot attention needs no copy of the cache."""
+        t = k.shape[2]
+        assert self.n + t <= self.capacity
+        self.k[:, :, self.n : self.n + t] = k
+        self.v[:, :, self.n : self.n + t] = v
+        return self.k[:, :, : self.n + t], self.v[:, :, : self.n + t]
+
 
 class Layer(nn.Module):
     def __init__(self, cfg: Config):
@@ -98,15 +108,11 @@ class Layer(nn.Module):
         b, h, t, hd = x.shape
         return x.transpose(1, 2).reshape(b, t, h * hd)
 
-    def _slots(self, qg, kg, vg, kh, vh, allow=None):
-        """Slot attention: revealed content keys (optionally masked) plus the slot's own key, never other slots."""
-        s = qg.shape[2]
-        eye = torch.eye(s, dtype=torch.bool, device=qg.device)
-        if allow is None:
-            mask = torch.cat([torch.ones(s, kh.shape[2], dtype=torch.bool, device=qg.device), eye], -1)
-        else:
-            mask = torch.cat([allow, eye.expand(allow.shape[0], 1, s, s)], -1)
-        return F.scaled_dot_product_attention(qg, torch.cat([kh, kg], 2), torch.cat([vh, vg], 2), attn_mask=mask)
+    @staticmethod
+    def _slot_mask(allow, s):
+        """Slots see the allowed content keys plus their own key, never other slots."""
+        eye = torch.eye(s, dtype=torch.bool, device=allow.device)
+        return torch.cat([allow, eye.expand(*allow.shape[:-2], s, s)], -1)
 
     def forward(self, h, g, allow, rh, rg):
         """Training path. h: (b, L, d) content in reveal order; g: (b, S, d) slots; allow: (b, 1, S, L);
@@ -114,7 +120,8 @@ class Layer(nn.Module):
         qh, kh, vh = self._qkv(h, rh)
         qg, kg, vg = self._qkv(g, rg)
         h = h + self.proj(self._merge(F.scaled_dot_product_attention(qh, kh, vh, is_causal=True)))
-        g = g + self.proj(self._merge(self._slots(qg, kg, vg, kh, vh, allow)))
+        mask = self._slot_mask(allow, qg.shape[2])
+        g = g + self.proj(self._merge(F.scaled_dot_product_attention(qg, torch.cat([kh, kg], 2), torch.cat([vh, vg], 2), attn_mask=mask)))
         return h + self.ff(self.ln2(h)), g + self.ff(self.ln2(g))
 
     def step(self, cache, h, g, rh, rg):
@@ -129,7 +136,9 @@ class Layer(nn.Module):
         if g is None:
             return h, None
         qg, kg, vg = self._qkv(g, rg)
-        g = g + self.proj(self._merge(self._slots(qg, kg, vg, kh, vh)))
+        k_all, v_all = cache.scratch(kg, vg)
+        mask = self._slot_mask(torch.ones(qg.shape[2], kh.shape[2], dtype=torch.bool), qg.shape[2])
+        g = g + self.proj(self._merge(F.scaled_dot_product_attention(qg, k_all, v_all, attn_mask=mask)))
         return h, g + self.ff(self.ln2(g))
 
 
