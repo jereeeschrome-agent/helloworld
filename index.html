@@ -87,13 +87,16 @@
             <tr><td>jevzip lanes</td><td>16</td><td>1.956</td><td class="bar"><i style="--v:1.956"></i></td><td>2.068</td><td>12.8</td></tr>
             <tr><td>jevzip bitrev</td><td>32</td><td>2.355</td><td class="bar"><i style="--v:2.355"></i></td><td>2.468</td><td>10.3</td></tr>
             <tr><td>jevzip bitrev</td><td>16</td><td>2.413</td><td class="bar"><i style="--v:2.413"></i></td><td>2.518</td><td>11.8</td></tr>
+            <tr class="win"><td>jevzip lanes, 11M &dagger;</td><td>128</td><td>1.237</td><td class="bar"><i style="--v:1.237"></i></td><td>&dagger;</td><td>5.3 &dagger;</td></tr>
+            <tr class="win"><td>jevzip lanes, 11M &dagger;</td><td>32</td><td>1.413</td><td class="bar"><i style="--v:1.413"></i></td><td>&dagger;</td><td>15.3 &dagger;</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="note"><span class="hi">*</span> beats every baseline on networkx. Bars show networkx bits/byte. Decode speed is for networkx on 4 CPU cores. The CPU is compute-bound, so 16 rounds decodes only ~6× faster than 512 (12.8 vs 2.2 KB/s). On a GPU, the round count sets latency much more directly.</p>
+      <p class="note"><span class="hi">*</span> beats every baseline on networkx. Bars show networkx bits/byte. Decode speed is for networkx on 4 CPU cores. The CPU is compute-bound, so 16 rounds decodes only ~6× faster than 512 (12.8 vs 2.2 KB/s). On a GPU, the round count sets latency much more directly.<br>&dagger; A bigger lanes model: 11M parameters, trained for 8 hours on an M4 Pro GPU, with decode speed measured on its CPU. Its machine ships a different pydoc file (0.52 MB). On that file it gets 1.340 bits/byte at 128 rounds and 1.501 at 32, against xz 1.582 and brotli 1.530.</p>
       <ul>
         <li>On held-out Python, sequential decoding beats xz -9e and brotli -q11: 1.453 vs 1.525 and 1.498.</li>
-        <li>On prose it doesn't. The training corpus is code.</li>
+        <li>With more compute, parallel decoding beats them too. The 11M lanes model, trained for 8 hours on an M4 Pro, is 18.9% smaller than xz on code at 128 rounds and 7.4% smaller at 32. On prose it is 15.3% and 5.2% smaller.</li>
+        <li>The small models don't beat xz on prose; the training corpus is code.</li>
         <li>Fewer rounds give a shallower decode and a bigger file. Lanes at 128 rounds is within 1.4% of xz with 4× fewer rounds than AR.</li>
         <li>The ~10 MB model weights are not counted. That's the usual convention for pretrained compressors; brotli's built-in dictionary isn't counted either.</li>
       </ul>
