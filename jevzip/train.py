@@ -14,7 +14,7 @@ from .schedule import filtered_order, round_bounds
 LN2 = math.log(2)
 
 
-def make_batch(data, cfg: Config, bs, rng, p_noctx=0.2, p_trunc=0.05, rounds=None):
+def make_batch(data, cfg: Config, bs, rng, p_noctx=0.2, p_trunc=0.05, rounds=None, kmin=8, kmax=128):
     """Random windows, each with a random schedule; every block byte is a supervised slot."""
     C, B = cfg.ctx, cfg.block
     L = C + B
@@ -33,7 +33,7 @@ def make_batch(data, cfg: Config, bs, rng, p_noctx=0.2, p_trunc=0.05, rounds=Non
         blk = win[C:][order]
         ctok[i, C : C + n] = blk
         cpos[i, C : C + n] = C + order
-        k = rounds or int(round(math.exp(rng.uniform(math.log(2), math.log(B)))))
+        k = rounds or int(round(math.exp(rng.uniform(math.log(kmin), math.log(kmax)))))
         bounds = np.asarray(round_bounds(n, k, cfg.first))
         group = np.searchsorted(bounds, np.arange(n), side="right") - 1
         qpos[i, :n] = C + order
@@ -59,13 +59,20 @@ def main():
     ap.add_argument("--warmup", type=int, default=200)
     ap.add_argument("--threads", type=int, default=4)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--init", type=Path, help="warm-start from exported weights")
+    ap.add_argument("--kmin", type=int, default=8, help="training schedules: K log-uniform in [kmin, kmax]")
+    ap.add_argument("--kmax", type=int, default=128)
     args = ap.parse_args()
 
     torch.set_num_threads(args.threads)
     torch.manual_seed(args.seed)
     rng = np.random.default_rng(args.seed)
-    cfg = Config()
-    model = JevZip(cfg)
+    if args.init:
+        model = JevZip.load(args.init).train()
+        cfg = model.cfg
+    else:
+        cfg = Config()
+        model = JevZip(cfg)
     print(f"params {sum(p.numel() for p in model.parameters()) / 1e6:.2f}M", flush=True)
     train = np.memmap(args.data / "train.bin", dtype=np.uint8, mode="r")
     val = np.memmap(args.data / "val.bin", dtype=np.uint8, mode="r")
@@ -86,7 +93,7 @@ def main():
         lr = args.lr * min(1, (step + 1) / args.warmup) * (0.1 + 0.9 * 0.5 * (1 + math.cos(math.pi * frac)))
         for group in opt.param_groups:
             group["lr"] = lr
-        loss = loss_bits(model, make_batch(train, cfg, args.bs, rng))
+        loss = loss_bits(model, make_batch(train, cfg, args.bs, rng, kmin=args.kmin, kmax=args.kmax))
         opt.zero_grad(set_to_none=True)
         loss.backward()
         torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
