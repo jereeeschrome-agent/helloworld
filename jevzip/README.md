@@ -52,8 +52,8 @@ because batching is part of what the decoder must replay.
 
 Attention uses RoPE on the original byte offsets. The reveal order scrambles
 sequence order, and a slot mostly needs "what's 1, 2, 4 bytes to my left and
-right". With learned absolute positions only, the model took thousands of
-steps to discover that.
+right". With learned absolute positions only, the model learned that far more
+slowly (see Results).
 
 Training sees every byte at the visibility it will have at decode time, in one
 forward pass. The schedule K is sampled per window, log-uniform over 8..128.
@@ -65,7 +65,79 @@ suffers.
 
 ## Results
 
-RESULTS_PLACEHOLDER
+All numbers were measured on the build box: a 4-core Xeon with AMX, torch
+2.14 on CPU, bf16 inference, 4 threads. Every jevzip row is a real compressed
+file, decompressed and checked bit-exact. The model has 5.0M parameters and
+was trained for 120 minutes: 3.4k steps of 16 windows, about 28M supervised
+bytes. Default streams = blocks/8, so each chain is 8 blocks long.
+
+**networkx**: held-out Python, 1.05 MB
+
+| method | bytes | bits/byte | forward calls | enc KB/s | dec KB/s |
+|---|---:|---:|---:|---:|---:|
+| gzip -9 | 247078 | 1.885 | | | |
+| bzip2 -9 | 204202 | 1.558 | | | |
+| xz -9e | 199944 | 1.525 | | | |
+| zstd -19 | 203658 | 1.554 | | | |
+| brotli -q11 | 196333 | 1.498 | | | |
+| jevzip K=8 | 339194 | 2.588 | 128 | 12.7 | 12.6 |
+| jevzip K=16 | 316278 | 2.413 | 256 | 10.1 | 11.0 |
+| jevzip K=32 | 308714 | 2.355 | 512 | 7.4 | 7.9 |
+| jevzip K=64 | 307474 | 2.346 | 1024 | 5.2 | 5.7 |
+
+**pydoc_data topics**: held-out, mostly English prose, 0.58 MB
+
+| method | bytes | bits/byte | forward calls | enc KB/s | dec KB/s |
+|---|---:|---:|---:|---:|---:|
+| gzip -9 | 162425 | 2.247 | | | |
+| bzip2 -9 | 116373 | 1.610 | | | |
+| xz -9e | 111508 | 1.542 | | | |
+| zstd -19 | 113580 | 1.571 | | | |
+| brotli -q11 | 108258 | 1.497 | | | |
+| jevzip K=8 | 193490 | 2.676 | 144 | 12.9 | 12.9 |
+| jevzip K=16 | 182034 | 2.518 | 288 | 10.4 | 10.4 |
+| jevzip K=32 | 178390 | 2.468 | 576 | 7.6 | 7.2 |
+| jevzip K=64 | 178054 | 2.463 | 1152 | 4.7 | 5.0 |
+
+**It does not beat xz, or anything else.** At this training budget it is
+~1.55× larger than xz/brotli and ~100× slower. It is worse than every
+baseline on the list, gzip included.
+
+**Fewer rounds are nearly free.** These are model cross-entropy figures on
+sampled networkx windows; the K=512 row is one byte per round, i.e. fully
+sequential any-order decoding.
+
+| K | 8 | 16 | 32 | 64 | 128 | 512 |
+|---|---:|---:|---:|---:|---:|---:|
+| bits/byte | 2.60 | 2.43 | 2.36 | 2.36 | 2.35 | 2.34 |
+
+K=32 decodes in 16× fewer sequential rounds than K=512 and costs about 1%
+more bits. K=16 costs about 4%. The prose test set shows the same shape:
+2.41 bpb at K=512 and 2.43 at K=32.
+
+**Where the bits go: the anchors.** Per-level cost at K=16 on networkx, in
+bits per byte. Each row gives the share of the block in that level, the gap
+to the nearest known neighbour, and the cost:
+
+| reveal level | share of block | nearest known neighbour | cost |
+|---|---:|---:|---:|
+| stride ≥ 4 (anchors) | 25% | ≥ 4 bytes away | ~4.4 |
+| stride 2 | 25% | 2 bytes away | ~3.0 |
+| stride 1 | 50% | adjacent on both sides | ~1.0 |
+
+The anchors are only 25% of the block but account for about half of all
+bits. Filling a byte with a gap of four or more unknown bytes on each side is
+hard for a small model; a left-to-right model never faces that task. With a
+perfect model the chain rule makes every order cost the same, so this is a
+learnability cost, not an information-theoretic one.
+
+STREAMS_PLACEHOLDER
+
+**RoPE mattered most.** The same recipe with learned absolute positions only
+reached 4.52 / 4.10 val bpb at steps 500 / 1000. With RoPE it reached
+3.60 / 3.31.
+
+AR_CONTROL_PLACEHOLDER
 
 ## Caveats
 
@@ -87,9 +159,9 @@ RESULTS_PLACEHOLDER
   plus the CRC. A file compressed on one machine isn't guaranteed to decode on
   a different CPU. This is the usual neural-compression problem (NNCP writes
   its own deterministic kernels).
-- **Domain.** The model was trained for about 2 CPU-hours on Python source
-  installed on the build box. It does well on Python and badly on anything
-  else. Incompressible input falls back to raw storage.
+- **Domain.** The model was trained for 2 hours on 4 CPU cores, on Python
+  source installed on the build box. Expect it to do worse on anything that
+  isn't Python or English. Incompressible input falls back to raw storage.
 
 ## Reproduce
 
