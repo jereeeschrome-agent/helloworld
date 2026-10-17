@@ -199,7 +199,7 @@ class JevZip(nn.Module):
         return cache, None if g is None else self.score_options(g)
 
     def export(self) -> dict:
-        return {"config": asdict(self.cfg), "state": {k: v.to(torch.bfloat16) for k, v in self.state_dict().items()}}
+        return {"config": asdict(self.cfg), "state": {k: v.detach().to("cpu", torch.bfloat16) for k, v in self.state_dict().items()}}
 
     @classmethod
     def load(cls, path) -> "JevZip":

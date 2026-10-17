@@ -189,6 +189,28 @@ python -m jevzip.bench data/networkx.py.txt data/pydoc_topics.txt --verify
 python -m unittest jevzip.test_jevzip       # round-trip tests (tiny random model)
 ```
 
+### Bigger models on a Mac (Apple-silicon GPU) or CUDA box
+
+Training takes `--device mps` or `--device cuda` plus model-size flags.
+Compression always runs on the CPU, so weights trained on a GPU work
+anywhere. A file decodes only on the same CPU and torch build that encoded it.
+
+```
+python3 -m venv .venv && . .venv/bin/activate
+pip install torch numpy networkx mpmath sympy pandas   # corpus + the held-out test packages
+python -m jevzip.data --out data
+python -m jevzip.train --data data --device mps --order lanes --kmin 8 --kmax 512 --val-rounds 32 \
+    --d-model 512 --n-layers 8 --n-heads 8 --ctx 512 --bs 32 --lr 1e-3 --minutes 480 \
+    --out jevzip/weights/jevzip-lanes-big.pt
+python -m jevzip.bench data/networkx.py.txt data/pydoc_topics.txt \
+    --weights jevzip/weights/jevzip-lanes-big.pt --rounds 16 32 64 --verify --fp32
+```
+
+Add `--no-amp` if your torch/macOS has no bf16 on MPS. With `--order lanes`,
+a model trained over 8 ≤ K ≤ 512 also covers plain autoregression at K=512.
+The corpus is built from whatever Python packages are installed, so numbers
+from another machine are comparable but not identical.
+
 Splits are whole packages, so near-duplicate files can't leak across them:
 `mpmath` is validation, and `networkx` (code) and `pydoc_data` (mostly English
 prose) are the benchmarks. Neither is in the training set.

@@ -44,6 +44,7 @@ def main():
     ap.add_argument("--streams", type=int, nargs="+", default=[0], help="0 = default (blocks/8)")
     ap.add_argument("--verify", action="store_true", help="also decompress and time it")
     ap.add_argument("--threads", type=int, default=4)
+    ap.add_argument("--fp32", action="store_true", help="fp32 inference (CPUs without fast bf16, e.g. Apple silicon)")
     args = ap.parse_args()
 
     model = JevZip.load(args.weights)
@@ -68,7 +69,7 @@ def main():
                 cfg = model.cfg
                 calls = sum(len(reveal_plan(cfg.order, cfg.block, plan.length(b[0][0]), k, cfg.first)[1]) - 1 for b in plan.steps())
                 t = time.time()
-                blob = compress(data, model, k, plan.streams, args.threads)
+                blob = compress(data, model, k, plan.streams, args.threads, bf16=not args.fp32)
                 enc = n / (time.time() - t) / 1e3
                 dec = ""
                 if args.verify:
