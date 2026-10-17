@@ -7,11 +7,11 @@
   <title>jevzip</title>
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <style>
-    :root { color: #111; background: #fff; font-family: 'Lucida Console', ui-monospace, Menlo, Consolas, monospace; font-size: 18px; --muted: #666; --line: #ddd; --accent: orange; }
+    :root { color: #111; background: #fff; font-family: 'Lucida Console', ui-monospace, Menlo, Consolas, monospace; font-size: 18px; --muted: #666; --line: #ddd; --accent: orange; --accent-text: #b45309; }
     * { box-sizing: border-box; }
     body { max-width: 1000px; margin: 0 auto; padding: 0 50px; line-height: 1.6; }
     a { color: inherit; text-underline-offset: 4px; }
-    a:focus-visible { outline: 2px solid #111; outline-offset: 5px; }
+    a:focus-visible, [tabindex]:focus-visible { outline: 2px solid #111; outline-offset: 5px; }
     header { display: flex; align-items: center; justify-content: space-between; padding: 30px 0; border-bottom: 2px solid lightgrey; }
     .logo { font-weight: bold; text-decoration: none; }
     nav { display: flex; gap: 20px; }
@@ -19,7 +19,8 @@
     nav a, footer a { text-decoration: none; }
     nav a:hover, footer a:hover { text-decoration: underline; }
     h1 { font-size: clamp(28px, 4vw, 36px); margin: 0 0 20px; }
-    h1 span, .hi { color: var(--accent); }
+    h1 span { color: var(--accent); }
+    .hi { color: var(--accent-text); }
     h2 { font-size: 24px; margin: 0 0 20px; }
     section { padding: 48px 0 0; }
     .intro { padding: 54px 0 0; }
@@ -31,10 +32,10 @@
     .scroll { overflow-x: auto; margin: 0 0 20px; }
     table { border-collapse: collapse; font-size: 15px; white-space: nowrap; }
     th, td { text-align: right; padding: 6px 14px 6px 0; border-bottom: 1px solid var(--line); }
-    th { font-weight: normal; color: var(--muted); border-bottom: 2px solid lightgrey; }
+    th, thead td { font-weight: normal; color: var(--muted); border-bottom: 2px solid lightgrey; }
     th:first-child, td:first-child { text-align: left; }
     tr.base td { color: var(--muted); }
-    tr.win td:first-child::after { content: " *"; color: var(--accent); }
+    tr.win td:first-child::after { content: " *"; color: var(--accent-text); }
     th { vertical-align: bottom; line-height: 1.3; }
     th small { font-size: 12px; }
     td.bar { width: 8em; }
@@ -44,7 +45,8 @@
     pre { background: #f5f5f5; padding: 16px 20px; overflow-x: auto; font: inherit; font-size: 15px; line-height: 1.7; margin: 0 0 20px; }
     code { font: inherit; }
     footer { margin: 64px 0 0; padding: 24px 0 40px; border-top: 2px solid lightgrey; font-size: 14px; color: var(--muted); display: flex; gap: 20px; flex-wrap: wrap; }
-    @media (max-width: 720px) { body { padding: 0 16px; } :root { font-size: 16px; } header { padding: 20px 0; } nav { gap: 12px; } nav a + a { padding-left: 12px; } section { padding-top: 36px; } .bar { display: none; } }
+    @media (max-width: 720px) { body { padding: 0 16px; } :root { font-size: 16px; } header { padding: 20px 0; } nav { gap: 12px; } nav a + a { padding-left: 12px; } section { padding-top: 36px; } }
+    @media (max-width: 800px) { .bar { display: none; } }
   </style>
 </head>
 <body>
@@ -60,16 +62,16 @@
   <main>
     <section class="intro" aria-labelledby="title">
       <h1 id="title">jevzip<span>.</span></h1>
-      <p>A lossless byte compressor built on a Jev-style transformer. It decodes each 512-byte block in K parallel rounds. Every round scores all 256 byte values for many undecided bytes in one forward pass, instead of taking one model step per byte.</p>
+      <p>A lossless byte compressor built on a Jev-style transformer. It decodes each 512-byte block in K sequential rounds, each one parallel: every round scores all 256 byte values for many undecided bytes in one forward pass, instead of taking one model step per byte.</p>
     </section>
 
     <section id="bench" aria-labelledby="bench-title">
       <h2 id="bench-title">bench</h2>
-      <p class="muted">Every jevzip row is the same 5.0M-parameter architecture, trained for 120 minutes on a 4-core CPU over Python source. Rows differ only in reveal order and round count. Results are on held-out data, and every size is a real file from a bit-exact round trip. Bits per byte; lower is better.</p>
-      <div class="scroll">
+      <p class="muted">Three models share one 5.0M-parameter architecture, each trained for 120 minutes on a 4-core CPU over Python source. lanes was trained on K = 8..512, so one model serves every lanes row. bitrev was trained on K = 8..128. linear, the AR control, was trained on K = 512 only. Results are on held-out data, and every size is a real file from a bit-exact round trip. Bits per byte; lower is better.</p>
+      <div class="scroll" tabindex="0" role="region" aria-labelledby="bench-title">
         <table>
           <thead>
-            <tr><th>method</th><th>rounds</th><th>networkx<br><small>code, 1.05 MB</small></th><th class="bar"></th><th>pydoc<br><small>prose, 0.58 MB</small></th><th>decode<br><small>KB/s</small></th></tr>
+            <tr><th>method</th><th>rounds</th><th>networkx<br><small>code, 1.05 MB</small></th><td class="bar"></td><th>pydoc<br><small>prose, 0.58 MB</small></th><th>decode<br><small>KB/s, networkx</small></th></tr>
           </thead>
           <tbody>
             <tr class="base"><td>gzip -9</td><td></td><td>1.885</td><td class="bar"><i style="--v:1.885"></i></td><td>2.247</td><td></td></tr>
@@ -88,26 +90,26 @@
           </tbody>
         </table>
       </div>
-      <p class="note"><span class="hi">*</span> beats every baseline on networkx. Bars show networkx bits/byte. Decode speed is on 4 CPU cores.</p>
+      <p class="note"><span class="hi">*</span> beats every baseline on networkx. Bars show networkx bits/byte. Decode speed is for networkx on 4 CPU cores. The CPU is compute-bound, so 16 rounds decodes only ~6× faster than 512 (12.8 vs 2.2 KB/s). On a GPU, the round count sets latency much more directly.</p>
       <ul>
         <li>On held-out Python, sequential decoding beats xz -9e and brotli -q11: 1.453 vs 1.525 and 1.498.</li>
         <li>On prose it doesn't. The training corpus is code.</li>
         <li>Fewer rounds give a shallower decode and a bigger file. Lanes at 128 rounds is within 1.4% of xz with 4× fewer rounds than AR.</li>
-        <li>The ~10 MB model weights are not counted, the usual convention for pretrained compressors (brotli's built-in dictionary is not counted either).</li>
+        <li>The ~10 MB model weights are not counted. That's the usual convention for pretrained compressors; brotli's built-in dictionary isn't counted either.</li>
       </ul>
     </section>
 
     <section id="rationale" aria-labelledby="rationale-title">
       <h2 id="rationale-title">rationale</h2>
-      <p>Neural compressors predict bytes well, but decoding is slow: an autoregressive model takes one step per byte, so decode depth equals file length. Jev, TypeSafe AI's non-autoregressive model, scores a closed set of options for many slots at once. jevzip applies that idea to entropy coding. Each round, every undecided byte in a group becomes a slot, and the model scores all 256 values for all slots together.</p>
+      <p>Neural compressors predict bytes well, but decoding is slow: an autoregressive model takes one step per byte, so a 512-byte block needs 512 sequential steps. Jev, TypeSafe AI's non-autoregressive model, scores a closed set of options for many slots at once. jevzip applies that idea to entropy coding. Each round, every undecided byte in a group becomes a slot, and the model scores all 256 values for all slots together. Blocks are dealt into independent chains that decode in lockstep, so a file's dependency depth is K × ceil(blocks / chains). jevzip shrinks the K factor.</p>
       <ol>
         <li><b>Reveal order.</b> A block is cut into K groups. In the default <code>lanes</code> order, the block splits into 512/K lanes that are decoded left to right in lockstep, one byte per lane per round. K = 512 is plain autoregression.</li>
         <li><b>Two streams, shared weights.</b> The content stream holds the known bytes under causal attention and is KV-cached. The slot stream has one query per undecided byte. A slot sees the revealed content and itself, never another slot. So a whole group is scored in one pass, and the decoder reproduces the same probabilities.</li>
         <li><b>Option scoring.</b> Each slot is a typed choice over the 256 byte values, scored against tied embeddings.</li>
         <li><b>rANS</b> turns the scores into bits. The encoder replays the decoder's exact forward calls, so both sides see bit-identical probabilities.</li>
       </ol>
-      <p>The reveal order matters more than the round count. The first design revealed bytes coarse to fine, in bit-reversal order. Its early "anchor" bytes are a quarter of the block, cost about 4.4 bits each and carried half of all bits. With the same compute, left-to-right lanes learn far faster. Bits/byte by round count, and validation after 2 hours:</p>
-      <div class="scroll">
+      <p>The reveal order matters more than the round count. The first design revealed bytes coarse to fine, in bit-reversal order. At 16 rounds on networkx, its early "anchor" bytes are a quarter of the block, cost about 4.4 bits each and carry nearly half (45%) of all bits. With the same compute, left-to-right lanes learn far faster. Bits/byte by round count, and validation after 2 hours:</p>
+      <div class="scroll" tabindex="0" role="region" aria-label="bits per byte by reveal order and rounds">
         <table>
           <thead><tr><th>order</th><th>K=16</th><th>32</th><th>64</th><th>128</th><th>512</th><th>val after 2h</th></tr></thead>
           <tbody>
@@ -122,10 +124,11 @@
 
     <section id="use" aria-labelledby="use-title">
       <h2 id="use-title">use</h2>
-<pre><code>pip install -r jevzip/requirements.txt
+<pre tabindex="0"><code>pip install -r jevzip/requirements.txt networkx
 python -m jevzip c file.py file.jz               # lanes, 128 rounds
 python -m jevzip c file.py file.jz --rounds 32   # 4x fewer rounds, bigger file
 python -m jevzip d file.jz file.py
+python -m jevzip.data --out data                 # corpus + held-out test files
 python -m jevzip.bench data/networkx.py.txt --rounds 32 128 512 --verify</code></pre>
     </section>
 
@@ -133,8 +136,8 @@ python -m jevzip.bench data/networkx.py.txt --rounds 32 128 512 --verify</code><
       <h2 id="caveats-title">caveats</h2>
       <ul>
         <li>The model weights (~10 MB) aren't counted in the sizes. They only pay off when one model serves lots of similar data.</li>
-        <li>A file decodes only with the same weights, torch build, CPU kernels and thread count that encoded it. The header and a CRC catch any mismatch.</li>
-        <li>Prior art: two-stream attention (XLNet), any-order AR models (σ-GPT), parallel context models from learned image compression (checkerboard, M2T), and neural compressors (NNCP, ts_zip). The combination is the new part.</li>
+        <li>A file decodes only with the same weights, torch build, CPU kernels and thread count that encoded it. The header rejects a wrong model or thread count up front. A different torch build or CPU is caught only after decoding, by the rANS end-state check and a CRC. Files aren't portable across CPUs.</li>
+        <li>Prior art: two-stream attention (XLNet), any-order AR models (σ-GPT), parallel context models from learned image compression (checkerboard, M2T), and neural compressors (NNCP, ts_zip). As far as I know the combination is new: KV-cached two-stream decoding, lane and bit-reversal schedules served by one model, and lockstep block chains. Treat that claim with suspicion.</li>
       </ul>
     </section>
   </main>
