@@ -18,7 +18,8 @@ at once:
 
 1. **Coarse-to-fine reveal order.** Each 512-byte block is revealed in
    bit-reversal order (0, 256, 128, 384, 64, ...). This order is cut into K
-   groups that grow geometrically: 8 bytes, then roughly ×1.5 each round.
+   groups that grow geometrically: 8 bytes first, with growth (512/8)^(1/(K-1)),
+   e.g. ×1.32 per round at K=16.
    Early groups are sparse "anchors". Later groups fill gaps that have known
    bytes on **both** sides.
 2. **Two streams, shared weights** (XLNet-style):
@@ -44,9 +45,15 @@ sequential depth is `K × ceil(blocks / streams)` model passes, not N. With
 `streams = blocks` the whole file decodes in K passes, but no block has
 context.
 
+Attention uses RoPE on the original byte offsets. The reveal order scrambles
+sequence order, and a slot mostly needs "what's 1, 2, 4 bytes to my left and
+right". With learned absolute positions only, the model took thousands of
+steps to discover that.
+
 Training sees every byte at the visibility it will have at decode time, in one
-forward pass. The schedule K is sampled per window (log-uniform over 2..512),
-so a single model serves any `--rounds` value.
+forward pass. The schedule K is sampled per window, log-uniform over 8..128.
+The content stream doesn't depend on K, and a slot's prediction depends only
+on how much is revealed, so a single model serves any `--rounds` value.
 
 ## Results
 
