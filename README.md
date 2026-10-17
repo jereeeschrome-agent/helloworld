@@ -1,4 +1,4 @@
-# helloworld
+# jevzip
 
 The site is a single static page (`index.html`) about **jevzip**, a lossless
 byte compressor that decodes in parallel rounds with a Jev-style transformer.
