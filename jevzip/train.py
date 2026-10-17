@@ -1,4 +1,4 @@
-"""Train the two-stream model on a byte corpus (wall-clock budgeted, CPU bf16)."""
+"""Train the two-stream model on a byte corpus (wall-clock budgeted; CPU, Apple-silicon MPS or CUDA)."""
 import argparse
 import math
 import time
@@ -42,9 +42,9 @@ def make_batch(data, cfg: Config, bs, rng, p_noctx=0.2, p_trunc=0.05, rounds=Non
     return [torch.from_numpy(a) for a in (ctok, cpos, qpos, qvis, tgt)]
 
 
-def loss_bits(model, batch):
-    ctok, cpos, qpos, qvis, tgt = batch
-    with torch.autocast("cpu", dtype=torch.bfloat16):
+def loss_bits(model, batch, device="cpu", amp=True):
+    ctok, cpos, qpos, qvis, tgt = (t.to(device, non_blocking=True) for t in batch)
+    with torch.autocast(torch.device(device).type, dtype=torch.bfloat16, enabled=amp):
         logits = model(ctok, cpos, qpos, qvis)
     return F.cross_entropy(logits.view(-1, logits.shape[-1]), tgt.view(-1), ignore_index=-100) / LN2
 
@@ -64,6 +64,11 @@ def main():
     ap.add_argument("--kmax", type=int, default=128)
     ap.add_argument("--order", choices=["bitrev", "lanes", "linear"], default="bitrev", help="linear + --kmin/--kmax 512 = AR control")
     ap.add_argument("--val-rounds", type=int, default=16)
+    ap.add_argument("--device", default="cpu", help="cpu, mps (Apple silicon) or cuda")
+    ap.add_argument("--no-amp", action="store_true", help="fp32 instead of bf16 autocast")
+    size = ap.add_argument_group("model size (fresh models only)")
+    for name in ("ctx", "block", "d_model", "n_layers", "n_heads", "ff_mult"):
+        size.add_argument("--" + name.replace("_", "-"), dest=name, type=int, default=getattr(Config, name))
     args = ap.parse_args()
 
     torch.set_num_threads(args.threads)
@@ -73,9 +78,12 @@ def main():
         model = JevZip.load(args.init).train()
         cfg = model.cfg
     else:
-        cfg = Config(order=args.order)
+        sizes = {k: getattr(args, k) for k in ("ctx", "block", "d_model", "n_layers", "n_heads", "ff_mult")}
+        cfg = Config(order=args.order, **sizes)
         model = JevZip(cfg)
-    print(f"params {sum(p.numel() for p in model.parameters()) / 1e6:.2f}M", flush=True)
+    model.to(args.device)
+    amp = not args.no_amp
+    print(f"params {sum(p.numel() for p in model.parameters()) / 1e6:.2f}M on {args.device} {cfg}", flush=True)
     train = np.memmap(args.data / "train.bin", dtype=np.uint8, mode="r")
     val = np.memmap(args.data / "val.bin", dtype=np.uint8, mode="r")
     val_batches = [make_batch(val, cfg, 16, np.random.default_rng(1000 + i), p_noctx=0, p_trunc=0, rounds=args.val_rounds) for i in range(4)]
@@ -95,7 +103,7 @@ def main():
         lr = args.lr * min(1, (step + 1) / args.warmup) * (0.1 + 0.9 * 0.5 * (1 + math.cos(math.pi * frac)))
         for group in opt.param_groups:
             group["lr"] = lr
-        loss = loss_bits(model, make_batch(train, cfg, args.bs, rng, kmin=args.kmin, kmax=args.kmax))
+        loss = loss_bits(model, make_batch(train, cfg, args.bs, rng, kmin=args.kmin, kmax=args.kmax), args.device, amp)
         opt.zero_grad(set_to_none=True)
         loss.backward()
         torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
@@ -105,17 +113,17 @@ def main():
         if step % 50 == 0:
             print(f"step {step} t={time.time() - start:.0f}s lr={lr:.2e} train {ema:.3f} bpb", flush=True)
         if step % 500 == 0:
-            evaluate(model, val_batches, step)
+            evaluate(model, val_batches, step, args.device, amp)
             torch.save(model.export(), args.out)
-    evaluate(model, val_batches, step)
+    evaluate(model, val_batches, step, args.device, amp)
     torch.save(model.export(), args.out)
     print(f"saved {args.out}", flush=True)
 
 
 @torch.no_grad()
-def evaluate(model, batches, step):
+def evaluate(model, batches, step, device="cpu", amp=True):
     model.eval()
-    bpb = sum(loss_bits(model, b).item() for b in batches) / len(batches)
+    bpb = sum(loss_bits(model, b, device, amp).item() for b in batches) / len(batches)
     model.train()
     print(f"step {step} VAL {bpb:.3f} bpb", flush=True)
 
