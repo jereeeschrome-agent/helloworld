@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="jevzip: a lossless byte compressor that decodes in parallel rounds with a Jev-style transformer.">
+  <meta name="description" content="jevzip is a lossless compressor for bytes. Its decoder decodes in parallel rounds with a transformer of the Jev type.">
   <title>jevzip</title>
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <style>
@@ -53,8 +53,8 @@
   <header>
     <a class="logo" href="./">jevzip</a>
     <nav aria-label="Main navigation">
-      <a href="#bench">bench</a>
-      <a href="#rationale">rationale</a>
+      <a href="#results">results</a>
+      <a href="#description">description</a>
       <a href="https://github.com/jereeeschrome-agent/helloworld/tree/main/jevzip">code</a>
     </nav>
   </header>
@@ -62,16 +62,18 @@
   <main>
     <section class="intro" aria-labelledby="title">
       <h1 id="title">jevzip<span>.</span></h1>
-      <p>A lossless byte compressor built on a Jev-style transformer. It decodes each 512-byte block in K sequential rounds, each one parallel: every round scores all 256 byte values for many undecided bytes in one forward pass, instead of taking one model step per byte.</p>
+      <p>jevzip is a lossless compressor for bytes. It uses a transformer of the Jev type. The decoder divides the data into blocks of 512 bytes, and it decodes each block in K rounds. In each round, the model calculates the probabilities of all 256 byte values for many bytes at the same time. An autoregressive model calculates only one byte in each step.</p>
     </section>
 
-    <section id="bench" aria-labelledby="bench-title">
-      <h2 id="bench-title">bench</h2>
-      <p class="muted">Three models share one 5.0M-parameter architecture, each trained for 120 minutes on a 4-core CPU over Python source. lanes was trained on K = 8..512, so one model serves every lanes row. bitrev was trained on K = 8..128. linear, the AR control, was trained on K = 512 only. Results are on held-out data, and every size is a real file from a bit-exact round trip. Bits per byte; lower is better.</p>
-      <div class="scroll" tabindex="0" role="region" aria-labelledby="bench-title">
+    <section id="results" aria-labelledby="results-title">
+      <h2 id="results-title">results</h2>
+      <p class="muted">Three models have the same architecture with 5.0M parameters. The training time for each model was 120 minutes on a CPU with 4 cores. The training data is Python source code. The training for the lanes model used values of K from 8 to 512. Thus, one lanes model gives the results in all the lanes rows.</p>
+      <p class="muted">The training for the bitrev model used values of K from 8 to 128. The training for the linear model used only K = 512. The linear model is the autoregressive (AR) control. The test data is not in the training data. Each size in the table is the size of a real compressed file. After each test, the decompressed file was the same as the original file, bit for bit.</p>
+      <p class="muted">The unit is bits per byte. A lower value is better.</p>
+      <div class="scroll" tabindex="0" role="region" aria-labelledby="results-title">
         <table>
           <thead>
-            <tr><th>method</th><th>rounds</th><th>networkx<br><small>code, 1.05 MB</small></th><td class="bar"></td><th>pydoc<br><small>prose, 0.58 MB</small></th><th>decode<br><small>KB/s, networkx</small></th></tr>
+            <tr><th>compressor</th><th>rounds</th><th>networkx<br><small>code, 1.05 MB</small></th><td class="bar"></td><th>pydoc<br><small>English text, 0.58 MB</small></th><th>decoder speed<br><small>KB/s, networkx</small></th></tr>
           </thead>
           <tbody>
             <tr class="base"><td>gzip -9</td><td></td><td>1.885</td><td class="bar"><i style="--v:1.885"></i></td><td>2.247</td><td></td></tr>
@@ -92,29 +94,31 @@
           </tbody>
         </table>
       </div>
-      <p class="note"><span class="hi">*</span> beats every baseline on networkx. Bars show networkx bits/byte. Decode speed is for networkx on 4 CPU cores. The CPU is compute-bound, so 16 rounds decodes only ~6× faster than 512 (12.8 vs 2.2 KB/s). On a GPU, the round count sets latency much more directly.<br>&dagger; A bigger lanes model: 11M parameters, trained for 8 hours on an M4 Pro GPU, with decode speed measured on its CPU. Its machine ships a different pydoc file (0.52 MB). On that file it gets 1.340 bits/byte at 128 rounds and 1.501 at 32, against xz 1.582 and brotli 1.530.</p>
+      <p class="note"><span class="hi">*</span> The result is better than the results of all the other compressors on networkx. The bars show the bits per byte on networkx. The decoder speed is for networkx on a CPU with 4 cores. On this CPU, the quantity of calculation sets the speed. Thus, 16 rounds are only approximately 6 times faster than 512 rounds (12.8 KB/s and 2.2 KB/s). On a GPU, the number of rounds has a larger effect on the decoder latency.</p>
+      <p class="note">&dagger; This is a larger lanes model with 11M parameters. The training time was 8 hours on the GPU of an M4 Pro computer. The decoder speed is for the CPU of the same computer. That computer has a different pydoc file (0.52 MB). On that file, the result is 1.340 bits per byte at 128 rounds and 1.501 at 32 rounds. The results for xz and brotli on that file are 1.582 and 1.530.</p>
       <ul>
-        <li>On held-out Python, sequential decoding beats xz -9e and brotli -q11: 1.453 vs 1.525 and 1.498.</li>
-        <li>With more compute, parallel decoding beats them too. The 11M lanes model, trained for 8 hours on an M4 Pro, is 18.9% smaller than xz on code at 128 rounds and 7.4% smaller at 32. On prose it is 15.3% and 5.2% smaller.</li>
-        <li>The small models don't beat xz on prose; the training corpus is code.</li>
-        <li>Fewer rounds give a shallower decode and a bigger file. Lanes at 128 rounds is within 1.4% of xz with 4× fewer rounds than AR.</li>
-        <li>The ~10 MB model weights are not counted. That's the usual convention for pretrained compressors; brotli's built-in dictionary isn't counted either.</li>
+        <li>The AR model gives 1.453 bits per byte on the Python test data. This result is better than xz -9e (1.525) and brotli -q11 (1.498).</li>
+        <li>The 11M lanes model also gives better results than xz and brotli, with parallel rounds. On code, its file is 18.9% smaller than the xz file at 128 rounds, and 7.4% smaller at 32 rounds. On English text, the values are 15.3% and 5.2%.</li>
+        <li>On English text, the small models do not give better results than xz. Their training data is only code.</li>
+        <li>A smaller number of rounds makes the decoder faster, but the file becomes larger. At 128 rounds, the lanes file is only 1.4% larger than the xz file. The AR model uses 4 times more rounds (512).</li>
+        <li>The sizes do not include the model weights (approximately 10 MB). This is the usual rule for compressors that use pretrained data. For example, the sizes for brotli do not include its built-in dictionary.</li>
       </ul>
     </section>
 
-    <section id="rationale" aria-labelledby="rationale-title">
-      <h2 id="rationale-title">rationale</h2>
-      <p>Neural compressors predict bytes well, but decoding is slow: an autoregressive model takes one step per byte, so a 512-byte block needs 512 sequential steps. Jev, TypeSafe AI's non-autoregressive model, scores a closed set of options for many slots at once. jevzip applies that idea to entropy coding. Each round, every undecided byte in a group becomes a slot, and the model scores all 256 values for all slots together. Blocks are dealt into independent chains that decode in lockstep, so a file's dependency depth is K × ceil(blocks / chains). jevzip shrinks the K factor.</p>
+    <section id="description" aria-labelledby="description-title">
+      <h2 id="description-title">description</h2>
+      <p>A neural compressor gives good predictions of bytes, but its decoder is slow. An autoregressive model does one step for each byte. Thus, a block of 512 bytes needs 512 sequential steps. Jev is a non-autoregressive model from TypeSafe AI. It calculates scores for a closed set of options for many slots at the same time. jevzip uses this method for entropy coding.</p>
+      <p>In each round, each byte that is not decoded becomes a slot. The model calculates the scores of all 256 values for all slots at the same time. The blocks are in independent chains, and all the chains decode at the same time. Thus, the dependency depth of a file is K &times; ceil(blocks / chains). jevzip decreases the K factor.</p>
       <ol>
-        <li><b>Reveal order.</b> A block is cut into K groups. In the default <code>lanes</code> order, the block splits into 512/K lanes that are decoded left to right in lockstep, one byte per lane per round. K = 512 is plain autoregression.</li>
-        <li><b>Two streams, shared weights.</b> The content stream holds the known bytes under causal attention and is KV-cached. The slot stream has one query per undecided byte. A slot sees the revealed content and itself, never another slot. So a whole group is scored in one pass, and the decoder reproduces the same probabilities.</li>
-        <li><b>Option scoring.</b> Each slot is a typed choice over the 256 byte values, scored against tied embeddings.</li>
-        <li><b>rANS</b> turns the scores into bits. The encoder replays the decoder's exact forward calls, so both sides see bit-identical probabilities.</li>
+        <li><b>Reveal order.</b> The model divides each block into K groups. In the default <code>lanes</code> order, the block has 512/K lanes. The decoder decodes each lane from left to right. In each round, the decoder decodes one byte in each lane. When K = 512, the model is an autoregressive model.</li>
+        <li><b>Two streams with the same weights.</b> The content stream contains the known bytes. It uses causal attention and a KV cache. The slot stream has one query for each byte that is not decoded. A slot sees the known content and itself, but it does not see the other slots. Thus, the model calculates the scores for a full group in one pass.</li>
+        <li><b>Scores for options.</b> Each slot is a choice between the 256 byte values. The model compares each slot with the embeddings of the 256 values.</li>
+        <li><b>rANS.</b> rANS changes the scores into bits. The encoder does the same forward calls as the decoder. Thus, the encoder and the decoder have the same probabilities, bit for bit.</li>
       </ol>
-      <p>The reveal order matters more than the round count. The first design revealed bytes coarse to fine, in bit-reversal order. At 16 rounds on networkx, its early "anchor" bytes are a quarter of the block, cost about 4.4 bits each and carry nearly half (45%) of all bits. With the same compute, left-to-right lanes learn far faster. Bits/byte by round count, and validation after 2 hours:</p>
-      <div class="scroll" tabindex="0" role="region" aria-label="bits per byte by reveal order and rounds">
+      <p>The reveal order has a larger effect than the number of rounds. The first design used a coarse-to-fine order (bit reversal). At 16 rounds on networkx, its first "anchor" bytes are 25% of the block. Each anchor byte uses approximately 4.4 bits, and the anchor bytes use 45% of all the bits. With the same quantity of calculation, the lanes model gives better results than the bitrev model. The table shows the bits per byte for each number of rounds, and the validation result after 2 hours.</p>
+      <div class="scroll" tabindex="0" role="region" aria-label="bits per byte for each reveal order and number of rounds">
         <table>
-          <thead><tr><th>order</th><th>K=16</th><th>32</th><th>64</th><th>128</th><th>512</th><th>val after 2h</th></tr></thead>
+          <thead><tr><th>order</th><th>K=16</th><th>32</th><th>64</th><th>128</th><th>512</th><th>validation after 2 h</th></tr></thead>
           <tbody>
             <tr><td>lanes</td><td>1.93</td><td>1.71</td><td>1.59</td><td>1.52</td><td>1.47</td><td>1.96 (K=32)</td></tr>
             <tr><td>bitrev</td><td>2.43</td><td>2.36</td><td>2.36</td><td>2.35</td><td>2.34</td><td>2.80 (K=16)</td></tr>
@@ -122,25 +126,26 @@
           </tbody>
         </table>
       </div>
-      <p class="note">The K columns are model cross-entropy on sampled networkx windows, in bits/byte. Validation is on held-out mpmath.</p>
+      <p class="note">The K columns show the model cross-entropy on sample windows from networkx, in bits per byte. The validation data is mpmath. This data is not in the training data.</p>
     </section>
 
-    <section id="use" aria-labelledby="use-title">
-      <h2 id="use-title">use</h2>
+    <section id="procedure" aria-labelledby="procedure-title">
+      <h2 id="procedure-title">procedure</h2>
+      <p>To compress and decompress a file, use these commands:</p>
 <pre tabindex="0"><code>pip install -r jevzip/requirements.txt networkx
 python -m jevzip c file.py file.jz               # lanes, 128 rounds
-python -m jevzip c file.py file.jz --rounds 32   # 4x fewer rounds, bigger file
+python -m jevzip c file.py file.jz --rounds 32   # 4 times fewer rounds, larger file
 python -m jevzip d file.jz file.py
-python -m jevzip.data --out data                 # corpus + held-out test files
+python -m jevzip.data --out data                 # training data and test files
 python -m jevzip.bench data/networkx.py.txt --rounds 32 128 512 --verify</code></pre>
     </section>
 
-    <section id="caveats" aria-labelledby="caveats-title">
-      <h2 id="caveats-title">caveats</h2>
+    <section id="limits" aria-labelledby="limits-title">
+      <h2 id="limits-title">limits</h2>
       <ul>
-        <li>The model weights (~10 MB) aren't counted in the sizes. They only pay off when one model serves lots of similar data.</li>
-        <li>A file decodes only with the same weights, torch build, CPU kernels and thread count that encoded it. The header rejects a wrong model or thread count up front. A different torch build or CPU is caught only after decoding, by the rANS end-state check and a CRC. Files aren't portable across CPUs.</li>
-        <li>Prior art: two-stream attention (XLNet), any-order AR models (σ-GPT), parallel context models from learned image compression (checkerboard, M2T), and neural compressors (NNCP, ts_zip). As far as I know the combination is new: KV-cached two-stream decoding, lane and bit-reversal schedules served by one model, and lockstep block chains. Treat that claim with suspicion.</li>
+        <li>The sizes do not include the model weights (approximately 10 MB). The model is useful only when it compresses a large quantity of data of the same type.</li>
+        <li>To decode a file, you must use the same weights, torch build, CPU kernels and thread count as the encoder. The header contains the model fingerprint and the thread count. If they are different, the decoder stops immediately. If the torch build or the CPU is different, the decoder finds the error only after it decodes the full file. The rANS end-state check and a CRC find this error. You cannot move compressed files between different CPUs.</li>
+        <li>Prior art: two-stream attention (XLNet), any-order AR models (&sigma;-GPT), parallel context models for image compression (checkerboard, M2T) and neural compressors (NNCP, ts_zip). We do not know of a previous design with this combination: two-stream decoders with a KV cache, lane and bit-reversal schedules in one model, and block chains that decode at the same time. Examine this statement carefully.</li>
       </ul>
     </section>
   </main>
