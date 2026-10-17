@@ -11,9 +11,9 @@ from .rans import Decoder, Encoder, quantize
 from .schedule import coding_order, filtered_order, round_bounds
 
 
-def tiny_model(seed=0):
+def tiny_model(seed=0, order="bitrev"):
     torch.manual_seed(seed)
-    return JevZip(Config(ctx=16, block=32, d_model=32, n_layers=2, n_heads=2, first=2)).eval()
+    return JevZip(Config(ctx=16, block=32, d_model=32, n_layers=2, n_heads=2, first=2, order=order)).eval()
 
 
 class ScheduleTest(unittest.TestCase):
@@ -22,6 +22,7 @@ class ScheduleTest(unittest.TestCase):
             self.assertEqual(sorted(coding_order(n).tolist()), list(range(n)))
         self.assertEqual(coding_order(8).tolist(), [0, 4, 2, 6, 1, 5, 3, 7])
         self.assertEqual(filtered_order(8, 5).tolist(), [0, 4, 2, 1, 3])
+        self.assertEqual(filtered_order(8, 5, "linear").tolist(), [0, 1, 2, 3, 4])
 
     def test_bounds(self):
         for n in (1, 5, 32, 512):
@@ -72,6 +73,13 @@ class CodecTest(unittest.TestCase):
         for rounds in (1, 3, 16, 32, 64):
             for streams in (1, 2, 5, 1000):
                 self.roundtrip(data, rounds=rounds, streams=streams)
+
+    def test_linear_order(self):
+        model = tiny_model(order="linear")
+        data = b"import os\nimport sys\n" * 9
+        for rounds in (4, 32):
+            blob = compress(data, model, rounds, threads=1, raw_fallback=False)
+            self.assertEqual(decompress(blob, model), data)
 
     def test_fp32(self):
         self.roundtrip(b"hello world " * 30, bf16=False)

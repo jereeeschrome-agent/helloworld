@@ -15,9 +15,10 @@ sides run the exact same sequence of forward calls (same batches, same thread
 count). A model fingerprint and a CRC of the output guard against mismatches.
 """
 import hashlib
+import json
 import struct
 import zlib
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 
 import numpy as np
 import torch
@@ -34,7 +35,7 @@ CHUNK = 128  # blocks per forward call (part of the format: changes batching)
 
 
 def fingerprint(model: JevZip) -> bytes:
-    h = hashlib.sha256()
+    h = hashlib.sha256(json.dumps(asdict(model.cfg), sort_keys=True).encode())  # order/schedule live in the config
     for k, v in sorted(model.state_dict().items()):
         h.update(k.encode())
         h.update(v.detach().to(torch.float32).numpy().tobytes())
@@ -85,7 +86,7 @@ def _run_batch(model, buf, plan: Plan, batch, rounds, use_bf16, emit):
     cfg = model.cfg
     C, B = cfg.ctx, cfg.block
     n = plan.length(batch[0][0])
-    order = filtered_order(B, n)
+    order = filtered_order(B, n, cfg.order)
     bounds = round_bounds(n, rounds, cfg.first)
     starts = np.array([b * B for b, _ in batch])
     ctx = np.full((len(batch), C), PAD, np.int64)
