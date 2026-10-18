@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="jevzip is a lossless compressor for bytes with a transformer of the Jev type. In each round, its decoder decodes many bytes at the same time.">
+  <title>jevzip</title>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <style>
+    :root { color: #111; background: #fff; font-family: 'Lucida Console', ui-monospace, Menlo, Consolas, monospace; font-size: 18px; --muted: #666; --line: #ddd; --accent: orange; --accent-text: #b45309; }
+    * { box-sizing: border-box; }
+    body { max-width: 1000px; margin: 0 auto; padding: 0 50px; line-height: 1.6; }
+    a { color: inherit; text-underline-offset: 4px; }
+    a:focus-visible, [tabindex]:focus-visible { outline: 2px solid #111; outline-offset: 5px; }
+    header { display: flex; align-items: center; justify-content: space-between; padding: 30px 0; border-bottom: 2px solid lightgrey; }
+    .logo { font-weight: bold; text-decoration: none; }
+    nav { display: flex; gap: 20px; }
+    nav a + a { border-left: 1px solid #111; padding-left: 20px; }
+    nav a, footer a { text-decoration: none; }
+    nav a:hover, footer a:hover { text-decoration: underline; }
+    h1 { font-size: clamp(28px, 4vw, 36px); margin: 0 0 20px; }
+    h1 span { color: var(--accent); }
+    .hi { color: var(--accent-text); }
+    h2 { font-size: 24px; margin: 0 0 20px; }
+    section { padding: 48px 0 0; }
+    .intro { padding: 54px 0 0; }
+    .intro p { max-width: 760px; margin: 0; }
+    p, ul, ol { max-width: 820px; }
+    li { margin-bottom: 0.6em; }
+    li ul { margin: 0.4em 0; }
+    .muted, .note { color: var(--muted); }
+    .note { font-size: 14px; }
+    .scroll { overflow-x: auto; margin: 0 0 20px; }
+    table { border-collapse: collapse; font-size: 15px; white-space: nowrap; }
+    th, td { text-align: right; padding: 6px 14px 6px 0; border-bottom: 1px solid var(--line); }
+    th, thead td { font-weight: normal; color: var(--muted); border-bottom: 2px solid lightgrey; }
+    th:first-child, td:first-child { text-align: left; }
+    tr.base td { color: var(--muted); }
+    tr.win td:first-child::after { content: " *"; color: var(--accent-text); }
+    th { vertical-align: bottom; line-height: 1.3; }
+    th small { font-size: 12px; }
+    td.bar { width: 8em; }
+    .bar i { display: block; height: 10px; width: calc(var(--v) / 3 * 8em); background: #111; }
+    tr.base .bar i { background: var(--line); }
+    tr.win .bar i { background: var(--accent); }
+    pre { background: #f5f5f5; padding: 16px 20px; overflow-x: auto; font: inherit; font-size: 15px; line-height: 1.7; margin: 0 0 20px; }
+    code { font: inherit; }
+    footer { margin: 64px 0 0; padding: 24px 0 40px; border-top: 2px solid lightgrey; font-size: 14px; color: var(--muted); display: flex; gap: 20px; flex-wrap: wrap; }
+    @media (max-width: 720px) { body { padding: 0 16px; } :root { font-size: 16px; } header { padding: 20px 0; } nav { gap: 12px; } nav a + a { padding-left: 12px; } section { padding-top: 36px; } }
+    @media (max-width: 800px) { .bar { display: none; } }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="logo" href="./">jevzip</a>
+    <nav aria-label="Main navigation">
+      <a href="#results">results</a>
+      <a href="#description">description</a>
+      <a href="https://github.com/jereeeschrome-agent/jevzip">code</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="intro" aria-labelledby="title">
+      <h1 id="title">jevzip<span>.</span></h1>
+      <p>jevzip is a lossless compressor for bytes with a transformer of the Jev type. The encoder and the decoder divide the data into blocks of 512 bytes. The decoder decodes each block in K rounds, one round after the other. In each round, the decoder decodes a group of many bytes at the same time. One forward call calculates the probabilities of the 256 byte values for all the bytes in the group. An autoregressive model decodes only one byte in each round.</p>
+    </section>
+
+    <section id="results" aria-labelledby="results-title">
+      <h2 id="results-title">results</h2>
+      <p class="muted">The test data is the standard enwik8 test split: the last 5 MB of enwik8 (English Wikipedia XML). The jevzip models have 11M parameters. Their training data is the first 90 MB of enwik8. The training time for each model was approximately 8 hours on the GPU of an M4 Pro computer.</p>
+      <p class="muted">Each jevzip size is the size of an actual compressed file. After each test, the decompressed file was the same as the original file, bit for bit. The LLM values are the ideal code lengths. The unit is bits per byte. A lower value is better. The last column shows the data that the decoder must have before it can decode: the model weights or the dictionary.</p>
+      <div class="scroll" tabindex="0" role="region" aria-labelledby="results-title">
+        <table>
+          <thead>
+            <tr><th>compressor</th><th>rounds</th><th>bits per byte<br><small>enwik8 test, 5 MB</small></th><td class="bar"></td><th>decoder<br><small>needs</small></th></tr>
+          </thead>
+          <tbody>
+            <tr class="base"><td>gzip -9</td><td></td><td>2.818</td><td class="bar"><i style="--v:2.818"></i></td><td>0</td></tr>
+            <tr class="base"><td>zstd --ultra -22 --long=27</td><td></td><td>2.231</td><td class="bar"><i style="--v:2.231"></i></td><td>0</td></tr>
+            <tr class="base"><td>xz -9e</td><td></td><td>2.171</td><td class="bar"><i style="--v:2.171"></i></td><td>0</td></tr>
+            <tr class="base"><td>brotli -q11</td><td></td><td>2.150</td><td class="bar"><i style="--v:2.150"></i></td><td>0</td></tr>
+            <tr class="base"><td>zstd, training data as dictionary</td><td></td><td>1.896</td><td class="bar"><i style="--v:1.896"></i></td><td>90 MB</td></tr>
+            <tr class="base"><td>xz, primed with training data</td><td></td><td>1.876</td><td class="bar"><i style="--v:1.876"></i></td><td>64 MB</td></tr>
+            <tr class="win"><td>jevzip lanes, 11M</td><td>32</td><td>1.488</td><td class="bar"><i style="--v:1.488"></i></td><td>22 MB</td></tr>
+            <tr class="base"><td>paq8px -8L</td><td></td><td>1.413</td><td class="bar"><i style="--v:1.413"></i></td><td>0</td></tr>
+            <tr class="win"><td>jevzip lanes, 11M</td><td>128</td><td>1.332</td><td class="bar"><i style="--v:1.332"></i></td><td>22 MB</td></tr>
+            <tr class="base"><td>cmix</td><td></td><td>1.306</td><td class="bar"><i style="--v:1.306"></i></td><td>0</td></tr>
+            <tr class="base"><td>paq8px, primed with training data</td><td></td><td>1.289</td><td class="bar"><i style="--v:1.289"></i></td><td>16 MB</td></tr>
+            <tr class="win"><td>jevzip lanes, 11M</td><td>512</td><td>1.287</td><td class="bar"><i style="--v:1.287"></i></td><td>22 MB</td></tr>
+            <tr><td>jevzip AR control, 11M</td><td>512</td><td>1.249</td><td class="bar"><i style="--v:1.249"></i></td><td>22 MB</td></tr>
+            <tr class="base"><td>RWKV-4 169M (LLM)</td><td></td><td>1.097</td><td class="bar"><i style="--v:1.097"></i></td><td>339 MB</td></tr>
+            <tr class="base"><td>Qwen2.5 0.5B (LLM)</td><td></td><td>0.794</td><td class="bar"><i style="--v:0.794"></i></td><td>989 MB</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note"><span class="hi">*</span> jevzip rows. The bars show the bits per byte.</p>
+      <ul>
+        <li>At 128 rounds, the jevzip file is 39% smaller than the xz file. It is 29% smaller than the xz file when xz also uses 64 MB of the training data.</li>
+        <li>cmix and paq8px give smaller files than jevzip at 128 rounds. They do not use model weights. The LLMs give much smaller files, but their weights are 15 to 45 times larger.</li>
+        <li>The jevzip AR control has the same size and the same number of training steps. Compared with it, the lanes file is 3% larger at 512 rounds, 7% larger at 128 rounds and 19% larger at 32 rounds.</li>
+        <li>The model weights are 22 MB. If you count the weights, jevzip gives a smaller total size than xz only for more than approximately 210 MB of data of the same type.</li>
+        <li>On the GPU of the M4 Pro, 16 rounds decode a 64 KB file 7 times faster than 512 rounds (2.0 s and 13.8 s). Each round needs at least approximately 6 ms, because the GPU starts many small operations and then waits for the probabilities.</li>
+      </ul>
+    </section>
+
+    <section id="description" aria-labelledby="description-title">
+      <h2 id="description-title">description</h2>
+      <p>A neural compressor calculates good probabilities for bytes, but its decoder is slow. An autoregressive model decodes only one byte in each round. Thus, for a block of 512 bytes, the decoder must do 512 rounds in sequence. Jev is a non-autoregressive model from TypeSafe AI. It calculates scores for a closed set of values for many slots at the same time. jevzip uses this method for entropy coding.</p>
+      <p>In each round, each byte in the current group becomes a slot. The model calculates the probabilities of the 256 byte values for all the slots at the same time. The blocks are in separate chains, and the decoder decodes all the chains at the same time. Thus, the dependency depth of a file is K &times; ceil(blocks / chains). jevzip decreases the K factor.</p>
+      <ol>
+        <li><b>Decode order.</b> The decode order divides each block into K groups. In the <code>lanes</code> order, the block has 512/K lanes. The decoder decodes each lane from left to right. In each round, the decoder decodes one byte in each lane. When K = 512, the model is an autoregressive model. One model can decode with each K from 8 to 512.</li>
+        <li><b>Two streams with the same weights.</b> The content stream contains the decoded bytes. It uses causal attention and a KV cache. The slot stream has one query for each byte in the current group. A slot uses data from the decoded bytes and from itself, but not from the other slots. Thus, one forward call calculates the probabilities for all the bytes in a group, and the decoder calculates the same probabilities as the encoder.</li>
+        <li><b>Probabilities for the byte values.</b> Each slot can have one of the 256 byte values. The model compares each slot with the 256 byte embeddings. The model also uses these embeddings for the input bytes (tied embeddings).</li>
+        <li><b>rANS.</b> rANS changes the probabilities into bits. The encoder does the same forward calls as the decoder. Thus, the encoder and the decoder have the same probabilities, bit for bit.</li>
+      </ol>
+    </section>
+
+    <section id="procedure" aria-labelledby="procedure-title">
+      <h2 id="procedure-title">procedure</h2>
+      <p>Use these commands to install jevzip, get the weights and the test data, and do the benchmark test:</p>
+<pre tabindex="0"><code>pip install -e ".[bench]"
+python -m jevzip.fetch jevzip-lanes-11m-enwik8.pt && python -m jevzip.data enwik8
+python -m jevzip.bench data/enwik8/test.bin --rounds 32 128 512 --verify</code></pre>
+      <p>Use these commands to compress and decompress a file:</p>
+<pre tabindex="0"><code>python -m jevzip c file.txt file.jz               # 128 rounds
+python -m jevzip c file.txt file.jz --rounds 32   # 4 times fewer rounds, larger file
+python -m jevzip d file.jz file.txt</code></pre>
+    </section>
+
+    <section id="limits" aria-labelledby="limits-title">
+      <h2 id="limits-title">limits</h2>
+      <ul>
+        <li>jevzip is a research tool. Do not use it to keep data.</li>
+        <li>To decode a file, use the same weights, torch build, CPU kernels and fp32 or bf16 setting as the encoder. A different torch version, or a GPU decoder for a CPU file, gives an incorrect result in the first 4 bytes. The header contains the model fingerprint. The rANS end-state check and a CRC find the other errors.</li>
+        <li>The encoder and the decoder are slow on a CPU: 2 to 10 KB/s.</li>
+        <li>Previous designs:
+          <ul>
+            <li>Two-stream attention (XLNet).</li>
+            <li>Any-order AR models (&sigma;-GPT).</li>
+            <li>Parallel context models for neural image compression (checkerboard, M2T).</li>
+            <li>Neural compressors (NNCP, ts_zip, "Language Modeling Is Compression").</li>
+          </ul>
+        </li>
+        <li>The author does not know a previous design that has all of these items:
+          <ul>
+            <li>Two-stream decoders with a KV cache.</li>
+            <li>One model for all numbers of rounds, from 8 to 512.</li>
+            <li>Block chains that the decoder decodes at the same time.</li>
+          </ul>
+          This information can be incorrect. Examine it carefully.
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <span>jevzip</span>
+    <a href="https://github.com/jereeeschrome-agent/jevzip">github</a>
+    <a href="https://github.com/jereeeschrome-agent/jevzip#readme">readme</a>
+  </footer>
+</body>
+</html>
