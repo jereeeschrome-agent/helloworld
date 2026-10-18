@@ -1,0 +1,6 @@
+### data/code/networkx.py.txt (1048576 bytes)
+  cmix: 114855 B, 0.8763 bpb, enc 1234.6s dec 1191.9s
+### data/code/pydoc_topics.txt (519592 bytes)
+  cmix: 62315 B, 0.9594 bpb, enc 497.0s dec 583.1s
+### data/enwik8/test.bin (5000000 bytes)
+  cmix: 815915 B, 1.3055 bpb, enc 2621.1s dec 2435.9s

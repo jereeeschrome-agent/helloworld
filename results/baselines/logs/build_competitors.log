@@ -1,0 +1,83 @@
+paq8px: c84f576fc2c522194cd320743708652a154daf6b
+cmix: 194af9cd133b8b741d2a53afca13ed0ca453c276
+Error: /opt/homebrew/Cellar is not writable. You should change the
+ownership and permissions of /opt/homebrew/Cellar back to your
+user account:
+  sudo chown -R agent /opt/homebrew/Cellar
+Warning: You are using macOS 27.
+We do not provide support for this pre-release version.
+
+This is a Tier 2 configuration:
+  https://docs.brew.sh/Support-Tiers#tier-2
+You can report issues with Tier 2 configurations to Homebrew/* repositories!
+Read the above document before opening any issues or PRs.
+
+Warning: The following taps are not trusted:
+  macos-fuse-t/cask
+
+Homebrew is currently ignoring formulae, casks and commands from these taps because tap trust is required.
+Trust specific formulae, casks or commands with:
+  brew trust --formula <user>/<tap>/<formula>
+  brew trust --cask <user>/<tap>/<cask>
+  brew trust --command <user>/<tap>/<command>
+
+You can trust all formulae, casks and commands from these taps with:
+  brew trust macos-fuse-t/cask
+Prefer trusting only the specific formulae, casks or commands you need.
+Untap them with:
+  brew untap macos-fuse-t/cask
+To disable trust checks:
+  export HOMEBREW_NO_REQUIRE_TAP_TRUST=1
+This is not recommended and will be removed in a later release.
+Error: The following directories are not writable by your user:
+/opt/homebrew
+/opt/homebrew/Cellar
+/opt/homebrew/Frameworks
+/opt/homebrew/bin
+/opt/homebrew/etc
+/opt/homebrew/etc/bash_completion.d
+/opt/homebrew/include
+/opt/homebrew/lib
+/opt/homebrew/lib/pkgconfig
+/opt/homebrew/opt
+/opt/homebrew/sbin
+/opt/homebrew/share
+/opt/homebrew/share/aclocal
+/opt/homebrew/share/doc
+/opt/homebrew/share/info
+/opt/homebrew/share/locale
+/opt/homebrew/share/man
+/opt/homebrew/share/man/man1
+/opt/homebrew/share/man/man3
+/opt/homebrew/share/man/man5
+/opt/homebrew/share/man/man7
+/opt/homebrew/share/man/man8
+/opt/homebrew/share/zsh
+/opt/homebrew/share/zsh/site-functions
+/opt/homebrew/var/homebrew/linked
+/opt/homebrew/var/homebrew/locks
+/opt/homebrew/var/log
+
+You should change the ownership of these directories to your user.
+  sudo chown -R agent /opt/homebrew /opt/homebrew/Cellar /opt/homebrew/Frameworks /opt/homebrew/bin /opt/homebrew/etc /opt/homebrew/etc/bash_completion.d /opt/homebrew/include /opt/homebrew/lib /opt/homebrew/lib/pkgconfig /opt/homebrew/opt /opt/homebrew/sbin /opt/homebrew/share /opt/homebrew/share/aclocal /opt/homebrew/share/doc /opt/homebrew/share/info /opt/homebrew/share/locale /opt/homebrew/share/man /opt/homebrew/share/man/man1 /opt/homebrew/share/man/man3 /opt/homebrew/share/man/man5 /opt/homebrew/share/man/man7 /opt/homebrew/share/man/man8 /opt/homebrew/share/zsh /opt/homebrew/share/zsh/site-functions /opt/homebrew/var/homebrew/linked /opt/homebrew/var/homebrew/locks /opt/homebrew/var/log
+
+And make sure that your user has write permission.
+  chmod u+w /opt/homebrew /opt/homebrew/Cellar /opt/homebrew/Frameworks /opt/homebrew/bin /opt/homebrew/etc /opt/homebrew/etc/bash_completion.d /opt/homebrew/include /opt/homebrew/lib /opt/homebrew/lib/pkgconfig /opt/homebrew/opt /opt/homebrew/sbin /opt/homebrew/share /opt/homebrew/share/aclocal /opt/homebrew/share/doc /opt/homebrew/share/info /opt/homebrew/share/locale /opt/homebrew/share/man /opt/homebrew/share/man/man1 /opt/homebrew/share/man/man3 /opt/homebrew/share/man/man5 /opt/homebrew/share/man/man7 /opt/homebrew/share/man/man8 /opt/homebrew/share/zsh /opt/homebrew/share/zsh/site-functions /opt/homebrew/var/homebrew/linked /opt/homebrew/var/homebrew/locks /opt/homebrew/var/log
+7zz: brew install sevenzip failed; PPMd baselines will be skipped
+--- versions
+paq8px v217 (c) 2026, Matt Mahoney et al.
+cmix version 21
+*** Zstandard CLI (64-bit) v1.5.7, by Yann Collet ***
+brotli 1.2.0
+xz (XZ Utils) 5.8.3
+--- round-trips
+paq8px data compressor v217 (c) 2026, Matt Mahoney et al.
+Output is redirected - only minimal feedback is on screen
+
+Filename: /var/folders/1f/2vwmsfvs2m747llgnv5mqd2m0000gp/T/tmp.hnIX64Uxps/in (9145 bytes)
+Compressing...   0.00% 44.78% 89.57%paq8px data compressor v217 (c) 2026, Matt Mahoney et al.
+  0.77% 54.09% 93.49%tools/build_competitors.sh: line 43: /var/folders/1f/2vwmsfvs2m747llgnv5mqd2m0000gp/T/tmp.hnIX64Uxps/c*: No such file or directory
+paq8px: round-trip OK (20000 ->  bytes)
+tools/build_competitors.sh: line 43: /var/folders/1f/2vwmsfvs2m747llgnv5mqd2m0000gp/T/tmp.YfYT5co73W/c*: No such file or directory
+cmix: round-trip OK (20000 ->  bytes)
+7zz: not installed, skipped

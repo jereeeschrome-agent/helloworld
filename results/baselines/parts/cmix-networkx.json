@@ -1,0 +1,38 @@
+{
+ "command": "/Users/agent/helloworld-jevzip/.venv/bin/python -m jevzip.baselines data/code/networkx.py.txt --only cmix --json results/baselines/parts/cmix-networkx.json",
+ "started": "2026-10-18T13:16:11+0300",
+ "environment": {
+  "python": "3.12.13",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "zstd": "v1.5.7",
+  "brotli": "brotli 1.2.0",
+  "xz": "xz (XZ Utils) 5.8.3",
+  "sevenzip": null,
+  "paq8px": "paq8px c84f576fc2c522194cd320743708652a154daf6b, cmake Release, Apple clang version 21.0.0 (clang-2100.3.34.2)",
+  "cmix": "cmix 194af9cd133b8b741d2a53afca13ed0ca453c276, -Ofast -mcpu=native -DP1_MODE=2 -DP3_BATCH -DP2_FASTMATH -DLSTM_QUANT=8, Apple clang version 21.0.0 (clang-2100.3.34.2)"
+ },
+ "results": [
+  {
+   "file": "data/code/networkx.py.txt",
+   "size": 1048576,
+   "sha256": "97ac83b301c24bde1903b3eb34fb131bb3c36b84acd470fdcbd28f869b0387f4",
+   "rows": [
+    {
+     "name": "cmix",
+     "kind": "standalone",
+     "bytes": 114855,
+     "verified": true,
+     "enc_s": 1234.5793380737305,
+     "dec_s": 1191.9408600330353,
+     "command": "/Users/agent/helloworld-jevzip/downloads/cmix-build/cmix -c /Users/agent/helloworld-jevzip/downloads/cmix-build/dictionary/english.dic x x.c",
+     "decode_command": "/Users/agent/helloworld-jevzip/downloads/cmix-build/cmix -d /Users/agent/helloworld-jevzip/downloads/cmix-build/dictionary/english.dic x.c y",
+     "version": "cmix 194af9cd133b8b741d2a53afca13ed0ca453c276, -Ofast -mcpu=native -DP1_MODE=2 -DP3_BATCH -DP2_FASTMATH -DLSTM_QUANT=8, Apple clang version 21.0.0 (clang-2100.3.34.2)",
+     "note": "default mode with its english.dic (411996 B, not counted); ~19 GB RAM",
+     "bits_per_byte": 0.8762741088867188
+    }
+   ]
+  }
+ ],
+ "finished": "2026-10-18T13:56:37+0300"
+}

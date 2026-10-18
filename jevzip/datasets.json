@@ -1,0 +1,567 @@
+{
+  "about": "jevzip datasets: keys under 'files' are paths relative to data/, under 'downloads' relative to downloads/. Built by `python -m jevzip.data {code,enwik8,text8,silesia,ood}`, checked by `python -m jevzip.data verify`. 'reproducible': false marks files built from this machine's installed packages (the code corpus). Suites name the files each benchmark runs on; ood/binary and ood/non-english reference Silesia files rather than copying them.",
+  "downloads": {
+    "enwik8/enwik8.zip": {
+      "url": "https://mattmahoney.net/dc/enwik8.zip",
+      "size": 36445475,
+      "sha256": "547994d9980ebed1288380d652999f38a14fe291a6247c157c3d33d4932534bc",
+      "license": "Wikipedia text: CC BY-SA 3.0 / GFDL (as distributed by Matt Mahoney for the Large Text Compression Benchmark)",
+      "members": {
+        "enwik8": {
+          "size": 100000000,
+          "md5": "a1fa5ffddb56f4953e226637dabbb36a",
+          "sha256": "2b49720ec4d78c3c9fabaee6e4179a5e997302b3a70029f30f2d582218c024a8"
+        }
+      }
+    },
+    "text8/text8.zip": {
+      "url": "https://mattmahoney.net/dc/text8.zip",
+      "size": 31344016,
+      "license": "Wikipedia text: CC BY-SA 3.0 / GFDL (as distributed by Matt Mahoney for the Large Text Compression Benchmark)",
+      "members": {
+        "text8": {
+          "size": 100000000,
+          "sha256": "6e890197040d37d85beb962ae1f041ff1d9a9ca8d20c7d99c85027eebf51dca7"
+        }
+      },
+      "sha256": "a6640522afe85d1963ad56c05b0ede0a0c000dddc9671758a6cc09b7a38e5232"
+    },
+    "silesia/silesia.zip": {
+      "url": "https://sun.aei.polsl.pl/~sdeor/corpus/silesia.zip",
+      "size": 68182744,
+      "license": "no license stated by the Silesia corpus; its files come from various copyrighted sources: fetch from the source, not redistributable by jevzip",
+      "members": {
+        "dickens": {
+          "size": 10192446,
+          "sha256": "b24c37886142e11d0ee687db6ab06f936207aa7f2ea1fd1d9a36763c7a507e6a"
+        },
+        "mozilla": {
+          "size": 51220480,
+          "sha256": "657fc3764b0c75ac9de9623125705831ebbfbe08fed248df73bc2dc66e2a963b"
+        },
+        "mr": {
+          "size": 9970564,
+          "sha256": "68637ed52e3e4860174ed2dc0840ac77d5f1a60abbcb13770d5754e3774d53e6"
+        },
+        "nci": {
+          "size": 33553445,
+          "sha256": "fc63a31770947b8c2062d3b19ca94c00485a232bb91b502021948fee983e1635"
+        },
+        "ooffice": {
+          "size": 6152192,
+          "sha256": "e7ee013880d34dd5208283d0d3d91b07f442e067454276095ded14f322a656eb"
+        },
+        "osdb": {
+          "size": 10085684,
+          "sha256": "60f027179302ca3ad87c58ac90b6be72ec23588aaa7a3b7fe8ecc0f11def3fa3"
+        },
+        "reymont": {
+          "size": 6627202,
+          "sha256": "0eac0114a3dfe6e2ee1f345a0f79d653cb26c3bc9f0ed79238af4933422b7578"
+        },
+        "samba": {
+          "size": 21606400,
+          "sha256": "93ba07bc44d8267789c1d911992f40b089ffa2140b4a160fac11ccae9a40e7b2"
+        },
+        "sao": {
+          "size": 7251944,
+          "sha256": "c2d0ea2cc59d4c21b7fe43a71499342a00cbe530a1d5548770e91ecd6214adcc"
+        },
+        "webster": {
+          "size": 41458703,
+          "sha256": "6a68f69b26daf09f9dd84f7470368553194a0b294fcfa80f1604efb11143a383"
+        },
+        "x-ray": {
+          "size": 8474240,
+          "sha256": "7de9fce1405dc44ae5e6813ed21cd5751e761bd4265655a005d39b9685d1c9ad"
+        },
+        "xml": {
+          "size": 5345280,
+          "sha256": "0e82e54e695c1938e4193448022543845b33020c8be6bf3bf3ead2224903e08c"
+        }
+      },
+      "sha256": "0626e25f45c0ffb5dc801f13b7c82a3b75743ba07e3a71835a41e3d9f63c77af"
+    },
+    "ood-json/twitter.json": {
+      "url": "https://raw.githubusercontent.com/simdjson/simdjson/33d926bd4448e2e087511f34e49461230691a503/jsonexamples/twitter.json",
+      "git_sha1": "fcb3fea12b3521b769bf26831df1c24213ac7151",
+      "license": "Apache-2.0 (simdjson repository); the documents originate from third parties (Twitter API, nativejson-benchmark, GeoJSON, GitHub API, Jenkins); redistribution status of the underlying data unclear: fetch from the source",
+      "size": 631515,
+      "sha256": "30721e496a8d73cfc50658923c34eb2c0fbe15ee6835005e43ee624d8dedf200"
+    },
+    "ood-json/citm_catalog.json": {
+      "url": "https://raw.githubusercontent.com/simdjson/simdjson/33d926bd4448e2e087511f34e49461230691a503/jsonexamples/citm_catalog.json",
+      "git_sha1": "245fdbbedf478e0094ce25ad8f771c2b9031320c",
+      "license": "Apache-2.0 (simdjson repository); the documents originate from third parties (Twitter API, nativejson-benchmark, GeoJSON, GitHub API, Jenkins); redistribution status of the underlying data unclear: fetch from the source",
+      "size": 1727204,
+      "sha256": "a73e7a883f6ea8de113dff59702975e60119b4b58d451d518a929f31c92e2059"
+    },
+    "ood-json/canada.json": {
+      "url": "https://raw.githubusercontent.com/simdjson/simdjson/33d926bd4448e2e087511f34e49461230691a503/jsonexamples/canada.json",
+      "git_sha1": "04f63b405b2ad0826a19b6e7290b19227e7c772d",
+      "license": "Apache-2.0 (simdjson repository); the documents originate from third parties (Twitter API, nativejson-benchmark, GeoJSON, GitHub API, Jenkins); redistribution status of the underlying data unclear: fetch from the source",
+      "size": 2251051,
+      "sha256": "f83b3b354030d5dd58740c68ac4fecef64cb730a0d12a90362a7f23077f50d78"
+    },
+    "ood-json/github_events.json": {
+      "url": "https://raw.githubusercontent.com/simdjson/simdjson/33d926bd4448e2e087511f34e49461230691a503/jsonexamples/github_events.json",
+      "git_sha1": "e7c13a539759de3946a89e0704fbb09fc336fcd3",
+      "license": "Apache-2.0 (simdjson repository); the documents originate from third parties (Twitter API, nativejson-benchmark, GeoJSON, GitHub API, Jenkins); redistribution status of the underlying data unclear: fetch from the source",
+      "size": 65132,
+      "sha256": "c9eebb2cf2d46649059e9d48700919bacb3e8e0fb58452065a1a9de7778fd22e"
+    },
+    "ood-json/update-center.json": {
+      "url": "https://raw.githubusercontent.com/simdjson/simdjson/33d926bd4448e2e087511f34e49461230691a503/jsonexamples/update-center.json",
+      "git_sha1": "f8cfc08544f912b5f02bb85febdc34d2e673eef4",
+      "license": "Apache-2.0 (simdjson repository); the documents originate from third parties (Twitter API, nativejson-benchmark, GeoJSON, GitHub API, Jenkins); redistribution status of the underlying data unclear: fetch from the source",
+      "size": 533178,
+      "sha256": "e7b6a037bfdb5abdf122fa3445ddfacea78522a23df31c4799884c4ebf4c01fa"
+    },
+    "ood-json/apache_builds.json": {
+      "url": "https://raw.githubusercontent.com/simdjson/simdjson/33d926bd4448e2e087511f34e49461230691a503/jsonexamples/apache_builds.json",
+      "git_sha1": "c4a4cf820e3cfec7ffc43d2245497f59348f1a15",
+      "license": "Apache-2.0 (simdjson repository); the documents originate from third parties (Twitter API, nativejson-benchmark, GeoJSON, GitHub API, Jenkins); redistribution status of the underlying data unclear: fetch from the source",
+      "size": 127275,
+      "sha256": "f8e3422ac7d3c3550674afcb37e979e4e9bbeccffdb66933423495d55b6f5c74"
+    },
+    "ood-json/instruments.json": {
+      "url": "https://raw.githubusercontent.com/simdjson/simdjson/33d926bd4448e2e087511f34e49461230691a503/jsonexamples/instruments.json",
+      "git_sha1": "26c3cb0b705aee29ece00d3dcd6eef03958784a9",
+      "license": "Apache-2.0 (simdjson repository); the documents originate from third parties (Twitter API, nativejson-benchmark, GeoJSON, GitHub API, Jenkins); redistribution status of the underlying data unclear: fetch from the source",
+      "size": 220346,
+      "sha256": "f3069235d4e2695d36c0c7735a435a7abb279fc4d64bbcf4ed9f888b8da1fdb9"
+    },
+    "ood-json/mesh.json": {
+      "url": "https://raw.githubusercontent.com/simdjson/simdjson/33d926bd4448e2e087511f34e49461230691a503/jsonexamples/mesh.json",
+      "git_sha1": "53a149db23526534b839caa2ed5c04d58aa5a47a",
+      "license": "Apache-2.0 (simdjson repository); the documents originate from third parties (Twitter API, nativejson-benchmark, GeoJSON, GitHub API, Jenkins); redistribution status of the underlying data unclear: fetch from the source",
+      "size": 723597,
+      "sha256": "45bc8bf429340a874a7af8ea7056d60497402f80f55dba1e6ecc4ca8f1e46aff"
+    },
+    "ood-logs/Apache_2k.log": {
+      "url": "https://raw.githubusercontent.com/logpai/loghub/dd61d0952749ee7963bde24220d1be5ede023033/Apache/Apache_2k.log",
+      "git_sha1": "dd8a218ed474579f146960846f45a50f55ca0de0",
+      "license": "loghub license: 'freely available for research or academic work'; cite Zhu et al., Loghub, ISSRE 2023 and refer to https://github.com/logpai/loghub; not open-source licensed, so NOT redistributable by jevzip (research use only); logs are unsanitized",
+      "size": 171239,
+      "sha256": "c7efa3eb686e3a96bd2f8f4457b2a7887e9cf2f3649327f1b4e87af841363ce8"
+    },
+    "ood-logs/HDFS_2k.log": {
+      "url": "https://raw.githubusercontent.com/logpai/loghub/dd61d0952749ee7963bde24220d1be5ede023033/HDFS/HDFS_2k.log",
+      "git_sha1": "08f7fd73e8cc48ad3fa6a6a7ae97a726a6e66634",
+      "license": "loghub license: 'freely available for research or academic work'; cite Zhu et al., Loghub, ISSRE 2023 and refer to https://github.com/logpai/loghub; not open-source licensed, so NOT redistributable by jevzip (research use only); logs are unsanitized",
+      "size": 287848,
+      "sha256": "7c967000980c086ed55fa6544ba4f05fe66d44622795e890c68caf8bbb635035"
+    },
+    "ood-logs/Linux_2k.log": {
+      "url": "https://raw.githubusercontent.com/logpai/loghub/dd61d0952749ee7963bde24220d1be5ede023033/Linux/Linux_2k.log",
+      "git_sha1": "66b94695fcf2bc3b876a7df6003c8d019eb354ef",
+      "license": "loghub license: 'freely available for research or academic work'; cite Zhu et al., Loghub, ISSRE 2023 and refer to https://github.com/logpai/loghub; not open-source licensed, so NOT redistributable by jevzip (research use only); logs are unsanitized",
+      "size": 216485,
+      "sha256": "b3e20bc1afe732ab1bf3ed1de4bf9c809e4194e02f7dea911d918e5342e8e173"
+    },
+    "ood-logs/OpenSSH_2k.log": {
+      "url": "https://raw.githubusercontent.com/logpai/loghub/dd61d0952749ee7963bde24220d1be5ede023033/OpenSSH/OpenSSH_2k.log",
+      "git_sha1": "587f66b1ebf40fd59f385addc69a8b0671f34b9c",
+      "license": "loghub license: 'freely available for research or academic work'; cite Zhu et al., Loghub, ISSRE 2023 and refer to https://github.com/logpai/loghub; not open-source licensed, so NOT redistributable by jevzip (research use only); logs are unsanitized",
+      "size": 225216,
+      "sha256": "1e4912727fa88245113d41b16a0cd25ceadba7f931e1c406542885b91254264f"
+    },
+    "ood-logs/Spark_2k.log": {
+      "url": "https://raw.githubusercontent.com/logpai/loghub/dd61d0952749ee7963bde24220d1be5ede023033/Spark/Spark_2k.log",
+      "git_sha1": "b5a4ae3efc7fae447bb3d40c1f516b4c3ffd4a26",
+      "license": "loghub license: 'freely available for research or academic work'; cite Zhu et al., Loghub, ISSRE 2023 and refer to https://github.com/logpai/loghub; not open-source licensed, so NOT redistributable by jevzip (research use only); logs are unsanitized",
+      "size": 196268,
+      "sha256": "2e8b9a37fc5c238253e0b8e18a8bd5e489671def91767ae1192d28c8e1f95901"
+    },
+    "ood-logs/Mac_2k.log": {
+      "url": "https://raw.githubusercontent.com/logpai/loghub/dd61d0952749ee7963bde24220d1be5ede023033/Mac/Mac_2k.log",
+      "git_sha1": "d43585cd23946d43c3a5a20eed975ec4c0707cb2",
+      "license": "loghub license: 'freely available for research or academic work'; cite Zhu et al., Loghub, ISSRE 2023 and refer to https://github.com/logpai/loghub; not open-source licensed, so NOT redistributable by jevzip (research use only); logs are unsanitized",
+      "size": 319414,
+      "sha256": "d9ea495488728d8c989dc942fca3324a3cc7b19b0a6f409a5fd568ad547fd931"
+    }
+  },
+  "files": {
+    "code/train.bin": {
+      "source": "built on this machine by `python -m jevzip.data code` from CPython 3.12.13's stdlib and the .venv's site-packages (os.walk order, files joined by '\\n\\n'); depends on the installed packages, so NOT rebuildable bit-identically elsewhere",
+      "license": "the licenses of the individual packages (mostly BSD/MIT/Apache/PSF); see each package's metadata",
+      "split": "train: every package except mpmath, networkx, pydoc_data",
+      "reproducible": false,
+      "size": 147802575,
+      "sha256": "ab86af3dab966b35c3e517566bbf4cc2f068f4c99d183a5dbe6af2fffc8c0fe7"
+    },
+    "code/val.bin": {
+      "source": "built on this machine by `python -m jevzip.data code` from CPython 3.12.13's stdlib and the .venv's site-packages (os.walk order, files joined by '\\n\\n'); depends on the installed packages, so NOT rebuildable bit-identically elsewhere",
+      "license": "BSD-3-Clause (mpmath)",
+      "split": "val: the whole mpmath package",
+      "reproducible": false,
+      "size": 1932426,
+      "sha256": "58de32d7a3f32e8f43c60c149aef6e4aa866c2a14c3ed05612136446d8451990"
+    },
+    "code/networkx.py.txt": {
+      "source": "built on this machine by `python -m jevzip.data code` from CPython 3.12.13's stdlib and the .venv's site-packages (os.walk order, files joined by '\\n\\n'); depends on the installed packages, so NOT rebuildable bit-identically elsewhere; released as jevzip-code-testset.tar.xz",
+      "license": "BSD-3-Clause (networkx 3.7)",
+      "split": "test: the first 1 MiB (1048576 bytes) of the networkx package",
+      "reproducible": false,
+      "size": 1048576,
+      "sha256": "97ac83b301c24bde1903b3eb34fb131bb3c36b84acd470fdcbd28f869b0387f4"
+    },
+    "code/pydoc_topics.txt": {
+      "source": "built on this machine by `python -m jevzip.data code` from CPython 3.12.13's stdlib and the .venv's site-packages (os.walk order, files joined by '\\n\\n'); depends on the installed packages, so NOT rebuildable bit-identically elsewhere; released as jevzip-code-testset.tar.xz",
+      "license": "PSF-2.0 (CPython 3.12.13 pydoc_data)",
+      "split": "test: the whole pydoc_data package (under 1 MiB)",
+      "reproducible": false,
+      "size": 519592,
+      "sha256": "5b5a37bce813f6c12f10b00a5cb2b475d3b43ce0ee60f27149002dc8a656a299"
+    },
+    "code/networkx-files/index.json": {
+      "source": "python -m jevzip.data code: the networkx files as they appear in networkx.py.txt (offset, size, full size, SHA-256); the files sit next to it",
+      "license": "BSD-3-Clause (networkx 3.7)",
+      "split": "test (per-file view of networkx.py.txt; the last file is cut at 1 MiB)",
+      "reproducible": false,
+      "index": true,
+      "size": 15421,
+      "sha256": "21edd51f71f356f7a2e6a8640c899b9583e7fa90f5d10bf48727fb3d6b2f0f07"
+    },
+    "enwik8/train.bin": {
+      "from": "enwik8/enwik8.zip",
+      "member": "enwik8",
+      "split": "train: standard LM split of the enwik8 bytes: train = first 90,000,000, val = next 5,000,000, test = last 5,000,000",
+      "license": "Wikipedia text: CC BY-SA 3.0 / GFDL (as distributed by Matt Mahoney for the Large Text Compression Benchmark)",
+      "size": 90000000,
+      "sha256": "f8978bd9ca51fbea387d5145d310652ab39904bcbc8ab2647932c8c2e0539e64"
+    },
+    "enwik8/val.bin": {
+      "from": "enwik8/enwik8.zip",
+      "member": "enwik8",
+      "split": "val: standard LM split of the enwik8 bytes: train = first 90,000,000, val = next 5,000,000, test = last 5,000,000",
+      "license": "Wikipedia text: CC BY-SA 3.0 / GFDL (as distributed by Matt Mahoney for the Large Text Compression Benchmark)",
+      "size": 5000000,
+      "sha256": "16b8b889f05ebeb5684d497d49383e8e55eb3634cee2f9a023dcab68cbf64f17"
+    },
+    "enwik8/test.bin": {
+      "from": "enwik8/enwik8.zip",
+      "member": "enwik8",
+      "split": "test: standard LM split of the enwik8 bytes: train = first 90,000,000, val = next 5,000,000, test = last 5,000,000",
+      "license": "Wikipedia text: CC BY-SA 3.0 / GFDL (as distributed by Matt Mahoney for the Large Text Compression Benchmark)",
+      "size": 5000000,
+      "sha256": "86f62c0adeb6c27763f308b8913bec743626421a4d2b4010f1e177a40eef7750"
+    },
+    "text8/train.bin": {
+      "from": "text8/text8.zip",
+      "member": "text8",
+      "split": "train: standard LM split of the text8 bytes: train = first 90,000,000, val = next 5,000,000, test = last 5,000,000",
+      "license": "Wikipedia text: CC BY-SA 3.0 / GFDL (as distributed by Matt Mahoney for the Large Text Compression Benchmark)",
+      "size": 90000000,
+      "sha256": "af83e65b7d7aa95dfe2c571da8f3e2d1b0c385f177140a21f3db07520a3ac6f4"
+    },
+    "text8/val.bin": {
+      "from": "text8/text8.zip",
+      "member": "text8",
+      "split": "val: standard LM split of the text8 bytes: train = first 90,000,000, val = next 5,000,000, test = last 5,000,000",
+      "license": "Wikipedia text: CC BY-SA 3.0 / GFDL (as distributed by Matt Mahoney for the Large Text Compression Benchmark)",
+      "size": 5000000,
+      "sha256": "c9395f11fb185c7cf73f57134be37b6a32c6364ce36e9cec3127d27c7b8bc5dd"
+    },
+    "text8/test.bin": {
+      "from": "text8/text8.zip",
+      "member": "text8",
+      "split": "test: standard LM split of the text8 bytes: train = first 90,000,000, val = next 5,000,000, test = last 5,000,000",
+      "license": "Wikipedia text: CC BY-SA 3.0 / GFDL (as distributed by Matt Mahoney for the Large Text Compression Benchmark)",
+      "size": 5000000,
+      "sha256": "b336f67a7616a0d94ed6cc2049437928aafe01318e76a84abe6918320660f98c"
+    },
+    "silesia/dickens": {
+      "from": "silesia/silesia.zip",
+      "member": "dickens",
+      "split": "test (whole file)",
+      "license": "no license stated by the Silesia corpus; its files come from various copyrighted sources: fetch from the source, not redistributable by jevzip",
+      "description": "English text (Dickens' works)",
+      "size": 10192446,
+      "sha256": "b24c37886142e11d0ee687db6ab06f936207aa7f2ea1fd1d9a36763c7a507e6a"
+    },
+    "silesia/mozilla": {
+      "from": "silesia/silesia.zip",
+      "member": "mozilla",
+      "split": "test (whole file)",
+      "license": "no license stated by the Silesia corpus; its files come from various copyrighted sources: fetch from the source, not redistributable by jevzip",
+      "description": "Tarred executables of Mozilla 1.0",
+      "size": 51220480,
+      "sha256": "657fc3764b0c75ac9de9623125705831ebbfbe08fed248df73bc2dc66e2a963b"
+    },
+    "silesia/mr": {
+      "from": "silesia/silesia.zip",
+      "member": "mr",
+      "split": "test (whole file)",
+      "license": "no license stated by the Silesia corpus; its files come from various copyrighted sources: fetch from the source, not redistributable by jevzip",
+      "description": "Medical magnetic resonance image",
+      "size": 9970564,
+      "sha256": "68637ed52e3e4860174ed2dc0840ac77d5f1a60abbcb13770d5754e3774d53e6"
+    },
+    "silesia/nci": {
+      "from": "silesia/silesia.zip",
+      "member": "nci",
+      "split": "test (whole file)",
+      "license": "no license stated by the Silesia corpus; its files come from various copyrighted sources: fetch from the source, not redistributable by jevzip",
+      "description": "Chemical database of structures",
+      "size": 33553445,
+      "sha256": "fc63a31770947b8c2062d3b19ca94c00485a232bb91b502021948fee983e1635"
+    },
+    "silesia/ooffice": {
+      "from": "silesia/silesia.zip",
+      "member": "ooffice",
+      "split": "test (whole file)",
+      "license": "no license stated by the Silesia corpus; its files come from various copyrighted sources: fetch from the source, not redistributable by jevzip",
+      "description": "A dll from OpenOffice.org 1.01",
+      "size": 6152192,
+      "sha256": "e7ee013880d34dd5208283d0d3d91b07f442e067454276095ded14f322a656eb"
+    },
+    "silesia/osdb": {
+      "from": "silesia/silesia.zip",
+      "member": "osdb",
+      "split": "test (whole file)",
+      "license": "no license stated by the Silesia corpus; its files come from various copyrighted sources: fetch from the source, not redistributable by jevzip",
+      "description": "Sample database in MySQL format",
+      "size": 10085684,
+      "sha256": "60f027179302ca3ad87c58ac90b6be72ec23588aaa7a3b7fe8ecc0f11def3fa3"
+    },
+    "silesia/reymont": {
+      "from": "silesia/silesia.zip",
+      "member": "reymont",
+      "split": "test (whole file)",
+      "license": "no license stated by the Silesia corpus; its files come from various copyrighted sources: fetch from the source, not redistributable by jevzip",
+      "description": "Polish text (Reymont, Chlopi), PDF-to-text",
+      "size": 6627202,
+      "sha256": "0eac0114a3dfe6e2ee1f345a0f79d653cb26c3bc9f0ed79238af4933422b7578"
+    },
+    "silesia/samba": {
+      "from": "silesia/silesia.zip",
+      "member": "samba",
+      "split": "test (whole file)",
+      "license": "no license stated by the Silesia corpus; its files come from various copyrighted sources: fetch from the source, not redistributable by jevzip",
+      "description": "Tarred source code of Samba 2-2.3",
+      "size": 21606400,
+      "sha256": "93ba07bc44d8267789c1d911992f40b089ffa2140b4a160fac11ccae9a40e7b2"
+    },
+    "silesia/sao": {
+      "from": "silesia/silesia.zip",
+      "member": "sao",
+      "split": "test (whole file)",
+      "license": "no license stated by the Silesia corpus; its files come from various copyrighted sources: fetch from the source, not redistributable by jevzip",
+      "description": "The SAO star catalog (binary)",
+      "size": 7251944,
+      "sha256": "c2d0ea2cc59d4c21b7fe43a71499342a00cbe530a1d5548770e91ecd6214adcc"
+    },
+    "silesia/webster": {
+      "from": "silesia/silesia.zip",
+      "member": "webster",
+      "split": "test (whole file)",
+      "license": "no license stated by the Silesia corpus; its files come from various copyrighted sources: fetch from the source, not redistributable by jevzip",
+      "description": "The 1913 Webster Unabridged Dictionary (HTML)",
+      "size": 41458703,
+      "sha256": "6a68f69b26daf09f9dd84f7470368553194a0b294fcfa80f1604efb11143a383"
+    },
+    "silesia/x-ray": {
+      "from": "silesia/silesia.zip",
+      "member": "x-ray",
+      "split": "test (whole file)",
+      "license": "no license stated by the Silesia corpus; its files come from various copyrighted sources: fetch from the source, not redistributable by jevzip",
+      "description": "X-ray medical picture",
+      "size": 8474240,
+      "sha256": "7de9fce1405dc44ae5e6813ed21cd5751e761bd4265655a005d39b9685d1c9ad"
+    },
+    "silesia/xml": {
+      "from": "silesia/silesia.zip",
+      "member": "xml",
+      "split": "test (whole file)",
+      "license": "no license stated by the Silesia corpus; its files come from various copyrighted sources: fetch from the source, not redistributable by jevzip",
+      "description": "Collected XML files",
+      "size": 5345280,
+      "sha256": "0e82e54e695c1938e4193448022543845b33020c8be6bf3bf3ead2224903e08c"
+    },
+    "ood/json/twitter.json": {
+      "from": "ood-json/twitter.json",
+      "split": "test (whole file)",
+      "license": "Apache-2.0 (simdjson repository); the documents originate from third parties (Twitter API, nativejson-benchmark, GeoJSON, GitHub API, Jenkins); redistribution status of the underlying data unclear: fetch from the source",
+      "size": 631515,
+      "sha256": "30721e496a8d73cfc50658923c34eb2c0fbe15ee6835005e43ee624d8dedf200"
+    },
+    "ood/json/citm_catalog.json": {
+      "from": "ood-json/citm_catalog.json",
+      "split": "test (whole file)",
+      "license": "Apache-2.0 (simdjson repository); the documents originate from third parties (Twitter API, nativejson-benchmark, GeoJSON, GitHub API, Jenkins); redistribution status of the underlying data unclear: fetch from the source",
+      "size": 1727204,
+      "sha256": "a73e7a883f6ea8de113dff59702975e60119b4b58d451d518a929f31c92e2059"
+    },
+    "ood/json/canada.json": {
+      "from": "ood-json/canada.json",
+      "split": "test (whole file)",
+      "license": "Apache-2.0 (simdjson repository); the documents originate from third parties (Twitter API, nativejson-benchmark, GeoJSON, GitHub API, Jenkins); redistribution status of the underlying data unclear: fetch from the source",
+      "size": 2251051,
+      "sha256": "f83b3b354030d5dd58740c68ac4fecef64cb730a0d12a90362a7f23077f50d78"
+    },
+    "ood/json/github_events.json": {
+      "from": "ood-json/github_events.json",
+      "split": "test (whole file)",
+      "license": "Apache-2.0 (simdjson repository); the documents originate from third parties (Twitter API, nativejson-benchmark, GeoJSON, GitHub API, Jenkins); redistribution status of the underlying data unclear: fetch from the source",
+      "size": 65132,
+      "sha256": "c9eebb2cf2d46649059e9d48700919bacb3e8e0fb58452065a1a9de7778fd22e"
+    },
+    "ood/json/update-center.json": {
+      "from": "ood-json/update-center.json",
+      "split": "test (whole file)",
+      "license": "Apache-2.0 (simdjson repository); the documents originate from third parties (Twitter API, nativejson-benchmark, GeoJSON, GitHub API, Jenkins); redistribution status of the underlying data unclear: fetch from the source",
+      "size": 533178,
+      "sha256": "e7b6a037bfdb5abdf122fa3445ddfacea78522a23df31c4799884c4ebf4c01fa"
+    },
+    "ood/json/apache_builds.json": {
+      "from": "ood-json/apache_builds.json",
+      "split": "test (whole file)",
+      "license": "Apache-2.0 (simdjson repository); the documents originate from third parties (Twitter API, nativejson-benchmark, GeoJSON, GitHub API, Jenkins); redistribution status of the underlying data unclear: fetch from the source",
+      "size": 127275,
+      "sha256": "f8e3422ac7d3c3550674afcb37e979e4e9bbeccffdb66933423495d55b6f5c74"
+    },
+    "ood/json/instruments.json": {
+      "from": "ood-json/instruments.json",
+      "split": "test (whole file)",
+      "license": "Apache-2.0 (simdjson repository); the documents originate from third parties (Twitter API, nativejson-benchmark, GeoJSON, GitHub API, Jenkins); redistribution status of the underlying data unclear: fetch from the source",
+      "size": 220346,
+      "sha256": "f3069235d4e2695d36c0c7735a435a7abb279fc4d64bbcf4ed9f888b8da1fdb9"
+    },
+    "ood/json/mesh.json": {
+      "from": "ood-json/mesh.json",
+      "split": "test (whole file)",
+      "license": "Apache-2.0 (simdjson repository); the documents originate from third parties (Twitter API, nativejson-benchmark, GeoJSON, GitHub API, Jenkins); redistribution status of the underlying data unclear: fetch from the source",
+      "size": 723597,
+      "sha256": "45bc8bf429340a874a7af8ea7056d60497402f80f55dba1e6ecc4ca8f1e46aff"
+    },
+    "ood/logs/Apache_2k.log": {
+      "from": "ood-logs/Apache_2k.log",
+      "split": "test (whole file)",
+      "license": "loghub license: 'freely available for research or academic work'; cite Zhu et al., Loghub, ISSRE 2023 and refer to https://github.com/logpai/loghub; not open-source licensed, so NOT redistributable by jevzip (research use only); logs are unsanitized",
+      "redistributable": false,
+      "size": 171239,
+      "sha256": "c7efa3eb686e3a96bd2f8f4457b2a7887e9cf2f3649327f1b4e87af841363ce8"
+    },
+    "ood/logs/HDFS_2k.log": {
+      "from": "ood-logs/HDFS_2k.log",
+      "split": "test (whole file)",
+      "license": "loghub license: 'freely available for research or academic work'; cite Zhu et al., Loghub, ISSRE 2023 and refer to https://github.com/logpai/loghub; not open-source licensed, so NOT redistributable by jevzip (research use only); logs are unsanitized",
+      "redistributable": false,
+      "size": 287848,
+      "sha256": "7c967000980c086ed55fa6544ba4f05fe66d44622795e890c68caf8bbb635035"
+    },
+    "ood/logs/Linux_2k.log": {
+      "from": "ood-logs/Linux_2k.log",
+      "split": "test (whole file)",
+      "license": "loghub license: 'freely available for research or academic work'; cite Zhu et al., Loghub, ISSRE 2023 and refer to https://github.com/logpai/loghub; not open-source licensed, so NOT redistributable by jevzip (research use only); logs are unsanitized",
+      "redistributable": false,
+      "size": 216485,
+      "sha256": "b3e20bc1afe732ab1bf3ed1de4bf9c809e4194e02f7dea911d918e5342e8e173"
+    },
+    "ood/logs/OpenSSH_2k.log": {
+      "from": "ood-logs/OpenSSH_2k.log",
+      "split": "test (whole file)",
+      "license": "loghub license: 'freely available for research or academic work'; cite Zhu et al., Loghub, ISSRE 2023 and refer to https://github.com/logpai/loghub; not open-source licensed, so NOT redistributable by jevzip (research use only); logs are unsanitized",
+      "redistributable": false,
+      "size": 225216,
+      "sha256": "1e4912727fa88245113d41b16a0cd25ceadba7f931e1c406542885b91254264f"
+    },
+    "ood/logs/Spark_2k.log": {
+      "from": "ood-logs/Spark_2k.log",
+      "split": "test (whole file)",
+      "license": "loghub license: 'freely available for research or academic work'; cite Zhu et al., Loghub, ISSRE 2023 and refer to https://github.com/logpai/loghub; not open-source licensed, so NOT redistributable by jevzip (research use only); logs are unsanitized",
+      "redistributable": false,
+      "size": 196268,
+      "sha256": "2e8b9a37fc5c238253e0b8e18a8bd5e489671def91767ae1192d28c8e1f95901"
+    },
+    "ood/logs/Mac_2k.log": {
+      "from": "ood-logs/Mac_2k.log",
+      "split": "test (whole file)",
+      "license": "loghub license: 'freely available for research or academic work'; cite Zhu et al., Loghub, ISSRE 2023 and refer to https://github.com/logpai/loghub; not open-source licensed, so NOT redistributable by jevzip (research use only); logs are unsanitized",
+      "redistributable": false,
+      "size": 319414,
+      "sha256": "d9ea495488728d8c989dc942fca3324a3cc7b19b0a6f409a5fd568ad547fd931"
+    },
+    "ood/c-headers/torch-c10.txt": {
+      "source": "python -m jevzip.data ood: the sorted .h files under include/c10/core and include/c10/util of the installed torch 2.14.1 wheel, joined by '\\n\\n', as many whole files as fit in 1 MiB; listed in torch-c10-files/index.json; rebuildable bit-identically only with the same torch 2.14.1 wheel",
+      "license": "BSD-3-Clause (PyTorch)",
+      "split": "test (whole file)",
+      "reproducible": false,
+      "size": 1026867,
+      "sha256": "ccdd6e112b0f819a2e4ad3f93e28d8118da8afa41872cea8308f9b276b4f328f"
+    },
+    "ood/c-headers/torch-c10-files/index.json": {
+      "source": "the headers in torch-c10.txt (offset, size, SHA-256)",
+      "license": "BSD-3-Clause (PyTorch)",
+      "split": "test (per-file view of torch-c10.txt)",
+      "index": true,
+      "size": 29273,
+      "sha256": "777f48a9c2984fac8a5e36f3dec65315b2db8ce423d07b9307aa4b64a61b8a41",
+      "reproducible": false
+    }
+  },
+  "suites": {
+    "code": {
+      "code": [
+        "code/networkx.py.txt",
+        "code/pydoc_topics.txt"
+      ]
+    },
+    "standard": {
+      "enwik8": [
+        "enwik8/test.bin"
+      ],
+      "text8": [
+        "text8/test.bin"
+      ],
+      "silesia": [
+        "silesia/dickens",
+        "silesia/mozilla",
+        "silesia/mr",
+        "silesia/nci",
+        "silesia/ooffice",
+        "silesia/osdb",
+        "silesia/reymont",
+        "silesia/samba",
+        "silesia/sao",
+        "silesia/webster",
+        "silesia/x-ray",
+        "silesia/xml"
+      ]
+    },
+    "ood": {
+      "json": [
+        "ood/json/twitter.json",
+        "ood/json/citm_catalog.json",
+        "ood/json/canada.json",
+        "ood/json/github_events.json",
+        "ood/json/update-center.json",
+        "ood/json/apache_builds.json",
+        "ood/json/instruments.json",
+        "ood/json/mesh.json"
+      ],
+      "logs": [
+        "ood/logs/Apache_2k.log",
+        "ood/logs/HDFS_2k.log",
+        "ood/logs/Linux_2k.log",
+        "ood/logs/OpenSSH_2k.log",
+        "ood/logs/Spark_2k.log",
+        "ood/logs/Mac_2k.log"
+      ],
+      "c-headers": [
+        "ood/c-headers/torch-c10.txt"
+      ],
+      "binary": [
+        "silesia/mozilla",
+        "silesia/ooffice",
+        "silesia/sao",
+        "silesia/x-ray",
+        "silesia/mr"
+      ],
+      "non-english": [
+        "silesia/reymont"
+      ]
+    }
+  }
+}

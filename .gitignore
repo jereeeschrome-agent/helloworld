@@ -25,3 +25,15 @@ dist-ssr
 
 # jevzip corpus (python -m jevzip.data --out data)
 /data
+
+# local-only: venv, downloads, training runs, weights (released as GitHub release assets), release staging
+.venv/
+downloads/
+runs/
+weights/
+release/
+__pycache__/
+
+# results/ is tracked in full, logs included (the *.log and logs rules above are for tooling noise)
+!results/**/logs/
+!results/**/*.log

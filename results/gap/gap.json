@@ -1,0 +1,497 @@
+{
+ "meta": {
+  "weights": "weights/jevzip-lanes-11m-code.pt",
+  "weights_sha256": "548d8879cbfd42e6115f432c71f19f306504899676c5a844a27e59d685339684",
+  "threads": 4,
+  "bf16": false,
+  "python": "3.12.13",
+  "torch": "2.14.1",
+  "numpy": "2.5.4",
+  "machine": "macOS-27.2-arm64-arm-64bit",
+  "git_head": "fdfd4b03ecee50e594778e8b9bd7442178ee94e9",
+  "files": {
+   "networkx": {
+    "path": "data/code/networkx.py.txt",
+    "sha256": "97ac83b301c24bde1903b3eb34fb131bb3c36b84acd470fdcbd28f869b0387f4",
+    "n": 1048576
+   },
+   "pydoc_topics": {
+    "path": "data/code/pydoc_topics.txt",
+    "sha256": "5b5a37bce813f6c12f10b00a5cb2b475d3b43ce0ee60f27149002dc8a656a299",
+    "n": 519592
+   }
+  },
+  "command": "nice -n 10 .venv/bin/python results/gap/gap.py run"
+ },
+ "decomposition": [
+  {
+   "file": "networkx",
+   "K": 32,
+   "policy": "new default",
+   "streams": 128,
+   "real_bytes": 183502,
+   "real_bpb": 1.4000091552734375,
+   "oracle_ce_bytes": 181734.40244277823,
+   "oracle_ce_bpb": 1.3865234561369189,
+   "gap_pct": 0.9726268298476448,
+   "parts_bytes": {
+    "header_and_rans_bytes": 39.67869178869296,
+    "quantization_bytes": -3.8629705458297394,
+    "chain_start_bytes": 1731.781835978909
+   },
+   "parts_pct_of_oracle": {
+    "header_and_rans_bytes": 0.021833340993974094,
+    "quantization_bytes": -0.0021256132542356986,
+    "chain_start_bytes": 0.9529191021079161
+   }
+  },
+  {
+   "file": "networkx",
+   "K": 32,
+   "policy": "old default (blocks//8)",
+   "streams": 256,
+   "real_bytes": 185154,
+   "real_bpb": 1.4126129150390625,
+   "oracle_ce_bytes": 181734.40244277823,
+   "oracle_ce_bpb": 1.3865234561369189,
+   "gap_pct": 1.881645693527112,
+   "parts_bytes": {
+    "header_and_rans_bytes": 39.32944969207165,
+    "quantization_bytes": -4.584731584676774,
+    "chain_start_bytes": 3384.8528391143773
+   },
+   "parts_pct_of_oracle": {
+    "header_and_rans_bytes": 0.021641169290693384,
+    "quantization_bytes": -0.0025227648277107825,
+    "chain_start_bytes": 1.8625272890641322
+   }
+  },
+  {
+   "file": "networkx",
+   "K": 128,
+   "policy": "new default",
+   "streams": 128,
+   "real_bytes": 160494,
+   "real_bpb": 1.2244720458984375,
+   "oracle_ce_bytes": 158762.71628674836,
+   "oracle_ce_bpb": 1.2112633994045132,
+   "gap_pct": 1.0904850671140442,
+   "parts_bytes": {
+    "header_and_rans_bytes": 39.11764858337119,
+    "quantization_bytes": -3.7868384085886646,
+    "chain_start_bytes": 1695.9529030768608
+   },
+   "parts_pct_of_oracle": {
+    "header_and_rans_bytes": 0.02463906482471557,
+    "quantization_bytes": -0.0023852189589330837,
+    "chain_start_bytes": 1.0682312212482719
+   }
+  },
+  {
+   "file": "networkx",
+   "K": 128,
+   "policy": "old default (blocks//8)",
+   "streams": 256,
+   "real_bytes": 162102,
+   "real_bpb": 1.2367401123046875,
+   "oracle_ce_bytes": 158762.71628674836,
+   "oracle_ce_bpb": 1.2112633994045132,
+   "gap_pct": 2.1033173224501933,
+   "parts_bytes": {
+    "header_and_rans_bytes": 41.39969824717264,
+    "quantization_bytes": -5.021173114742851,
+    "chain_start_bytes": 3302.9051881192136
+   },
+   "parts_pct_of_oracle": {
+    "header_and_rans_bytes": 0.026076461284775962,
+    "quantization_bytes": -0.00316269035462576,
+    "chain_start_bytes": 2.08040355152005
+   }
+  },
+  {
+   "file": "pydoc_topics",
+   "K": 32,
+   "policy": "new default",
+   "streams": 113,
+   "real_bytes": 97454,
+   "real_bpb": 1.5004695992240065,
+   "oracle_ce_bytes": 96142.13507350221,
+   "oracle_ce_bpb": 1.4802712139294247,
+   "gap_pct": 1.3645057138525596,
+   "parts_bytes": {
+    "header_and_rans_bytes": 38.88078264637443,
+    "quantization_bytes": -16.1744943108788,
+    "chain_start_bytes": 1289.158638162291
+   },
+   "parts_pct_of_oracle": {
+    "header_and_rans_bytes": 0.04044093946597862,
+    "quantization_bytes": -0.016823523108274157,
+    "chain_start_bytes": 1.3408882974948584
+   }
+  },
+  {
+   "file": "pydoc_topics",
+   "K": 32,
+   "policy": "old default (blocks//8)",
+   "streams": 126,
+   "real_bytes": 97474,
+   "real_bpb": 1.500777533141388,
+   "oracle_ce_bytes": 96142.13507350221,
+   "oracle_ce_bpb": 1.4802712139294247,
+   "gap_pct": 1.3853082475020484,
+   "parts_bytes": {
+    "header_and_rans_bytes": 41.30501687662036,
+    "quantization_bytes": -15.93702688794292,
+    "chain_start_bytes": 1306.4969365091092
+   },
+   "parts_pct_of_oracle": {
+    "header_and_rans_bytes": 0.04296245017342501,
+    "quantization_bytes": -0.016576526905460135,
+    "chain_start_bytes": 1.3589223242340844
+   }
+  },
+  {
+   "file": "pydoc_topics",
+   "K": 128,
+   "policy": "new default",
+   "streams": 113,
+   "real_bytes": 87014,
+   "real_bpb": 1.3397280943509522,
+   "oracle_ce_bytes": 85790.88981913865,
+   "oracle_ce_bpb": 1.3208962388818712,
+   "gap_pct": 1.4256877198031814,
+   "parts_bytes": {
+    "header_and_rans_bytes": 39.337574126402615,
+    "quantization_bytes": -20.413803112271125,
+    "chain_start_bytes": 1204.1864098472142
+   },
+   "parts_pct_of_oracle": {
+    "header_and_rans_bytes": 0.045852857114936925,
+    "quantization_bytes": -0.023794837838034773,
+    "chain_start_bytes": 1.4036297005262888
+   }
+  },
+  {
+   "file": "pydoc_topics",
+   "K": 128,
+   "policy": "old default (blocks//8)",
+   "streams": 126,
+   "real_bytes": 87062,
+   "real_bpb": 1.3404671357526674,
+   "oracle_ce_bytes": 85790.88981913865,
+   "oracle_ce_bpb": 1.3208962388818712,
+   "gap_pct": 1.4816377164767136,
+   "parts_bytes": {
+    "header_and_rans_bytes": 39.15054302025237,
+    "quantization_bytes": -19.93094123795163,
+    "chain_start_bytes": 1251.890579079045
+   },
+   "parts_pct_of_oracle": {
+    "header_and_rans_bytes": 0.045634848994792074,
+    "quantization_bytes": -0.02323200199924414,
+    "chain_start_bytes": 1.4592348694811732
+   }
+  }
+ ],
+ "streams_sweep": [
+  {
+   "file": "networkx",
+   "K": 32,
+   "streams": 1,
+   "depth": 2048,
+   "calls": 65536,
+   "start_blocks": 1,
+   "real_bytes": 181770,
+   "real_bpb": 1.3867950439453125,
+   "over_oracle_pct": 0.01958768221277385,
+   "seconds_provisional": 726.5
+  },
+  {
+   "file": "networkx",
+   "K": 32,
+   "streams": 16,
+   "depth": 128,
+   "calls": 4096,
+   "start_blocks": 16,
+   "real_bytes": 181954,
+   "real_bpb": 1.3881988525390625,
+   "over_oracle_pct": 0.12083433531024923,
+   "seconds_provisional": 327.5
+  },
+  {
+   "file": "networkx",
+   "K": 32,
+   "streams": 2048,
+   "depth": 1,
+   "calls": 512,
+   "start_blocks": 2048,
+   "real_bytes": 209854,
+   "real_bpb": 1.6010589599609375,
+   "over_oracle_pct": 15.472908364763605,
+   "seconds_provisional": 167.4
+  },
+  {
+   "file": "networkx",
+   "K": 32,
+   "streams": 64,
+   "depth": 32,
+   "calls": 1024,
+   "start_blocks": 64,
+   "real_bytes": 182630,
+   "real_bpb": 1.3933563232421875,
+   "over_oracle_pct": 0.49280573473355904,
+   "seconds_provisional": 188.6
+  },
+  {
+   "file": "networkx",
+   "K": 32,
+   "streams": 128,
+   "depth": 16,
+   "calls": 512,
+   "start_blocks": 128,
+   "real_bytes": 183502,
+   "real_bpb": 1.4000091552734375,
+   "over_oracle_pct": 0.9726268298476448,
+   "seconds_provisional": 210.3
+  },
+  {
+   "file": "networkx",
+   "K": 32,
+   "streams": 256,
+   "depth": 8,
+   "calls": 512,
+   "start_blocks": 256,
+   "real_bytes": 185154,
+   "real_bpb": 1.4126129150390625,
+   "over_oracle_pct": 1.881645693527112,
+   "seconds_provisional": 215.4
+  },
+  {
+   "file": "networkx",
+   "K": 128,
+   "streams": 2048,
+   "depth": 1,
+   "calls": 2048,
+   "start_blocks": 2048,
+   "real_bytes": 186166,
+   "real_bpb": 1.4203338623046875,
+   "over_oracle_pct": 17.260528387381168,
+   "seconds_provisional": 496.4
+  },
+  {
+   "file": "networkx",
+   "K": 128,
+   "streams": 128,
+   "depth": 16,
+   "calls": 2048,
+   "start_blocks": 128,
+   "real_bytes": 160494,
+   "real_bpb": 1.2244720458984375,
+   "over_oracle_pct": 1.0904850671140442,
+   "seconds_provisional": 499.9
+  },
+  {
+   "file": "networkx",
+   "K": 128,
+   "streams": 256,
+   "depth": 8,
+   "calls": 2048,
+   "start_blocks": 256,
+   "real_bytes": 162102,
+   "real_bpb": 1.2367401123046875,
+   "over_oracle_pct": 2.1033173224501933,
+   "seconds_provisional": 384.4
+  },
+  {
+   "file": "pydoc_topics",
+   "K": 32,
+   "streams": 113,
+   "depth": 9,
+   "calls": 320,
+   "start_blocks": 113,
+   "real_bytes": 97454,
+   "real_bpb": 1.5004695992240065,
+   "over_oracle_pct": 1.3645057138525596,
+   "seconds_provisional": 122.4
+  },
+  {
+   "file": "pydoc_topics",
+   "K": 32,
+   "streams": 126,
+   "depth": 9,
+   "calls": 320,
+   "start_blocks": 126,
+   "real_bytes": 97474,
+   "real_bpb": 1.500777533141388,
+   "over_oracle_pct": 1.3853082475020484,
+   "seconds_provisional": 126.5
+  },
+  {
+   "file": "pydoc_topics",
+   "K": 128,
+   "streams": 113,
+   "depth": 9,
+   "calls": 1280,
+   "start_blocks": 113,
+   "real_bytes": 87014,
+   "real_bpb": 1.3397280943509522,
+   "over_oracle_pct": 1.4256877198031814,
+   "seconds_provisional": 280.4
+  },
+  {
+   "file": "pydoc_topics",
+   "K": 128,
+   "streams": 126,
+   "depth": 9,
+   "calls": 1280,
+   "start_blocks": 126,
+   "real_bytes": 87062,
+   "real_bpb": 1.3404671357526674,
+   "over_oracle_pct": 1.4816377164767136,
+   "seconds_provisional": 238.4
+  }
+ ],
+ "evalk": [
+  {
+   "file": "networkx",
+   "K": 32,
+   "bf16": true,
+   "windows": 64,
+   "bpb": 1.3659625351428986,
+   "seconds": 80.0,
+   "oracle_ce_bpb": 1.3865234561369189,
+   "evalk_vs_oracle_pct": -1.482911875959636
+  },
+  {
+   "file": "networkx",
+   "K": 32,
+   "bf16": false,
+   "windows": 64,
+   "bpb": 1.365907609462738,
+   "seconds": 5.1,
+   "oracle_ce_bpb": 1.3865234561369189,
+   "evalk_vs_oracle_pct": -1.4868732716300292
+  },
+  {
+   "file": "networkx",
+   "K": 128,
+   "bf16": true,
+   "windows": 64,
+   "bpb": 1.1867523789405823,
+   "seconds": 81.9,
+   "oracle_ce_bpb": 1.2112633994045132,
+   "evalk_vs_oracle_pct": -2.023591274695591
+  },
+  {
+   "file": "networkx",
+   "K": 128,
+   "bf16": false,
+   "windows": 64,
+   "bpb": 1.1866673827171326,
+   "seconds": 4.6,
+   "oracle_ce_bpb": 1.2112633994045132,
+   "evalk_vs_oracle_pct": -2.0306084291387583
+  }
+ ],
+ "bootstrap": [
+  {
+   "file": "networkx",
+   "K": 32,
+   "windows": 64,
+   "blocks": 2048,
+   "full_file_bpb": 1.386523456136919,
+   "mean": 1.38709030335828,
+   "std": 0.040590304464520666,
+   "std_pct": 2.927487759753584,
+   "p2_5": 1.3101357557405158,
+   "p97_5": 1.4703007967348143
+  },
+  {
+   "file": "networkx",
+   "K": 128,
+   "windows": 64,
+   "blocks": 2048,
+   "full_file_bpb": 1.2112633994045132,
+   "mean": 1.2125343502871395,
+   "std": 0.03992517631073253,
+   "std_pct": 3.2961597230099353,
+   "p2_5": 1.1355495480705653,
+   "p97_5": 1.294224051781645
+  },
+  {
+   "file": "pydoc_topics",
+   "K": 32,
+   "windows": 64,
+   "blocks": 1015,
+   "full_file_bpb": 1.4802551743985863,
+   "mean": 1.4801382904041964,
+   "std": 0.03444871935493879,
+   "std_pct": 2.3272149255573438,
+   "p2_5": 1.409788007472412,
+   "p97_5": 1.5454556123843946
+  },
+  {
+   "file": "pydoc_topics",
+   "K": 128,
+   "windows": 64,
+   "blocks": 1015,
+   "full_file_bpb": 1.3208783531085655,
+   "mean": 1.3209581270498774,
+   "std": 0.03280533220948672,
+   "std_pct": 2.483599805559868,
+   "p2_5": 1.2552662857384838,
+   "p97_5": 1.38302887276183
+  }
+ ],
+ "observed_gap": [
+  {
+   "file": "networkx",
+   "K": 32,
+   "evalk_bf16_bpb": 1.3659625351428986,
+   "real_bpb": 1.4126129150390625,
+   "gap_pct": 3.415202005616047,
+   "steps_bpb": {
+    "evalk bf16 -> fp32": -5.492568016052246e-05,
+    "64-window sample -> full file (oracle CE)": 0.020615846674180816,
+    "chain starts (256 chains)": 0.025824377739825266,
+    "quantization": -3.497872607938213e-05,
+    "header + rANS flush": 0.00030005988839776343
+   },
+   "steps_pct_of_evalk": {
+    "evalk bf16 -> fp32": -0.00402102391152159,
+    "64-window sample -> full file (oracle CE)": 1.5092541811202833,
+    "chain starts (256 chains)": 1.8905626673811868,
+    "quantization": -0.002560738320375886,
+    "header + rANS flush": 0.02196691934646458
+   }
+  },
+  {
+   "file": "networkx",
+   "K": 128,
+   "evalk_bf16_bpb": 1.1867523789405823,
+   "real_bpb": 1.2367401123046875,
+   "gap_pct": 4.21214519988824,
+   "steps_bpb": {
+    "evalk bf16 -> fp32": -8.499622344970703e-05,
+    "64-window sample -> full file (oracle CE)": 0.02459601668738065,
+    "chain starts (256 chains)": 0.02519916677947398,
+    "quantization": -3.8308510702078635e-05,
+    "header + rANS flush": 0.0003158546314023791
+   },
+   "steps_pct_of_evalk": {
+    "evalk bf16 -> fp32": -0.007162085786217967,
+    "64-window sample -> full file (oracle CE)": 2.072548336438777,
+    "chain starts (256 chains)": 2.1233719204312327,
+    "quantization": -0.003228012126360915,
+    "header + rANS flush": 0.026615040930808465
+   }
+  }
+ ],
+ "cross_entropy_check": {
+  "K": 32,
+  "cross_entropy_bits": 1453875.2195422258,
+  "codelength_oracle_bits": 1453875.2195422258,
+  "rel_diff": 0.0,
+  "calls": 512
+ }
+}

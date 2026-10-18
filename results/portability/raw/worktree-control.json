@@ -1,0 +1,109 @@
+{
+ "tag": "worktree-control",
+ "command": "/Users/agent/helloworld-jevzip/.venv/bin/python tools/portability.py run --ref-cache /private/tmp/claude-502/-Users-agent-helloworld/264cf11b-ad26-46ff-9f2a-33afb5990d45/scratchpad/agent-g/refcache --tag worktree-control --cases k32-fp32 --variants control",
+ "started": "2026-10-18 13:44:27 +0300",
+ "platform": {
+  "python": "3.12.13",
+  "torch": "2.14.1",
+  "numpy": "2.5.4",
+  "os": "macOS-27.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "cpu": "Apple M4 Pro",
+  "blas": "?",
+  "cpu_capability": "DEFAULT",
+  "mps_available": true
+ },
+ "code": {
+  "pkg": "/Users/agent/helloworld-jevzip/jevzip",
+  "codec.py": "8bfdbcc9c655d1816b4c7adc3e70bbfb413b5e88e25c0f4401f2d6f1a2262a0e",
+  "model.py": "3a15f759e321beee9565850e54375eda67a1d07fc11d936da8de4955e6400566",
+  "rans.py": "208600c9b005161eb7e9a2fb40dd5a5c2f6a33efaa4fd929d0e117628ab79c5c",
+  "schedule.py": "760c1b6aec2cd37117bbeb9875e66dd6416a723554405cd723236ccd72d8443e"
+ },
+ "inputs": {
+  "weights/jevzip-lanes-11m-code.pt": "548d8879cbfd42e6115f432c71f19f306504899676c5a844a27e59d685339684",
+  "runs/ref/networkx-64k.bin": "8a54b455d9196822d82ecbeb030f0947605855e9bc88ff690ef5ee5baaae51e1",
+  "runs/ref/networkx-64k-k32-fp32-t4.jz": "697c61df4ccba01847aec2902813f176e11bede009a698c059d5ca22daa8583e"
+ },
+ "runs": [
+  {
+   "case": "k32-fp32",
+   "variant": "control",
+   "threads": 4,
+   "device": "cpu",
+   "bf16": false,
+   "header": {
+    "n": 65536,
+    "rounds": 32,
+    "streams": 16,
+    "threads": 4,
+    "bf16": 0
+   },
+   "code_bytes_at_bits": {
+    "24": 10293.53174478164,
+    "20": 10294.272372386746,
+    "16": 10320.714039479704,
+    "14": 10430.374365970098,
+    "12": 10926.155663894708,
+    "10": 13319.659342097108
+   },
+   "teacher_forced": {
+    "calls": 256,
+    "rows": 65536,
+    "cdf_entries_differ": 0,
+    "rows_differ": 0,
+    "rows_bitwise_equal": 65536,
+    "interval_mismatches": 0,
+    "first_interval_mismatch": null,
+    "max_abs_dp": 0.0,
+    "first_call": {
+     "rows": 256,
+     "cdf_entries_differ_frac": 0.0,
+     "max_abs_dp": 0.0
+    },
+    "coarser": {
+     "24": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "20": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "16": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "14": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "12": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "10": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     }
+    },
+    "cdf_entries_differ_frac": 0.0,
+    "rows_differ_frac": 0.0,
+    "rows_bitwise_equal_frac": 1.0,
+    "mean_abs_dp": 0.0,
+    "encode_identical": true,
+    "seconds": 29.48
+   },
+   "decode": {
+    "ok": true,
+    "seconds": 27.05,
+    "symbols_decoded": 65536,
+    "of": 65536,
+    "wrong_bytes_seen": 0,
+    "first_wrong": null,
+    "outcome": "ok"
+   }
+  }
+ ],
+ "finished": "2026-10-18 13:45:24 +0300"
+}

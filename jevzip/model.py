@@ -14,6 +14,7 @@ The head scores the closed set of 256 byte values against tied option
 embeddings - a typed decision per slot instead of free-form generation.
 """
 from dataclasses import asdict, dataclass
+from functools import lru_cache
 
 import torch
 import torch.nn as nn
@@ -34,7 +35,7 @@ class Config:
     n_heads: int = 4
     ff_mult: int = 4
     first: int = 8  # size of the first decoding group
-    order: str = "bitrev"  # reveal order, see schedule.filtered_order
+    order: str = "lanes"  # reveal order: "lanes" or "linear", see schedule.reveal_plan
 
     @property
     def seq(self) -> int:
@@ -55,6 +56,23 @@ def _rotate(x, rot):
     cos, sin = rot
     x1, x2 = x.float().chunk(2, -1)
     return torch.cat([x1 * cos - x2 * sin, x1 * sin + x2 * cos], -1).to(x.dtype)
+
+
+@lru_cache(maxsize=2048)
+def step_masks(n: int, past: int, slots: int | None, device: torch.device):
+    """Attention masks of one incremental step: (content (n, past+n), slots (slots, past+n+slots) or None).
+
+    New content row i sees cached keys and new keys up to past + i; a slot sees all
+    content plus its own key, never other slots. Built on `device` (an op mixing
+    devices fails on GPUs) and cached per shape: every layer of a step and every
+    block batch with the same schedule reuse them, saving ~5 small kernel launches
+    per layer. Treat them as read-only."""
+    t = past + n
+    causal = torch.ones(n, t, dtype=torch.bool, device=device).tril(past)
+    if slots is None:
+        return causal, None
+    ones = torch.ones(slots, t, dtype=torch.bool, device=device)
+    return causal, torch.cat([ones, torch.eye(slots, dtype=torch.bool, device=device)], -1)
 
 
 class KVCache:
@@ -126,19 +144,17 @@ class Layer(nn.Module):
 
     def step(self, cache, h, g, rh, rg):
         """Incremental path: append new content h to the KV cache, then score slots g against all of it."""
-        b, n, _ = h.shape
+        n = h.shape[1]
+        causal, slots = step_masks(n, cache.n, None if g is None else g.shape[1], h.device)
         qh, kh, vh = self._qkv(h, rh)
         kh, vh = cache.extend(kh, vh)
-        past = kh.shape[2] - n
-        allow = torch.ones(n, past + n, dtype=torch.bool).tril(past)
-        h = h + self.proj(self._merge(F.scaled_dot_product_attention(qh, kh, vh, attn_mask=allow)))
+        h = h + self.proj(self._merge(F.scaled_dot_product_attention(qh, kh, vh, attn_mask=causal)))
         h = h + self.ff(self.ln2(h))
         if g is None:
             return h, None
         qg, kg, vg = self._qkv(g, rg)
         k_all, v_all = cache.scratch(kg, vg)
-        mask = self._slot_mask(torch.ones(qg.shape[2], kh.shape[2], dtype=torch.bool), qg.shape[2])
-        g = g + self.proj(self._merge(F.scaled_dot_product_attention(qg, k_all, v_all, attn_mask=mask)))
+        g = g + self.proj(self._merge(F.scaled_dot_product_attention(qg, k_all, v_all, attn_mask=slots)))
         return h, g + self.ff(self.ln2(g))
 
 

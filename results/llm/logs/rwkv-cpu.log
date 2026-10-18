@@ -1,0 +1,11 @@
+W1018 13:01:43.469000 6641 torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+Loading weights:   0%|          | 0/222 [00:00<?, ?it/s]Loading weights: 100%|██████████| 222/222 [00:00<00:00, 32150.25it/s]
+data/enwik8/test.bin: rwkv-169m stream 5,000,000 B 1,387,065 tok 685,512 B  1.0968 bpb  1978 s  701 tok/s
+data/code/networkx.py.txt: rwkv-169m stream 1,048,576 B 307,586 tok 108,312 B  0.8264 bpb  330 s  932 tok/s
+data/code/pydoc_topics.txt: rwkv-169m stream 519,592 B 128,248 tok 56,441 B  0.8690 bpb  136 s  940 tok/s
+W1018 13:42:36.538000 9830 torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+Loading weights:   0%|          | 0/222 [00:00<?, ?it/s]Loading weights: 100%|██████████| 222/222 [00:00<00:00, 38777.92it/s]
+data/enwik8/test.bin: rwkv-169m chunks 5,000,000 B 1,389,492 tok 699,255 B  1.1188 bpb  1087 s  1,278 tok/s
+results/llm/logs/rwkv-cpu.sh: line 9: 11132 Terminated: 15          $P $F --method window --window 1024 --stride 512 --batch 2 --json results/llm/runs/rwkv-169m-window-cpu.json
+done
+Sun Oct 18 14:01:28 EEST 2026 note: window step cancelled on CPU by results/llm/logs/skip-cpu-window.sh (machine contended, would exceed the 2 h CPU budget); runs on MPS via runs/pending/40-llm.sh

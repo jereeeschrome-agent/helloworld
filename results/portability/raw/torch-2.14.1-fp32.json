@@ -1,0 +1,832 @@
+{
+ "tag": "torch-2.14.1-fp32",
+ "command": "/Users/agent/helloworld-jevzip/.venv/bin/python tools/portability.py run --pkg-root /private/tmp/claude-502/-Users-agent-helloworld/264cf11b-ad26-46ff-9f2a-33afb5990d45/scratchpad/agent-g/headpkg --ref-cache /private/tmp/claude-502/-Users-agent-helloworld/264cf11b-ad26-46ff-9f2a-33afb5990d45/scratchpad/agent-g/refcache --tag torch-2.14.1-fp32 --cases k32-fp32,k128-fp32 --variants control,t1,t2,t8,cross",
+ "started": "2026-10-18 13:00:18 +0300",
+ "platform": {
+  "python": "3.12.13",
+  "torch": "2.14.1",
+  "numpy": "2.5.4",
+  "os": "macOS-27.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "cpu": "Apple M4 Pro",
+  "blas": "?",
+  "cpu_capability": "DEFAULT",
+  "mps_available": true
+ },
+ "code": {
+  "pkg": "/private/tmp/claude-502/-Users-agent-helloworld/264cf11b-ad26-46ff-9f2a-33afb5990d45/scratchpad/agent-g/headpkg/jevzip",
+  "codec.py": "88b8fdddb75ba2aa60c433319d3b95c6f95058cc2541534bd98dc7fd5fd141b1",
+  "model.py": "47128c3fa1fcec94c6ca89603a3d5a8fd5f5b746d392598ed008bfd211fe5000",
+  "rans.py": "208600c9b005161eb7e9a2fb40dd5a5c2f6a33efaa4fd929d0e117628ab79c5c",
+  "schedule.py": "760c1b6aec2cd37117bbeb9875e66dd6416a723554405cd723236ccd72d8443e"
+ },
+ "inputs": {
+  "weights/jevzip-lanes-11m-code.pt": "548d8879cbfd42e6115f432c71f19f306504899676c5a844a27e59d685339684",
+  "runs/ref/networkx-64k.bin": "8a54b455d9196822d82ecbeb030f0947605855e9bc88ff690ef5ee5baaae51e1",
+  "runs/ref/networkx-64k-k32-fp32-t4.jz": "697c61df4ccba01847aec2902813f176e11bede009a698c059d5ca22daa8583e",
+  "runs/ref/networkx-64k-k128-fp32-t4.jz": "7e03b604e2f6267c08fa13446e0bda8e64764b5002f246d3b61e969f1768883a"
+ },
+ "runs": [
+  {
+   "case": "k32-fp32",
+   "variant": "control",
+   "threads": 4,
+   "device": "cpu",
+   "bf16": false,
+   "header": {
+    "n": 65536,
+    "rounds": 32,
+    "streams": 16,
+    "threads": 4,
+    "bf16": 0
+   },
+   "code_bytes_at_bits": {
+    "24": 10293.53174478164,
+    "20": 10294.272372386746,
+    "16": 10320.714039479704,
+    "14": 10430.374365970098,
+    "12": 10926.155663894708,
+    "10": 13319.659342097108
+   },
+   "teacher_forced": {
+    "calls": 256,
+    "rows": 65536,
+    "cdf_entries_differ": 0,
+    "rows_differ": 0,
+    "rows_bitwise_equal": 65536,
+    "interval_mismatches": 0,
+    "first_interval_mismatch": null,
+    "max_abs_dp": 0.0,
+    "first_call": {
+     "rows": 256,
+     "cdf_entries_differ_frac": 0.0,
+     "max_abs_dp": 0.0
+    },
+    "coarser": {
+     "24": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "20": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "16": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "14": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "12": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "10": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     }
+    },
+    "cdf_entries_differ_frac": 0.0,
+    "rows_differ_frac": 0.0,
+    "rows_bitwise_equal_frac": 1.0,
+    "mean_abs_dp": 0.0,
+    "encode_identical": true,
+    "seconds": 22.3
+   },
+   "decode": {
+    "ok": true,
+    "seconds": 27.44,
+    "symbols_decoded": 65536,
+    "of": 65536,
+    "wrong_bytes_seen": 0,
+    "first_wrong": null,
+    "outcome": "ok"
+   }
+  },
+  {
+   "case": "k32-fp32",
+   "variant": "t1",
+   "threads": 1,
+   "device": "cpu",
+   "bf16": false,
+   "header": {
+    "n": 65536,
+    "rounds": 32,
+    "streams": 16,
+    "threads": 4,
+    "bf16": 0
+   },
+   "code_bytes_at_bits": {
+    "24": 10293.53174478164,
+    "20": 10294.272372386746,
+    "16": 10320.714039479704,
+    "14": 10430.374365970098,
+    "12": 10926.155663894708,
+    "10": 13319.659342097108
+   },
+   "teacher_forced": {
+    "calls": 256,
+    "rows": 65536,
+    "cdf_entries_differ": 0,
+    "rows_differ": 0,
+    "rows_bitwise_equal": 65536,
+    "interval_mismatches": 0,
+    "first_interval_mismatch": null,
+    "max_abs_dp": 0.0,
+    "first_call": {
+     "rows": 256,
+     "cdf_entries_differ_frac": 0.0,
+     "max_abs_dp": 0.0
+    },
+    "coarser": {
+     "24": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "20": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "16": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "14": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "12": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "10": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     }
+    },
+    "cdf_entries_differ_frac": 0.0,
+    "rows_differ_frac": 0.0,
+    "rows_bitwise_equal_frac": 1.0,
+    "mean_abs_dp": 0.0,
+    "encode_identical": true,
+    "seconds": 31.1
+   },
+   "decode": {
+    "ok": true,
+    "seconds": 28.81,
+    "symbols_decoded": 65536,
+    "of": 65536,
+    "wrong_bytes_seen": 0,
+    "first_wrong": null,
+    "outcome": "ok"
+   }
+  },
+  {
+   "case": "k32-fp32",
+   "variant": "t2",
+   "threads": 2,
+   "device": "cpu",
+   "bf16": false,
+   "header": {
+    "n": 65536,
+    "rounds": 32,
+    "streams": 16,
+    "threads": 4,
+    "bf16": 0
+   },
+   "code_bytes_at_bits": {
+    "24": 10293.53174478164,
+    "20": 10294.272372386746,
+    "16": 10320.714039479704,
+    "14": 10430.374365970098,
+    "12": 10926.155663894708,
+    "10": 13319.659342097108
+   },
+   "teacher_forced": {
+    "calls": 256,
+    "rows": 65536,
+    "cdf_entries_differ": 0,
+    "rows_differ": 0,
+    "rows_bitwise_equal": 65536,
+    "interval_mismatches": 0,
+    "first_interval_mismatch": null,
+    "max_abs_dp": 0.0,
+    "first_call": {
+     "rows": 256,
+     "cdf_entries_differ_frac": 0.0,
+     "max_abs_dp": 0.0
+    },
+    "coarser": {
+     "24": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "20": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "16": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "14": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "12": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "10": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     }
+    },
+    "cdf_entries_differ_frac": 0.0,
+    "rows_differ_frac": 0.0,
+    "rows_bitwise_equal_frac": 1.0,
+    "mean_abs_dp": 0.0,
+    "encode_identical": true,
+    "seconds": 39.42
+   },
+   "decode": {
+    "ok": true,
+    "seconds": 36.4,
+    "symbols_decoded": 65536,
+    "of": 65536,
+    "wrong_bytes_seen": 0,
+    "first_wrong": null,
+    "outcome": "ok"
+   }
+  },
+  {
+   "case": "k32-fp32",
+   "variant": "t8",
+   "threads": 8,
+   "device": "cpu",
+   "bf16": false,
+   "header": {
+    "n": 65536,
+    "rounds": 32,
+    "streams": 16,
+    "threads": 4,
+    "bf16": 0
+   },
+   "code_bytes_at_bits": {
+    "24": 10293.53174478164,
+    "20": 10294.272372386746,
+    "16": 10320.714039479704,
+    "14": 10430.374365970098,
+    "12": 10926.155663894708,
+    "10": 13319.659342097108
+   },
+   "teacher_forced": {
+    "calls": 256,
+    "rows": 65536,
+    "cdf_entries_differ": 0,
+    "rows_differ": 0,
+    "rows_bitwise_equal": 65536,
+    "interval_mismatches": 0,
+    "first_interval_mismatch": null,
+    "max_abs_dp": 0.0,
+    "first_call": {
+     "rows": 256,
+     "cdf_entries_differ_frac": 0.0,
+     "max_abs_dp": 0.0
+    },
+    "coarser": {
+     "24": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "20": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "16": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "14": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "12": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "10": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     }
+    },
+    "cdf_entries_differ_frac": 0.0,
+    "rows_differ_frac": 0.0,
+    "rows_bitwise_equal_frac": 1.0,
+    "mean_abs_dp": 0.0,
+    "encode_identical": true,
+    "seconds": 33.3
+   },
+   "decode": {
+    "ok": true,
+    "seconds": 30.06,
+    "symbols_decoded": 65536,
+    "of": 65536,
+    "wrong_bytes_seen": 0,
+    "first_wrong": null,
+    "outcome": "ok"
+   }
+  },
+  {
+   "case": "k32-fp32",
+   "variant": "cross",
+   "threads": 4,
+   "device": "cpu",
+   "bf16": true,
+   "header": {
+    "n": 65536,
+    "rounds": 32,
+    "streams": 16,
+    "threads": 4,
+    "bf16": 0
+   },
+   "code_bytes_at_bits": {
+    "24": 10293.53174478164,
+    "20": 10294.272372386746,
+    "16": 10320.714039479704,
+    "14": 10430.374365970098,
+    "12": 10926.155663894708,
+    "10": 13319.659342097108
+   },
+   "teacher_forced": {
+    "calls": 256,
+    "rows": 65536,
+    "cdf_entries_differ": 8353424,
+    "rows_differ": 62914,
+    "rows_bitwise_equal": 0,
+    "interval_mismatches": 62715,
+    "first_interval_mismatch": {
+     "decode_index": 0,
+     "offset": 0,
+     "call": 0
+    },
+    "max_abs_dp": 0.04810994863510132,
+    "first_call": {
+     "rows": 256,
+     "cdf_entries_differ_frac": 0.8049019607843138,
+     "max_abs_dp": 0.00042819976806640625
+    },
+    "coarser": {
+     "24": {
+      "rows_differ": 62914,
+      "interval_mismatches": 62715
+     },
+     "20": {
+      "rows_differ": 58081,
+      "interval_mismatches": 57836
+     },
+     "16": {
+      "rows_differ": 50702,
+      "interval_mismatches": 50323
+     },
+     "14": {
+      "rows_differ": 46182,
+      "interval_mismatches": 45275
+     },
+     "12": {
+      "rows_differ": 40709,
+      "interval_mismatches": 38390
+     },
+     "10": {
+      "rows_differ": 30988,
+      "interval_mismatches": 26082
+     }
+    },
+    "cdf_entries_differ_frac": 0.4998554304534314,
+    "rows_differ_frac": 0.959991455078125,
+    "rows_bitwise_equal_frac": 0.0,
+    "mean_abs_dp": 1.1680812593094616e-05,
+    "encode_identical": false,
+    "seconds": 121.42
+   },
+   "decode": {
+    "ok": false,
+    "seconds": 108.08,
+    "symbols_decoded": 55986,
+    "of": 65536,
+    "wrong_bytes_seen": 50905,
+    "first_wrong": {
+     "decode_index": 1,
+     "offset": 32,
+     "block": 0,
+     "in_block": 32
+    },
+    "error": "ValueError: rANS stream exhausted: decoder diverged or stream is truncated",
+    "outcome": "rANS stream exhausted"
+   }
+  },
+  {
+   "case": "k128-fp32",
+   "variant": "control",
+   "threads": 4,
+   "device": "cpu",
+   "bf16": false,
+   "header": {
+    "n": 65536,
+    "rounds": 128,
+    "streams": 16,
+    "threads": 4,
+    "bf16": 0
+   },
+   "code_bytes_at_bits": {
+    "24": 8845.13665685494,
+    "20": 8845.847703146374,
+    "16": 8872.407761856102,
+    "14": 8984.416293361577,
+    "12": 9486.833175567004,
+    "10": 11904.129788173212
+   },
+   "teacher_forced": {
+    "calls": 1024,
+    "rows": 65536,
+    "cdf_entries_differ": 0,
+    "rows_differ": 0,
+    "rows_bitwise_equal": 65536,
+    "interval_mismatches": 0,
+    "first_interval_mismatch": null,
+    "max_abs_dp": 0.0,
+    "first_call": {
+     "rows": 64,
+     "cdf_entries_differ_frac": 0.0,
+     "max_abs_dp": 0.0
+    },
+    "coarser": {
+     "24": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "20": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "16": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "14": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "12": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "10": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     }
+    },
+    "cdf_entries_differ_frac": 0.0,
+    "rows_differ_frac": 0.0,
+    "rows_bitwise_equal_frac": 1.0,
+    "mean_abs_dp": 0.0,
+    "encode_identical": true,
+    "seconds": 38.06
+   },
+   "decode": {
+    "ok": true,
+    "seconds": 37.8,
+    "symbols_decoded": 65536,
+    "of": 65536,
+    "wrong_bytes_seen": 0,
+    "first_wrong": null,
+    "outcome": "ok"
+   }
+  },
+  {
+   "case": "k128-fp32",
+   "variant": "t1",
+   "threads": 1,
+   "device": "cpu",
+   "bf16": false,
+   "header": {
+    "n": 65536,
+    "rounds": 128,
+    "streams": 16,
+    "threads": 4,
+    "bf16": 0
+   },
+   "code_bytes_at_bits": {
+    "24": 8845.13665685494,
+    "20": 8845.847703146374,
+    "16": 8872.407761856102,
+    "14": 8984.416293361577,
+    "12": 9486.833175567004,
+    "10": 11904.129788173212
+   },
+   "teacher_forced": {
+    "calls": 1024,
+    "rows": 65536,
+    "cdf_entries_differ": 0,
+    "rows_differ": 0,
+    "rows_bitwise_equal": 65536,
+    "interval_mismatches": 0,
+    "first_interval_mismatch": null,
+    "max_abs_dp": 0.0,
+    "first_call": {
+     "rows": 64,
+     "cdf_entries_differ_frac": 0.0,
+     "max_abs_dp": 0.0
+    },
+    "coarser": {
+     "24": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "20": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "16": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "14": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "12": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "10": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     }
+    },
+    "cdf_entries_differ_frac": 0.0,
+    "rows_differ_frac": 0.0,
+    "rows_bitwise_equal_frac": 1.0,
+    "mean_abs_dp": 0.0,
+    "encode_identical": true,
+    "seconds": 54.62
+   },
+   "decode": {
+    "ok": true,
+    "seconds": 55.42,
+    "symbols_decoded": 65536,
+    "of": 65536,
+    "wrong_bytes_seen": 0,
+    "first_wrong": null,
+    "outcome": "ok"
+   }
+  },
+  {
+   "case": "k128-fp32",
+   "variant": "t2",
+   "threads": 2,
+   "device": "cpu",
+   "bf16": false,
+   "header": {
+    "n": 65536,
+    "rounds": 128,
+    "streams": 16,
+    "threads": 4,
+    "bf16": 0
+   },
+   "code_bytes_at_bits": {
+    "24": 8845.13665685494,
+    "20": 8845.847703146374,
+    "16": 8872.407761856102,
+    "14": 8984.416293361577,
+    "12": 9486.833175567004,
+    "10": 11904.129788173212
+   },
+   "teacher_forced": {
+    "calls": 1024,
+    "rows": 65536,
+    "cdf_entries_differ": 0,
+    "rows_differ": 0,
+    "rows_bitwise_equal": 65536,
+    "interval_mismatches": 0,
+    "first_interval_mismatch": null,
+    "max_abs_dp": 0.0,
+    "first_call": {
+     "rows": 64,
+     "cdf_entries_differ_frac": 0.0,
+     "max_abs_dp": 0.0
+    },
+    "coarser": {
+     "24": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "20": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "16": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "14": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "12": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "10": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     }
+    },
+    "cdf_entries_differ_frac": 0.0,
+    "rows_differ_frac": 0.0,
+    "rows_bitwise_equal_frac": 1.0,
+    "mean_abs_dp": 0.0,
+    "encode_identical": true,
+    "seconds": 51.9
+   },
+   "decode": {
+    "ok": true,
+    "seconds": 49.75,
+    "symbols_decoded": 65536,
+    "of": 65536,
+    "wrong_bytes_seen": 0,
+    "first_wrong": null,
+    "outcome": "ok"
+   }
+  },
+  {
+   "case": "k128-fp32",
+   "variant": "t8",
+   "threads": 8,
+   "device": "cpu",
+   "bf16": false,
+   "header": {
+    "n": 65536,
+    "rounds": 128,
+    "streams": 16,
+    "threads": 4,
+    "bf16": 0
+   },
+   "code_bytes_at_bits": {
+    "24": 8845.13665685494,
+    "20": 8845.847703146374,
+    "16": 8872.407761856102,
+    "14": 8984.416293361577,
+    "12": 9486.833175567004,
+    "10": 11904.129788173212
+   },
+   "teacher_forced": {
+    "calls": 1024,
+    "rows": 65536,
+    "cdf_entries_differ": 0,
+    "rows_differ": 0,
+    "rows_bitwise_equal": 65536,
+    "interval_mismatches": 0,
+    "first_interval_mismatch": null,
+    "max_abs_dp": 0.0,
+    "first_call": {
+     "rows": 64,
+     "cdf_entries_differ_frac": 0.0,
+     "max_abs_dp": 0.0
+    },
+    "coarser": {
+     "24": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "20": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "16": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "14": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "12": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     },
+     "10": {
+      "rows_differ": 0,
+      "interval_mismatches": 0
+     }
+    },
+    "cdf_entries_differ_frac": 0.0,
+    "rows_differ_frac": 0.0,
+    "rows_bitwise_equal_frac": 1.0,
+    "mean_abs_dp": 0.0,
+    "encode_identical": true,
+    "seconds": 45.43
+   },
+   "decode": {
+    "ok": true,
+    "seconds": 42.9,
+    "symbols_decoded": 65536,
+    "of": 65536,
+    "wrong_bytes_seen": 0,
+    "first_wrong": null,
+    "outcome": "ok"
+   }
+  },
+  {
+   "case": "k128-fp32",
+   "variant": "cross",
+   "threads": 4,
+   "device": "cpu",
+   "bf16": true,
+   "header": {
+    "n": 65536,
+    "rounds": 128,
+    "streams": 16,
+    "threads": 4,
+    "bf16": 0
+   },
+   "code_bytes_at_bits": {
+    "24": 8845.13665685494,
+    "20": 8845.847703146374,
+    "16": 8872.407761856102,
+    "14": 8984.416293361577,
+    "12": 9486.833175567004,
+    "10": 11904.129788173212
+   },
+   "teacher_forced": {
+    "calls": 1024,
+    "rows": 65536,
+    "cdf_entries_differ": 7934011,
+    "rows_differ": 62639,
+    "rows_bitwise_equal": 0,
+    "interval_mismatches": 62455,
+    "first_interval_mismatch": {
+     "decode_index": 0,
+     "offset": 0,
+     "call": 0
+    },
+    "max_abs_dp": 0.05271229147911072,
+    "first_call": {
+     "rows": 64,
+     "cdf_entries_differ_frac": 0.8107843137254902,
+     "max_abs_dp": 0.000308990478515625
+    },
+    "coarser": {
+     "24": {
+      "rows_differ": 62639,
+      "interval_mismatches": 62455
+     },
+     "20": {
+      "rows_differ": 57398,
+      "interval_mismatches": 57173
+     },
+     "16": {
+      "rows_differ": 49197,
+      "interval_mismatches": 48813
+     },
+     "14": {
+      "rows_differ": 44332,
+      "interval_mismatches": 43581
+     },
+     "12": {
+      "rows_differ": 38527,
+      "interval_mismatches": 36764
+     },
+     "10": {
+      "rows_differ": 29326,
+      "interval_mismatches": 25154
+     }
+    },
+    "cdf_entries_differ_frac": 0.47475843242570465,
+    "rows_differ_frac": 0.9557952880859375,
+    "rows_bitwise_equal_frac": 0.0,
+    "mean_abs_dp": 1.148950287197745e-05,
+    "encode_identical": false,
+    "seconds": 110.7
+   },
+   "decode": {
+    "ok": false,
+    "seconds": 127.12,
+    "symbols_decoded": 64026,
+    "of": 65536,
+    "wrong_bytes_seen": 58375,
+    "first_wrong": {
+     "decode_index": 1,
+     "offset": 128,
+     "block": 0,
+     "in_block": 128
+    },
+    "error": "ValueError: rANS stream exhausted: decoder diverged or stream is truncated",
+    "outcome": "rANS stream exhausted"
+   }
+  }
+ ],
+ "finished": "2026-10-18 13:19:09 +0300"
+}

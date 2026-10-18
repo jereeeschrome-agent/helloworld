@@ -1,0 +1,18 @@
+params 11.14M on mps Config(ctx=512, block=512, d_model=384, n_layers=6, n_heads=6, ff_mult=4, first=8, order='lanes')
+step 50 t=99s lr=4.95e-04 train 6.459 bpb
+step 100 t=197s lr=9.60e-04 train 5.362 bpb
+step 150 t=295s lr=9.11e-04 train 4.478 bpb
+step 200 t=394s lr=8.45e-04 train 3.885 bpb
+step 250 t=492s lr=7.66e-04 train 3.516 bpb
+step 300 t=591s lr=6.77e-04 train 3.271 bpb
+step 350 t=689s lr=5.82e-04 train 3.104 bpb
+step 400 t=788s lr=4.86e-04 train 2.959 bpb
+step 450 t=886s lr=3.92e-04 train 2.842 bpb
+step 500 t=985s lr=3.06e-04 train 2.764 bpb
+step 500 VAL 2.680 bpb
+step 550 t=1087s lr=2.29e-04 train 2.691 bpb
+step 600 t=1185s lr=1.69e-04 train 2.622 bpb
+step 650 t=1280s lr=1.28e-04 train 2.571 bpb
+step 700 t=1368s lr=1.06e-04 train 2.553 bpb
+step 742 VAL 2.499 bpb
+saved /Users/agent/helloworld-jevzip/weights/scaling/lanes-d384l6-s0-24min.pt

@@ -1,5 +1,5 @@
 torch>=2.4
 numpy
-# optional, only for baselines in bench.py
-zstandard
-brotli
+# optional, only for the zstd/brotli baselines in bench.py (pip install "jevzip[bench]"):
+# zstandard
+# brotli

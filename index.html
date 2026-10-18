@@ -40,7 +40,7 @@
     th { vertical-align: bottom; line-height: 1.3; }
     th small { font-size: 12px; }
     td.bar { width: 8em; }
-    .bar i { display: block; height: 10px; width: calc(var(--v) / 2.6 * 8em); background: #111; }
+    .bar i { display: block; height: 10px; width: calc(var(--v) / 3 * 8em); background: #111; }
     tr.base .bar i { background: var(--line); }
     tr.win .bar i { background: var(--accent); }
     pre { background: #f5f5f5; padding: 16px 20px; overflow-x: auto; font: inherit; font-size: 15px; line-height: 1.7; margin: 0 0 20px; }
@@ -56,7 +56,7 @@
     <nav aria-label="Main navigation">
       <a href="#results">results</a>
       <a href="#description">description</a>
-      <a href="https://github.com/jereeeschrome-agent/jevzip/tree/main/jevzip">code</a>
+      <a href="https://github.com/jereeeschrome-agent/jevzip">code</a>
     </nav>
   </header>
 
@@ -68,42 +68,39 @@
 
     <section id="results" aria-labelledby="results-title">
       <h2 id="results-title">results</h2>
-      <p class="muted">Three models have the same architecture with 5.0M parameters. The training time for each model was 120 minutes on a CPU with 4 cores. The training data is Python source code.</p>
-      <p class="muted">For the training of the lanes model, K was 8 to 512. Thus, one 5.0M lanes model gives the results in all the lanes rows without the &dagger; mark. For the training of the bitrev model, K was 8 to 128. For the training of the linear model, K was 512 only. The linear model is an autoregressive (AR) model, and it is the reference for the other models.</p>
-      <p class="muted">The test data is not in the training data. Each size in the table is the size of an actual compressed file. After each test, the decompressed file was the same as the original file, bit for bit. The unit is bits per byte. A lower value is better.</p>
+      <p class="muted">The test data is the standard enwik8 test split: the last 5 MB of enwik8 (English Wikipedia XML). The jevzip models have 11M parameters. Their training data is the first 90 MB of enwik8. The training time for each model was approximately 8 hours on the GPU of an M4 Pro computer.</p>
+      <p class="muted">Each jevzip size is the size of an actual compressed file. After each test, the decompressed file was the same as the original file, bit for bit. The LLM values are the ideal code lengths. The unit is bits per byte. A lower value is better. The last column shows the data that the decoder must have before it can decode: the model weights or the dictionary.</p>
       <div class="scroll" tabindex="0" role="region" aria-labelledby="results-title">
         <table>
           <thead>
-            <tr><th>compressor</th><th>rounds</th><th>networkx<br><small>code, 1.05 MB</small></th><td class="bar"></td><th>pydoc<br><small>English text, 0.58 MB</small></th><th>decoder speed<br><small>KB/s, networkx</small></th></tr>
+            <tr><th>compressor</th><th>rounds</th><th>bits per byte<br><small>enwik8 test, 5 MB</small></th><td class="bar"></td><th>decoder<br><small>needs</small></th></tr>
           </thead>
           <tbody>
-            <tr class="base"><td>gzip -9</td><td></td><td>1.885</td><td class="bar"><i style="--v:1.885"></i></td><td>2.247</td><td></td></tr>
-            <tr class="base"><td>bzip2 -9</td><td></td><td>1.558</td><td class="bar"><i style="--v:1.558"></i></td><td>1.610</td><td></td></tr>
-            <tr class="base"><td>zstd -19</td><td></td><td>1.554</td><td class="bar"><i style="--v:1.554"></i></td><td>1.571</td><td></td></tr>
-            <tr class="base"><td>xz -9e</td><td></td><td>1.525</td><td class="bar"><i style="--v:1.525"></i></td><td>1.542</td><td></td></tr>
-            <tr class="base"><td>brotli -q11</td><td></td><td>1.498</td><td class="bar"><i style="--v:1.498"></i></td><td>1.497</td><td></td></tr>
-            <tr class="win"><td>jevzip linear (AR)</td><td>512</td><td>1.453</td><td class="bar"><i style="--v:1.453"></i></td><td>1.601</td><td>2.1</td></tr>
-            <tr class="win"><td>jevzip lanes</td><td>512</td><td>1.485</td><td class="bar"><i style="--v:1.485"></i></td><td>1.628</td><td>2.2</td></tr>
-            <tr><td>jevzip lanes</td><td>128</td><td>1.546</td><td class="bar"><i style="--v:1.546"></i></td><td>1.683</td><td>4.4</td></tr>
-            <tr><td>jevzip lanes</td><td>64</td><td>1.613</td><td class="bar"><i style="--v:1.613"></i></td><td>1.745</td><td>6.9</td></tr>
-            <tr><td>jevzip lanes</td><td>32</td><td>1.735</td><td class="bar"><i style="--v:1.735"></i></td><td>1.856</td><td>10.0</td></tr>
-            <tr><td>jevzip lanes</td><td>16</td><td>1.956</td><td class="bar"><i style="--v:1.956"></i></td><td>2.068</td><td>12.8</td></tr>
-            <tr><td>jevzip bitrev</td><td>32</td><td>2.355</td><td class="bar"><i style="--v:2.355"></i></td><td>2.468</td><td>10.3</td></tr>
-            <tr><td>jevzip bitrev</td><td>16</td><td>2.413</td><td class="bar"><i style="--v:2.413"></i></td><td>2.518</td><td>11.8</td></tr>
-            <tr class="win"><td>jevzip lanes, 11M &dagger;</td><td>128</td><td>1.237</td><td class="bar"><i style="--v:1.237"></i></td><td>&dagger;</td><td>5.3 &dagger;</td></tr>
-            <tr class="win"><td>jevzip lanes, 11M &dagger;</td><td>32</td><td>1.413</td><td class="bar"><i style="--v:1.413"></i></td><td>&dagger;</td><td>15.3 &dagger;</td></tr>
+            <tr class="base"><td>gzip -9</td><td></td><td>2.818</td><td class="bar"><i style="--v:2.818"></i></td><td>0</td></tr>
+            <tr class="base"><td>zstd --ultra -22 --long=27</td><td></td><td>2.231</td><td class="bar"><i style="--v:2.231"></i></td><td>0</td></tr>
+            <tr class="base"><td>xz -9e</td><td></td><td>2.171</td><td class="bar"><i style="--v:2.171"></i></td><td>0</td></tr>
+            <tr class="base"><td>brotli -q11</td><td></td><td>2.150</td><td class="bar"><i style="--v:2.150"></i></td><td>0</td></tr>
+            <tr class="base"><td>zstd, training data as dictionary</td><td></td><td>1.896</td><td class="bar"><i style="--v:1.896"></i></td><td>90 MB</td></tr>
+            <tr class="base"><td>xz, primed with training data</td><td></td><td>1.876</td><td class="bar"><i style="--v:1.876"></i></td><td>64 MB</td></tr>
+            <tr class="win"><td>jevzip lanes, 11M</td><td>32</td><td>1.488</td><td class="bar"><i style="--v:1.488"></i></td><td>22 MB</td></tr>
+            <tr class="base"><td>paq8px -8L</td><td></td><td>1.413</td><td class="bar"><i style="--v:1.413"></i></td><td>0</td></tr>
+            <tr class="win"><td>jevzip lanes, 11M</td><td>128</td><td>1.332</td><td class="bar"><i style="--v:1.332"></i></td><td>22 MB</td></tr>
+            <tr class="base"><td>cmix</td><td></td><td>1.306</td><td class="bar"><i style="--v:1.306"></i></td><td>0</td></tr>
+            <tr class="base"><td>paq8px, primed with training data</td><td></td><td>1.289</td><td class="bar"><i style="--v:1.289"></i></td><td>16 MB</td></tr>
+            <tr class="win"><td>jevzip lanes, 11M</td><td>512</td><td>1.287</td><td class="bar"><i style="--v:1.287"></i></td><td>22 MB</td></tr>
+            <tr><td>jevzip AR control, 11M</td><td>512</td><td>1.249</td><td class="bar"><i style="--v:1.249"></i></td><td>22 MB</td></tr>
+            <tr class="base"><td>RWKV-4 169M (LLM)</td><td></td><td>1.097</td><td class="bar"><i style="--v:1.097"></i></td><td>339 MB</td></tr>
+            <tr class="base"><td>Qwen2.5 0.5B (LLM)</td><td></td><td>0.794</td><td class="bar"><i style="--v:0.794"></i></td><td>989 MB</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="note"><span class="hi">*</span> The result is better than the results of all the standard compressors (gzip, bzip2, zstd, xz and brotli) on networkx. The bars show the bits per byte on networkx.</p>
-      <p class="note">The decoder speed is for networkx on a CPU with 4 cores. On this CPU, the number of rounds has only a small effect on the speed. Thus, 16 rounds are only approximately 6 times faster than 512 rounds (12.8 KB/s and 2.2 KB/s). On a GPU, the number of rounds has a much larger effect on the decoder latency.</p>
-      <p class="note">&dagger; This is a larger lanes model with 11M parameters. The training time was 8 hours on the GPU of an M4 Pro computer. The decoder speed is for the CPU of the same computer. That computer has a different pydoc file (0.52 MB). On that file, the result is 1.340 bits per byte at 128 rounds and 1.501 at 32 rounds. The results for xz and brotli on that file are 1.582 and 1.530.</p>
+      <p class="note"><span class="hi">*</span> jevzip rows. The bars show the bits per byte.</p>
       <ul>
-        <li>With 512 rounds in sequence, the AR model gives 1.453 bits per byte on the Python test data. The lanes model gives 1.485. These results are better than xz -9e (1.525) and brotli -q11 (1.498).</li>
-        <li>With more training, the 11M lanes model also gives better results than xz and brotli. It decodes many bytes at the same time in each round. On code, its file is 18.9% smaller than the xz file at 128 rounds, and 7.4% smaller at 32 rounds. On English text, the values are 15.3% and 5.2%.</li>
-        <li>On English text, the small models do not give better results than xz. Their training data is only code.</li>
-        <li>A smaller number of rounds decreases the dependency depth of the decoder, but the file becomes larger. At 128 rounds, the lanes file is only 1.4% larger than the xz file. The AR model uses 4 times more rounds (512).</li>
-        <li>The sizes do not include the model weights (approximately 10 MB). This is the normal rule for compressors that use pretrained data. For example, the sizes for brotli do not include its internal dictionary.</li>
+        <li>At 128 rounds, the jevzip file is 39% smaller than the xz file. It is 29% smaller than the xz file when xz also uses 64 MB of the training data.</li>
+        <li>cmix and paq8px give smaller files than jevzip at 128 rounds. They do not use model weights. The LLMs give much smaller files, but their weights are 15 to 45 times larger.</li>
+        <li>The jevzip AR control has the same size and the same number of training steps. Compared with it, the lanes file is 3% larger at 512 rounds, 7% larger at 128 rounds and 19% larger at 32 rounds.</li>
+        <li>The model weights are 22 MB. If you count the weights, jevzip gives a smaller total size than xz only for more than approximately 210 MB of data of the same type.</li>
+        <li>On the GPU of the M4 Pro, 16 rounds decode a 64 KB file 7 times faster than 512 rounds (2.0 s and 13.8 s). Each round needs at least approximately 6 ms, because the GPU starts many small operations and then waits for the probabilities.</li>
       </ul>
     </section>
 
@@ -112,53 +109,43 @@
       <p>A neural compressor calculates good probabilities for bytes, but its decoder is slow. An autoregressive model decodes only one byte in each round. Thus, for a block of 512 bytes, the decoder must do 512 rounds in sequence. Jev is a non-autoregressive model from TypeSafe AI. It calculates scores for a closed set of values for many slots at the same time. jevzip uses this method for entropy coding.</p>
       <p>In each round, each byte in the current group becomes a slot. The model calculates the probabilities of the 256 byte values for all the slots at the same time. The blocks are in separate chains, and the decoder decodes all the chains at the same time. Thus, the dependency depth of a file is K &times; ceil(blocks / chains). jevzip decreases the K factor.</p>
       <ol>
-        <li><b>Decode order.</b> The decode order divides each block into K groups. In the default <code>lanes</code> order, the block has 512/K lanes. The decoder decodes each lane from left to right. In each round, the decoder decodes one byte in each lane. When K = 512, the model is an autoregressive model.</li>
+        <li><b>Decode order.</b> The decode order divides each block into K groups. In the <code>lanes</code> order, the block has 512/K lanes. The decoder decodes each lane from left to right. In each round, the decoder decodes one byte in each lane. When K = 512, the model is an autoregressive model. One model can decode with each K from 8 to 512.</li>
         <li><b>Two streams with the same weights.</b> The content stream contains the decoded bytes. It uses causal attention and a KV cache. The slot stream has one query for each byte in the current group. A slot uses data from the decoded bytes and from itself, but not from the other slots. Thus, one forward call calculates the probabilities for all the bytes in a group, and the decoder calculates the same probabilities as the encoder.</li>
         <li><b>Probabilities for the byte values.</b> Each slot can have one of the 256 byte values. The model compares each slot with the 256 byte embeddings. The model also uses these embeddings for the input bytes (tied embeddings).</li>
         <li><b>rANS.</b> rANS changes the probabilities into bits. The encoder does the same forward calls as the decoder. Thus, the encoder and the decoder have the same probabilities, bit for bit.</li>
       </ol>
-      <p>The decode order has a larger effect than the number of rounds. The first design used a coarse-to-fine order (bitrev). At 16 rounds on networkx, its first "anchor" bytes are 25% of the block. Each anchor byte uses approximately 4.4 bits, and the anchor bytes use 45% of all the bits. With the same training time, the lanes model gives much better results than the bitrev model. The table shows the bits per byte for each number of rounds, and the validation result after 2 hours.</p>
-      <div class="scroll" tabindex="0" role="region" aria-label="bits per byte for each decode order and number of rounds">
-        <table>
-          <thead><tr><th>order</th><th>K=16</th><th>32</th><th>64</th><th>128</th><th>512</th><th>validation after 2 h</th></tr></thead>
-          <tbody>
-            <tr><td>lanes</td><td>1.93</td><td>1.71</td><td>1.59</td><td>1.52</td><td>1.47</td><td>1.96 (K=32)</td></tr>
-            <tr><td>bitrev</td><td>2.43</td><td>2.36</td><td>2.36</td><td>2.35</td><td>2.34</td><td>2.80 (K=16)</td></tr>
-            <tr><td>linear (AR)</td><td></td><td></td><td></td><td></td><td>1.43</td><td>1.69 (K=512)</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="note">The K columns show the model cross-entropy on sample windows from networkx, in bits per byte. The validation data is mpmath. This data is not in the training data.</p>
     </section>
 
     <section id="procedure" aria-labelledby="procedure-title">
       <h2 id="procedure-title">procedure</h2>
-      <p>Use these commands to install jevzip, compress and decompress a file, make the test data and do the benchmark test:</p>
-<pre tabindex="0"><code>pip install -r jevzip/requirements.txt networkx
-python -m jevzip c file.py file.jz               # lanes, 128 rounds
-python -m jevzip c file.py file.jz --rounds 32   # 4 times fewer rounds, larger file
-python -m jevzip d file.jz file.py
-python -m jevzip.data --out data                 # training data and separate test files
-python -m jevzip.bench data/networkx.py.txt --rounds 32 128 512 --verify</code></pre>
+      <p>Use these commands to install jevzip, get the weights and the test data, and do the benchmark test:</p>
+<pre tabindex="0"><code>pip install -e ".[bench]"
+python -m jevzip.fetch jevzip-lanes-11m-enwik8.pt && python -m jevzip.data enwik8
+python -m jevzip.bench data/enwik8/test.bin --rounds 32 128 512 --verify</code></pre>
+      <p>Use these commands to compress and decompress a file:</p>
+<pre tabindex="0"><code>python -m jevzip c file.txt file.jz               # 128 rounds
+python -m jevzip c file.txt file.jz --rounds 32   # 4 times fewer rounds, larger file
+python -m jevzip d file.jz file.txt</code></pre>
     </section>
 
     <section id="limits" aria-labelledby="limits-title">
       <h2 id="limits-title">limits</h2>
       <ul>
-        <li>The sizes do not include the model weights (approximately 10 MB). The model gives a smaller total size only when it compresses a large quantity of data of the same type.</li>
-        <li>To decode a file, use the same weights, torch build, CPU kernels and thread count as the encoder. The header contains the model fingerprint and the thread count. If they are different, the decoder stops immediately. If the torch build or the CPU is different, the decoder finds the error only after it decodes the full file. The rANS end-state check and a CRC find this error. You cannot decode a compressed file on a CPU that is different from the CPU of the encoder.</li>
+        <li>jevzip is a research tool. Do not use it to keep data.</li>
+        <li>To decode a file, use the same weights, torch build, CPU kernels and fp32 or bf16 setting as the encoder. A different torch version, or a GPU decoder for a CPU file, gives an incorrect result in the first 4 bytes. The header contains the model fingerprint. The rANS end-state check and a CRC find the other errors.</li>
+        <li>The encoder and the decoder are slow on a CPU: 2 to 10 KB/s.</li>
         <li>Previous designs:
           <ul>
             <li>Two-stream attention (XLNet).</li>
             <li>Any-order AR models (&sigma;-GPT).</li>
             <li>Parallel context models for neural image compression (checkerboard, M2T).</li>
-            <li>Neural compressors (NNCP, ts_zip).</li>
+            <li>Neural compressors (NNCP, ts_zip, "Language Modeling Is Compression").</li>
           </ul>
         </li>
         <li>The author does not know a previous design that has all of these items:
           <ul>
             <li>Two-stream decoders with a KV cache.</li>
-            <li>The lanes order and the bitrev order in one model.</li>
+            <li>One model for all numbers of rounds, from 8 to 512.</li>
             <li>Block chains that the decoder decodes at the same time.</li>
           </ul>
           This information can be incorrect. Examine it carefully.
@@ -170,7 +157,7 @@ python -m jevzip.bench data/networkx.py.txt --rounds 32 128 512 --verify</code><
   <footer>
     <span>jevzip</span>
     <a href="https://github.com/jereeeschrome-agent/jevzip">github</a>
-    <a href="https://github.com/jereeeschrome-agent/jevzip/blob/main/jevzip/README.md">readme</a>
+    <a href="https://github.com/jereeeschrome-agent/jevzip#readme">readme</a>
   </footer>
 </body>
 </html>

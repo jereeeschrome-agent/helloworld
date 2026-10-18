@@ -1,49 +1,25 @@
 """Decoding schedules: a reveal order plus its cut into K parallel groups.
 
-* "bitrev": coarse-to-fine bit-reversal order (first bytes spread across the
-  block, later bytes have known neighbours on both sides), cut into K groups
-  whose revealed count grows geometrically.
 * "lanes": the block is split into ceil(block/K) contiguous lanes, each
   decoded left to right, all lanes advancing one byte per round. Every byte
   except the first of each lane after lane 0 has its immediate left neighbour
   revealed before it (lane 0 starts after the previous-block context; the other
   ceil(block/K) - 1 lane starts are predicted in round 0 without one).
   K = block is plain autoregression.
-* "linear": left to right, cut like "bitrev" (with K = block, the AR control).
+* "linear": left to right, cut into K groups whose revealed count grows
+  geometrically (with K = block, the AR control).
 
 Every byte in a group is predicted in parallel from the bytes revealed by
 earlier groups.
 """
-from functools import lru_cache
-
 import numpy as np
 
 
-@lru_cache(maxsize=None)
-def coding_order(n: int) -> np.ndarray:
-    """Bit-reversal permutation of range(n) (n need not be a power of two)."""
-    bits = max(1, (n - 1).bit_length())
-    idx = np.arange(1 << bits, dtype=np.int64)
-    rev = np.zeros_like(idx)
-    for b in range(bits):
-        rev |= ((idx >> b) & 1) << (bits - 1 - b)
-    order = rev[rev < n]
-    order.setflags(write=False)
-    return order
-
-
-def filtered_order(block: int, n: int, kind: str = "bitrev") -> np.ndarray:
-    """Reveal order for a block truncated to its first n positions.
-
-    "bitrev" is jevzip's coarse-to-fine order; "linear" is plain left-to-right
-    (with one byte per round that is an ordinary autoregressive model, kept as
-    a control)."""
-    if kind == "linear":
-        return np.arange(n, dtype=np.int64)
-    if kind != "bitrev":  # "lanes" depends on K: use reveal_plan
+def filtered_order(block: int, n: int, kind: str = "linear") -> np.ndarray:
+    """Reveal order for a block truncated to its first n positions ("linear" only; "lanes" depends on K: use reveal_plan)."""
+    if kind != "linear":
         raise ValueError(f"unknown reveal order {kind!r}")
-    order = coding_order(block)
-    return order if n == block else order[order < n]
+    return np.arange(n, dtype=np.int64)
 
 
 def round_bounds(n: int, rounds: int, first: int = 8) -> list[int]:

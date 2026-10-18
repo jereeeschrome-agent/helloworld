@@ -1,0 +1,25 @@
+m_K = n] in the permuted order.
+
+    Group r covers permuted indices [m_r, m_{r+1}) and is predicted from the
+    m_r bytes already revealed. The revealed count m_r grows geometrically from
+    `first` to n (so each group is a fixed fraction of what is already known),
+    and every group holds at least one byte.
+    """
+    rounds = max(1, min(rounds, n))
+    first = max(1, min(first, n))
+    bounds = [0]
+    for r in range(1, rounds + 1):
+        if r == rounds:
+            v = n
+        else:
+            v = round(first * (n / first) ** ((r - 1) / (rounds - 1)))
+        v = min(max(v, bounds[-1] + 1), n - (rounds - r))
+        bounds.append(v)
+    return bounds
+
+
+def reveal_plan(kind: str, block: int, n: int, rounds: int, first: int = 8) -> tuple[np.ndarray, list[int]]:
+    """(order, bounds) for a block whose first n bytes exist: group r is order[bounds[r]:bounds[r+1]]."""
+    if kind == "lanes":
+        span = max(1, min(rounds, block))  # bytes per lane = rounds
+        lanes = -(

@@ -1,0 +1,27 @@
+params 2.92M on mps Config(ctx=512, block=512, d_model=192, n_layers=6, n_heads=6, ff_mult=4, first=8, order='lanes')
+step 50 t=64s lr=4.98e-04 train 6.657 bpb
+step 100 t=128s lr=9.83e-04 train 5.678 bpb
+step 150 t=192s lr=9.61e-04 train 5.091 bpb
+step 200 t=257s lr=9.32e-04 train 4.611 bpb
+step 250 t=321s lr=8.95e-04 train 4.159 bpb
+step 300 t=385s lr=8.51e-04 train 3.833 bpb
+step 350 t=449s lr=8.02e-04 train 3.597 bpb
+step 400 t=513s lr=7.47e-04 train 3.412 bpb
+step 450 t=578s lr=6.89e-04 train 3.270 bpb
+step 500 t=642s lr=6.28e-04 train 3.169 bpb
+step 500 VAL 3.060 bpb
+step 550 t=707s lr=5.64e-04 train 3.076 bpb
+step 600 t=771s lr=5.01e-04 train 2.988 bpb
+step 650 t=835s lr=4.39e-04 train 2.912 bpb
+step 700 t=900s lr=3.79e-04 train 2.868 bpb
+step 750 t=964s lr=3.23e-04 train 2.797 bpb
+step 800 t=1028s lr=2.71e-04 train 2.752 bpb
+step 850 t=1092s lr=2.24e-04 train 2.716 bpb
+step 900 t=1156s lr=1.84e-04 train 2.683 bpb
+step 950 t=1220s lr=1.51e-04 train 2.659 bpb
+step 1000 t=1284s lr=1.26e-04 train 2.633 bpb
+step 1000 VAL 2.612 bpb
+step 1050 t=1350s lr=1.09e-04 train 2.622 bpb
+step 1100 t=1414s lr=1.01e-04 train 2.601 bpb
+step 1120 VAL 2.579 bpb
+saved /Users/agent/helloworld-jevzip/weights/scaling/lanes-d192l6-s0-24min.pt

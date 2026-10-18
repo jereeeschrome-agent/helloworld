@@ -1,0 +1,58 @@
+params 0.96M on mps Config(ctx=512, block=512, d_model=128, n_layers=4, n_heads=4, ff_mult=4, first=8, order='lanes')
+step 50 t=29s lr=5.00e-04 train 6.976 bpb
+step 100 t=57s lr=9.97e-04 train 5.791 bpb
+step 150 t=85s lr=9.92e-04 train 5.277 bpb
+step 200 t=113s lr=9.86e-04 train 5.001 bpb
+step 250 t=142s lr=9.79e-04 train 4.769 bpb
+step 300 t=169s lr=9.70e-04 train 4.534 bpb
+step 350 t=196s lr=9.60e-04 train 4.206 bpb
+step 400 t=222s lr=9.49e-04 train 3.931 bpb
+step 450 t=246s lr=9.37e-04 train 3.739 bpb
+step 500 t=273s lr=9.23e-04 train 3.602 bpb
+step 500 VAL 3.453 bpb
+step 550 t=300s lr=9.07e-04 train 3.486 bpb
+step 600 t=327s lr=8.90e-04 train 3.380 bpb
+step 650 t=354s lr=8.72e-04 train 3.289 bpb
+step 700 t=382s lr=8.53e-04 train 3.223 bpb
+step 750 t=410s lr=8.32e-04 train 3.137 bpb
+step 800 t=438s lr=8.10e-04 train 3.075 bpb
+step 850 t=467s lr=7.87e-04 train 3.028 bpb
+step 900 t=495s lr=7.62e-04 train 2.974 bpb
+step 950 t=523s lr=7.38e-04 train 2.935 bpb
+step 1000 t=552s lr=7.12e-04 train 2.895 bpb
+step 1000 VAL 2.862 bpb
+step 1050 t=581s lr=6.85e-04 train 2.869 bpb
+step 1100 t=633s lr=6.39e-04 train 2.833 bpb
+step 1150 t=713s lr=5.57e-04 train 2.809 bpb
+step 1200 t=741s lr=5.30e-04 train 2.766 bpb
+step 1250 t=768s lr=5.03e-04 train 2.744 bpb
+step 1300 t=795s lr=4.77e-04 train 2.716 bpb
+step 1350 t=822s lr=4.51e-04 train 2.704 bpb
+step 1400 t=850s lr=4.25e-04 train 2.683 bpb
+step 1450 t=876s lr=4.00e-04 train 2.664 bpb
+step 1500 t=903s lr=3.75e-04 train 2.636 bpb
+step 1500 VAL 2.626 bpb
+step 1550 t=931s lr=3.51e-04 train 2.613 bpb
+step 1600 t=958s lr=3.28e-04 train 2.603 bpb
+step 1650 t=984s lr=3.05e-04 train 2.582 bpb
+step 1700 t=1011s lr=2.83e-04 train 2.576 bpb
+step 1750 t=1038s lr=2.63e-04 train 2.575 bpb
+step 1800 t=1065s lr=2.43e-04 train 2.571 bpb
+step 1850 t=1091s lr=2.24e-04 train 2.565 bpb
+step 1900 t=1118s lr=2.07e-04 train 2.550 bpb
+step 1950 t=1145s lr=1.90e-04 train 2.535 bpb
+step 2000 t=1172s lr=1.75e-04 train 2.534 bpb
+step 2000 VAL 2.521 bpb
+step 2050 t=1199s lr=1.61e-04 train 2.526 bpb
+step 2100 t=1226s lr=1.48e-04 train 2.516 bpb
+step 2150 t=1253s lr=1.37e-04 train 2.505 bpb
+step 2200 t=1280s lr=1.27e-04 train 2.516 bpb
+step 2250 t=1306s lr=1.19e-04 train 2.499 bpb
+step 2300 t=1333s lr=1.12e-04 train 2.487 bpb
+step 2350 t=1360s lr=1.07e-04 train 2.478 bpb
+step 2400 t=1387s lr=1.03e-04 train 2.492 bpb
+step 2450 t=1414s lr=1.01e-04 train 2.484 bpb
+step 2500 t=1440s lr=1.00e-04 train 2.473 bpb
+step 2500 VAL 2.478 bpb
+step 2500 VAL 2.478 bpb
+saved /Users/agent/helloworld-jevzip/weights/scaling/lanes-d128l4-s0-24min.pt

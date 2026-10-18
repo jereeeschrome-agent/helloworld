@@ -1,0 +1,39 @@
+### data/code/networkx.py.txt (1048576 bytes)
+  gzip -9: 247078 B, 1.8851 bpb, enc 0.1s dec 0.0s
+  bzip2 -9: 204202 B, 1.5579 bpb, enc 0.1s dec 0.1s
+  xz -9e: 199944 B, 1.5255 bpb, enc 0.4s dec 0.0s
+  zstd -19: 203658 B, 1.5538 bpb, enc 0.4s dec 0.0s
+  brotli -q11: 196333 B, 1.4979 bpb, enc 1.4s dec 0.0s
+  zstd --ultra -22 --long=27: 203613 B, 1.5534 bpb, enc 0.4s dec 0.0s
+  brotli -q 11 --large_window=30: 196335 B, 1.4979 bpb, enc 1.4s dec 0.0s
+  zstd -19 + 110 KiB dict: 208599 B, 1.5915 bpb +ref 112640, enc 0.2s dec 0.0s
+  zstd -19 + 1 MiB dict: 196156 B, 1.4966 bpb +ref 1048576, enc 0.8s dec 0.0s
+  zstd --ultra -22 --long=31 --patch-from=corpus: 190267 B, 1.4516 bpb +ref 147802575, enc 218.3s dec 0.1s
+  brotli -q 11 -w 24 -D corpus tail: 194907 B, 1.4870 bpb +ref 15663088, enc 2.3s dec 0.0s
+  xz -9e primed: 187528 B, 1.4307 bpb +ref 67108864, enc 52.9s dec 0.0s
+### data/code/pydoc_topics.txt (519592 bytes)
+  gzip -9: 146277 B, 2.2522 bpb, enc 0.0s dec 0.0s
+  bzip2 -9: 105606 B, 1.6260 bpb, enc 0.0s dec 0.0s
+  xz -9e: 102768 B, 1.5823 bpb, enc 0.2s dec 0.0s
+  zstd -19: 104634 B, 1.6110 bpb, enc 0.1s dec 0.0s
+  brotli -q11: 99367 B, 1.5299 bpb, enc 0.6s dec 0.0s
+  zstd --ultra -22 --long=27: 104599 B, 1.6105 bpb, enc 0.2s dec 0.0s
+  brotli -q 11 --large_window=30: 99369 B, 1.5300 bpb, enc 0.6s dec 0.0s
+  zstd -19 + 110 KiB dict: 104206 B, 1.6044 bpb +ref 112640, enc 0.1s dec 0.0s
+  zstd -19 + 1 MiB dict: 99881 B, 1.5378 bpb +ref 1048576, enc 0.4s dec 0.0s
+  zstd --ultra -22 --long=31 --patch-from=corpus: 93440 B, 1.4387 bpb +ref 147802575, enc 101.4s dec 0.1s
+  brotli -q 11 -w 24 -D corpus tail: 97960 B, 1.5083 bpb +ref 16192072, enc 1.4s dec 0.0s
+  xz -9e primed: 92100 B, 1.4180 bpb +ref 67108864, enc 51.9s dec 0.0s
+### data/enwik8/test.bin (5000000 bytes)
+  gzip -9: 1761271 B, 2.8180 bpb, enc 0.2s dec 0.0s
+  bzip2 -9: 1408792 B, 2.2541 bpb, enc 0.3s dec 0.3s
+  xz -9e: 1356736 B, 2.1708 bpb, enc 3.5s dec 0.1s
+  zstd -19: 1394418 B, 2.2311 bpb, enc 3.1s dec 0.0s
+  brotli -q11: 1343830 B, 2.1501 bpb, enc 9.3s dec 0.0s
+  zstd --ultra -22 --long=27: 1394409 B, 2.2311 bpb, enc 3.5s dec 0.0s
+  brotli -q 11 --large_window=30: 1343832 B, 2.1501 bpb, enc 9.7s dec 0.0s
+  zstd -19 + 110 KiB dict: 1512313 B, 2.4197 bpb +ref 112640, enc 1.1s dec 0.0s
+  zstd -19 + 1 MiB dict: 1365284 B, 2.1845 bpb +ref 1048576, enc 4.0s dec 0.0s
+  zstd --ultra -22 --long=31 --patch-from=corpus: 1185225 B, 1.8964 bpb +ref 90000000, enc 236.7s dec 0.0s
+  brotli -q 11 -w 24 -D corpus tail: 1294732 B, 2.0716 bpb +ref 11711664, enc 12.9s dec 0.0s
+  xz -9e primed: 1172432 B, 1.8759 bpb +ref 67108864, enc 96.6s dec 0.0s
