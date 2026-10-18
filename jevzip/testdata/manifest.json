@@ -12,22 +12,6 @@
  },
  "weight_scale": 8.0,
  "models": {
-  "tiny-bitrev": {
-   "file": "tiny-bitrev.pt",
-   "sha256": "91eccdb1221506b61a1cdd3470fdaf395c3c8a6cf1cb9461eee91fb5e3d2f7a5",
-   "config": {
-    "ctx": 32,
-    "block": 64,
-    "d_model": 32,
-    "n_layers": 2,
-    "n_heads": 2,
-    "ff_mult": 2,
-    "first": 4,
-    "order": "bitrev"
-   },
-   "seed": 0,
-   "fingerprint": "52c691402fea0a90"
-  },
   "tiny-lanes": {
    "file": "tiny-lanes.pt",
    "sha256": "33c13efcb6b16f05c42aa23dd50d48e4c43f3b31ecf7e65f6c262a901af0b4f2",
@@ -58,46 +42,6 @@
   }
  },
  "fixtures": [
-  {
-   "file": "tiny-bitrev-a-k8-t1.jz",
-   "model": "tiny-bitrev",
-   "original": "a.bin",
-   "rounds": 8,
-   "threads": 1,
-   "bf16": false,
-   "bytes": 2126,
-   "sha256": "4bc9015b724bc21e51494fe93c21b4c1f64c68ff82d3e78cbd249cf84a0def40"
-  },
-  {
-   "file": "tiny-bitrev-a-k8-t4.jz",
-   "model": "tiny-bitrev",
-   "original": "a.bin",
-   "rounds": 8,
-   "threads": 4,
-   "bf16": false,
-   "bytes": 2126,
-   "sha256": "9c24fbc22a68b17bcc829ae746587c1e883b731231abf1948465ee20a070a048"
-  },
-  {
-   "file": "tiny-bitrev-a-k32-t1.jz",
-   "model": "tiny-bitrev",
-   "original": "a.bin",
-   "rounds": 32,
-   "threads": 1,
-   "bf16": false,
-   "bytes": 2126,
-   "sha256": "c6f691f1f9b561b59cc087fb408521c255850912719f87adebdac173b2073f50"
-  },
-  {
-   "file": "tiny-bitrev-a-k32-t4.jz",
-   "model": "tiny-bitrev",
-   "original": "a.bin",
-   "rounds": 32,
-   "threads": 4,
-   "bf16": false,
-   "bytes": 2126,
-   "sha256": "c6e5ead11e7e7c3e342b28bbd620a2f9a9400adbed690b3397c2fb35bb2aedb0"
-  },
   {
    "file": "tiny-lanes-a-k8-t1.jz",
    "model": "tiny-lanes",
@@ -137,16 +81,6 @@
    "bf16": false,
    "bytes": 2210,
    "sha256": "1f28e641fe25724f5864e79b3a0aa78e649718093ba4b2e0c745ee90a14899b6"
-  },
-  {
-   "file": "tiny-bitrev-b-k8-t1.jz",
-   "model": "tiny-bitrev",
-   "original": "b.bin",
-   "rounds": 8,
-   "threads": 1,
-   "bf16": false,
-   "bytes": 1058,
-   "sha256": "7d0597ff7ebeec90b0a6140b46da764b50a07978484fdac20d05119e7ad87890"
   },
   {
    "file": "tiny-lanes-b-k32-t4.jz",

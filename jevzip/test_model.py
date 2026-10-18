@@ -48,7 +48,7 @@ class StepTest(unittest.TestCase):
     def test_step_matches_training_forward(self):
         """Same visibility on both paths: each slot sees the context plus earlier rounds' bytes."""
         rng = np.random.default_rng(0)
-        for kind in ("lanes", "bitrev", "linear"):
+        for kind in ("lanes", "linear"):
             model = tiny_model(kind)
             for n in (B, 21, 1):
                 blk = rng.integers(0, 256, (3, n))

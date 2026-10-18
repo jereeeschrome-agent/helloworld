@@ -174,7 +174,7 @@ with K drawn log-uniform from 8..512, so one model serves every K.
 
 The code model's corpus depends on the packages installed on the build machine, so it can't be
 rebuilt bit-identically elsewhere. Its held-out test files ship as the `jevzip-code-testset.tar.xz`
-release asset. The earlier 5M-parameter models are retired.
+release asset.
 
 ## Caveats
 

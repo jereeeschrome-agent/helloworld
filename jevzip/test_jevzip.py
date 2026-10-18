@@ -8,21 +8,19 @@ import torch
 from .codec import HEADER, MODE_RAW, compress, decompress, default_streams
 from .model import Config, JevZip
 from .rans import Decoder, Encoder, quantize
-from .schedule import coding_order, filtered_order, reveal_plan, round_bounds
+from .schedule import filtered_order, reveal_plan, round_bounds
 
 
-def tiny_model(seed=0, order="bitrev"):
+def tiny_model(seed=0, order="lanes"):
     torch.manual_seed(seed)
     return JevZip(Config(ctx=16, block=32, d_model=32, n_layers=2, n_heads=2, first=2, order=order)).eval()
 
 
 class ScheduleTest(unittest.TestCase):
-    def test_order_is_permutation(self):
-        for n in (1, 2, 7, 32, 100, 512):
-            self.assertEqual(sorted(coding_order(n).tolist()), list(range(n)))
-        self.assertEqual(coding_order(8).tolist(), [0, 4, 2, 6, 1, 5, 3, 7])
-        self.assertEqual(filtered_order(8, 5).tolist(), [0, 4, 2, 1, 3])
+    def test_linear_order(self):
         self.assertEqual(filtered_order(8, 5, "linear").tolist(), [0, 1, 2, 3, 4])
+        with self.assertRaises(ValueError):
+            filtered_order(8, 5, "bitrev")
 
     def test_lanes(self):
         order, bounds = reveal_plan("lanes", 8, 8, 4)
@@ -95,9 +93,8 @@ class CodecTest(unittest.TestCase):
         self.assertEqual(HEADER.unpack_from(blob)[7], default_streams(-(-len(data) // 32)))
         self.roundtrip(data, streams=60 // 8)  # the pre-refactor default
 
-    def test_other_orders(self):
-        for order in ("linear", "lanes"):
-            self._roundtrip_order(order)
+    def test_linear_order(self):
+        self._roundtrip_order("linear")
 
     def _roundtrip_order(self, order):
         model = tiny_model(order=order)

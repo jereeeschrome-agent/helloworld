@@ -34,8 +34,7 @@ from . import codec
 from .model import Config, JevZip
 
 TESTDATA = Path(__file__).resolve().parent / "testdata"
-MODELS = {  # name -> config of the tiny random model (seed = position in this dict)
-    "tiny-bitrev": dict(ctx=32, block=64, d_model=32, n_layers=2, n_heads=2, ff_mult=2, first=4, order="bitrev"),
+MODELS = {  # name -> config of the tiny random model (tiny-lanes was made with seed 1)
     "tiny-lanes": dict(ctx=32, block=64, d_model=32, n_layers=2, n_heads=2, ff_mult=2, first=4, order="lanes"),
 }
 WEIGHT_SCALE = 8.0  # matrices x8: peaked distributions, like a trained model's, not flat ones
@@ -43,7 +42,6 @@ ORIGINALS = {"a.bin": (0, 2048), "b.bin": (2048, 1000)}  # slices of SOURCE: 32 
 SOURCE = Path(__file__).resolve().parent / "schedule.py"  # jevzip's own source (MIT), as of the fixtures' commit
 CASES = [  # (model, original, rounds, threads)
     *((m, "a.bin", k, t) for m in MODELS for k in (8, 32) for t in (1, 4)),
-    ("tiny-bitrev", "b.bin", 8, 1),
     ("tiny-lanes", "b.bin", 32, 4),
 ]
 
@@ -76,7 +74,7 @@ def make(force=False):
            "made": time.strftime("%Y-%m-%d %H:%M:%S %z"), "platform": platform_info(), "weight_scale": WEIGHT_SCALE,
            "models": {}, "originals": {}, "fixtures": []}
     models = {}
-    for seed, (name, cfg) in enumerate(MODELS.items()):
+    for seed, (name, cfg) in enumerate(MODELS.items(), start=1):
         torch.manual_seed(seed)
         m = JevZip(Config(**cfg))
         with torch.no_grad():

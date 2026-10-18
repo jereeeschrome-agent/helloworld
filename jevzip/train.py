@@ -63,7 +63,7 @@ def main():
     ap.add_argument("--init", type=Path, help="warm-start from exported weights")
     ap.add_argument("--kmin", type=int, default=8, help="training schedules: K log-uniform in [kmin, kmax]")
     ap.add_argument("--kmax", type=int, default=128)
-    ap.add_argument("--order", choices=["bitrev", "lanes", "linear"], default="bitrev", help="linear + --kmin/--kmax 512 = AR control")
+    ap.add_argument("--order", choices=["lanes", "linear"], default="lanes", help="linear + --kmin/--kmax 512 = AR control")
     ap.add_argument("--val-rounds", type=int, default=16)
     ap.add_argument("--val-batches", type=int, default=4, help="validation batches of 16 windows each")
     ap.add_argument("--device", default="cpu", help="cpu, mps (Apple silicon) or cuda")

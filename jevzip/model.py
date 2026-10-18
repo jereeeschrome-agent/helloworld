@@ -35,7 +35,7 @@ class Config:
     n_heads: int = 4
     ff_mult: int = 4
     first: int = 8  # size of the first decoding group
-    order: str = "bitrev"  # reveal order, see schedule.filtered_order
+    order: str = "lanes"  # reveal order: "lanes" or "linear", see schedule.reveal_plan
 
     @property
     def seq(self) -> int:
