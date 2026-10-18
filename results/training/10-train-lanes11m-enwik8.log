@@ -1,0 +1,348 @@
+params 11.14M on mps Config(ctx=512, block=512, d_model=384, n_layers=6, n_heads=6, ff_mult=4, first=8, order='lanes')
+step 50 t=88s lr=1.00e-04 train 6.764 bpb
+step 100 t=176s lr=2.00e-04 train 5.709 bpb
+step 150 t=265s lr=3.00e-04 train 4.989 bpb
+step 200 t=356s lr=4.00e-04 train 4.217 bpb
+step 250 t=445s lr=5.00e-04 train 3.668 bpb
+step 300 t=533s lr=6.00e-04 train 3.310 bpb
+step 350 t=621s lr=6.99e-04 train 3.086 bpb
+step 400 t=709s lr=7.99e-04 train 2.918 bpb
+step 450 t=797s lr=8.98e-04 train 2.794 bpb
+step 500 t=885s lr=9.98e-04 train 2.714 bpb
+step 500 VAL 2.619 bpb
+step 550 t=976s lr=9.97e-04 train 2.635 bpb
+step 600 t=1064s lr=9.97e-04 train 2.539 bpb
+step 650 t=1152s lr=9.96e-04 train 2.424 bpb
+step 700 t=1240s lr=9.96e-04 train 2.339 bpb
+step 750 t=1327s lr=9.95e-04 train 2.242 bpb
+step 800 t=1415s lr=9.95e-04 train 2.184 bpb
+step 850 t=1503s lr=9.94e-04 train 2.144 bpb
+step 900 t=1591s lr=9.93e-04 train 2.125 bpb
+step 950 t=1679s lr=9.92e-04 train 2.101 bpb
+step 1000 t=1766s lr=9.92e-04 train 2.069 bpb
+step 1000 VAL 2.036 bpb
+step 1050 t=1858s lr=9.91e-04 train 2.060 bpb
+step 1100 t=1945s lr=9.90e-04 train 2.036 bpb
+step 1150 t=2033s lr=9.89e-04 train 2.025 bpb
+step 1200 t=2121s lr=9.88e-04 train 1.999 bpb
+step 1250 t=2209s lr=9.87e-04 train 1.994 bpb
+step 1300 t=2297s lr=9.86e-04 train 1.978 bpb
+step 1350 t=2385s lr=9.85e-04 train 1.974 bpb
+step 1400 t=2472s lr=9.84e-04 train 1.959 bpb
+step 1450 t=2560s lr=9.83e-04 train 1.949 bpb
+step 1500 t=2648s lr=9.81e-04 train 1.927 bpb
+step 1500 VAL 1.921 bpb
+step 1550 t=2739s lr=9.80e-04 train 1.916 bpb
+step 1600 t=2827s lr=9.79e-04 train 1.912 bpb
+step 1650 t=2915s lr=9.77e-04 train 1.901 bpb
+step 1700 t=3003s lr=9.76e-04 train 1.892 bpb
+step 1750 t=3090s lr=9.75e-04 train 1.891 bpb
+step 1800 t=3178s lr=9.73e-04 train 1.882 bpb
+step 1850 t=3266s lr=9.72e-04 train 1.876 bpb
+step 1900 t=3354s lr=9.70e-04 train 1.871 bpb
+step 1950 t=3441s lr=9.69e-04 train 1.865 bpb
+step 2000 t=3529s lr=9.67e-04 train 1.867 bpb
+step 2000 VAL 1.856 bpb
+step 2050 t=3621s lr=9.65e-04 train 1.858 bpb
+step 2100 t=3708s lr=9.64e-04 train 1.849 bpb
+step 2150 t=3796s lr=9.62e-04 train 1.837 bpb
+step 2200 t=3884s lr=9.60e-04 train 1.849 bpb
+step 2250 t=3972s lr=9.58e-04 train 1.833 bpb
+step 2300 t=4059s lr=9.57e-04 train 1.828 bpb
+step 2350 t=4147s lr=9.55e-04 train 1.820 bpb
+step 2400 t=4235s lr=9.53e-04 train 1.832 bpb
+step 2450 t=4323s lr=9.51e-04 train 1.821 bpb
+step 2500 t=4410s lr=9.49e-04 train 1.804 bpb
+step 2500 VAL 1.813 bpb
+step 2550 t=4502s lr=9.47e-04 train 1.808 bpb
+step 2600 t=4590s lr=9.45e-04 train 1.806 bpb
+step 2650 t=4677s lr=9.43e-04 train 1.798 bpb
+step 2700 t=4765s lr=9.41e-04 train 1.801 bpb
+step 2750 t=4853s lr=9.38e-04 train 1.806 bpb
+step 2800 t=4941s lr=9.36e-04 train 1.793 bpb
+step 2850 t=5029s lr=9.34e-04 train 1.777 bpb
+step 2900 t=5116s lr=9.32e-04 train 1.780 bpb
+step 2950 t=5204s lr=9.29e-04 train 1.783 bpb
+step 3000 t=5292s lr=9.27e-04 train 1.770 bpb
+step 3000 VAL 1.779 bpb
+step 3050 t=5383s lr=9.25e-04 train 1.765 bpb
+step 3100 t=5471s lr=9.22e-04 train 1.769 bpb
+step 3150 t=5559s lr=9.20e-04 train 1.763 bpb
+step 3200 t=5646s lr=9.17e-04 train 1.763 bpb
+step 3250 t=5734s lr=9.15e-04 train 1.752 bpb
+step 3300 t=5822s lr=9.12e-04 train 1.746 bpb
+step 3350 t=5910s lr=9.10e-04 train 1.768 bpb
+step 3400 t=5997s lr=9.07e-04 train 1.761 bpb
+step 3450 t=6085s lr=9.04e-04 train 1.756 bpb
+step 3500 t=6173s lr=9.02e-04 train 1.755 bpb
+step 3500 VAL 1.758 bpb
+step 3550 t=6264s lr=8.99e-04 train 1.752 bpb
+step 3600 t=6352s lr=8.96e-04 train 1.745 bpb
+step 3650 t=6440s lr=8.94e-04 train 1.731 bpb
+step 3700 t=6528s lr=8.91e-04 train 1.742 bpb
+step 3750 t=6615s lr=8.88e-04 train 1.739 bpb
+step 3800 t=6703s lr=8.85e-04 train 1.734 bpb
+step 3850 t=6791s lr=8.82e-04 train 1.746 bpb
+step 3900 t=6879s lr=8.79e-04 train 1.738 bpb
+step 3950 t=6966s lr=8.76e-04 train 1.729 bpb
+step 4000 t=7054s lr=8.73e-04 train 1.716 bpb
+step 4000 VAL 1.732 bpb
+step 4050 t=7145s lr=8.70e-04 train 1.720 bpb
+step 4100 t=7233s lr=8.67e-04 train 1.724 bpb
+step 4150 t=7321s lr=8.64e-04 train 1.726 bpb
+step 4200 t=7409s lr=8.61e-04 train 1.715 bpb
+step 4250 t=7496s lr=8.58e-04 train 1.693 bpb
+step 4300 t=7584s lr=8.55e-04 train 1.702 bpb
+step 4350 t=7672s lr=8.51e-04 train 1.713 bpb
+step 4400 t=7760s lr=8.48e-04 train 1.719 bpb
+step 4450 t=7847s lr=8.45e-04 train 1.705 bpb
+step 4500 t=7935s lr=8.42e-04 train 1.706 bpb
+step 4500 VAL 1.717 bpb
+step 4550 t=8026s lr=8.38e-04 train 1.712 bpb
+step 4600 t=8114s lr=8.35e-04 train 1.717 bpb
+step 4650 t=8202s lr=8.32e-04 train 1.705 bpb
+step 4700 t=8290s lr=8.28e-04 train 1.696 bpb
+step 4750 t=8377s lr=8.25e-04 train 1.691 bpb
+step 4800 t=8465s lr=8.21e-04 train 1.692 bpb
+step 4850 t=8553s lr=8.18e-04 train 1.676 bpb
+step 4900 t=8641s lr=8.15e-04 train 1.676 bpb
+step 4950 t=8729s lr=8.11e-04 train 1.686 bpb
+step 5000 t=8816s lr=8.08e-04 train 1.691 bpb
+step 5000 VAL 1.698 bpb
+step 5050 t=8908s lr=8.04e-04 train 1.687 bpb
+step 5100 t=8995s lr=8.00e-04 train 1.672 bpb
+step 5150 t=9083s lr=7.97e-04 train 1.678 bpb
+step 5200 t=9171s lr=7.93e-04 train 1.681 bpb
+step 5250 t=9259s lr=7.89e-04 train 1.688 bpb
+step 5300 t=9346s lr=7.86e-04 train 1.684 bpb
+step 5350 t=9434s lr=7.82e-04 train 1.682 bpb
+step 5400 t=9522s lr=7.78e-04 train 1.672 bpb
+step 5450 t=9610s lr=7.75e-04 train 1.677 bpb
+step 5500 t=9697s lr=7.71e-04 train 1.677 bpb
+step 5500 VAL 1.684 bpb
+step 5550 t=9789s lr=7.67e-04 train 1.669 bpb
+step 5600 t=9876s lr=7.63e-04 train 1.665 bpb
+step 5650 t=9964s lr=7.59e-04 train 1.675 bpb
+step 5700 t=10052s lr=7.56e-04 train 1.666 bpb
+step 5750 t=10140s lr=7.52e-04 train 1.662 bpb
+step 5800 t=10227s lr=7.48e-04 train 1.663 bpb
+step 5850 t=10315s lr=7.44e-04 train 1.657 bpb
+step 5900 t=10403s lr=7.40e-04 train 1.656 bpb
+step 5950 t=10491s lr=7.36e-04 train 1.658 bpb
+step 6000 t=10578s lr=7.32e-04 train 1.655 bpb
+step 6000 VAL 1.668 bpb
+step 6050 t=10670s lr=7.28e-04 train 1.656 bpb
+step 6100 t=10757s lr=7.24e-04 train 1.654 bpb
+step 6150 t=10845s lr=7.20e-04 train 1.646 bpb
+step 6200 t=10933s lr=7.16e-04 train 1.647 bpb
+step 6250 t=11021s lr=7.12e-04 train 1.654 bpb
+step 6300 t=11109s lr=7.08e-04 train 1.647 bpb
+step 6350 t=11196s lr=7.04e-04 train 1.635 bpb
+step 6400 t=11284s lr=7.00e-04 train 1.647 bpb
+step 6450 t=11372s lr=6.96e-04 train 1.650 bpb
+step 6500 t=11460s lr=6.92e-04 train 1.639 bpb
+step 6500 VAL 1.658 bpb
+step 6550 t=11551s lr=6.88e-04 train 1.645 bpb
+step 6600 t=11639s lr=6.84e-04 train 1.648 bpb
+step 6650 t=11726s lr=6.79e-04 train 1.644 bpb
+step 6700 t=11814s lr=6.75e-04 train 1.634 bpb
+step 6750 t=11902s lr=6.71e-04 train 1.640 bpb
+step 6800 t=11990s lr=6.67e-04 train 1.637 bpb
+step 6850 t=12077s lr=6.63e-04 train 1.639 bpb
+step 6900 t=12165s lr=6.59e-04 train 1.634 bpb
+step 6950 t=12253s lr=6.55e-04 train 1.635 bpb
+step 7000 t=12341s lr=6.50e-04 train 1.641 bpb
+step 7000 VAL 1.642 bpb
+step 7050 t=12432s lr=6.46e-04 train 1.642 bpb
+step 7100 t=12520s lr=6.42e-04 train 1.631 bpb
+step 7150 t=12607s lr=6.38e-04 train 1.637 bpb
+step 7200 t=12695s lr=6.33e-04 train 1.630 bpb
+step 7250 t=12783s lr=6.29e-04 train 1.626 bpb
+step 7300 t=12871s lr=6.25e-04 train 1.623 bpb
+step 7350 t=12958s lr=6.21e-04 train 1.626 bpb
+step 7400 t=13046s lr=6.16e-04 train 1.612 bpb
+step 7450 t=13134s lr=6.12e-04 train 1.610 bpb
+step 7500 t=13222s lr=6.08e-04 train 1.620 bpb
+step 7500 VAL 1.633 bpb
+step 7550 t=13313s lr=6.03e-04 train 1.613 bpb
+step 7600 t=13401s lr=5.99e-04 train 1.610 bpb
+step 7650 t=13489s lr=5.95e-04 train 1.613 bpb
+step 7700 t=13576s lr=5.90e-04 train 1.619 bpb
+step 7750 t=13664s lr=5.86e-04 train 1.619 bpb
+step 7800 t=13752s lr=5.82e-04 train 1.619 bpb
+step 7850 t=13840s lr=5.78e-04 train 1.607 bpb
+step 7900 t=13928s lr=5.73e-04 train 1.612 bpb
+step 7950 t=14016s lr=5.69e-04 train 1.602 bpb
+step 8000 t=14104s lr=5.65e-04 train 1.597 bpb
+step 8000 VAL 1.623 bpb
+step 8050 t=14196s lr=5.60e-04 train 1.597 bpb
+step 8100 t=14284s lr=5.56e-04 train 1.595 bpb
+step 8150 t=14371s lr=5.51e-04 train 1.600 bpb
+step 8200 t=14459s lr=5.47e-04 train 1.598 bpb
+step 8250 t=14547s lr=5.43e-04 train 1.601 bpb
+step 8300 t=14635s lr=5.39e-04 train 1.605 bpb
+step 8350 t=14723s lr=5.34e-04 train 1.602 bpb
+step 8400 t=14811s lr=5.30e-04 train 1.599 bpb
+step 8450 t=14899s lr=5.26e-04 train 1.605 bpb
+step 8500 t=14988s lr=5.21e-04 train 1.600 bpb
+step 8500 VAL 1.611 bpb
+step 8550 t=15079s lr=5.17e-04 train 1.596 bpb
+step 8600 t=15167s lr=5.12e-04 train 1.593 bpb
+step 8650 t=15255s lr=5.08e-04 train 1.586 bpb
+step 8700 t=15343s lr=5.04e-04 train 1.591 bpb
+step 8750 t=15431s lr=5.00e-04 train 1.602 bpb
+step 8800 t=15519s lr=4.95e-04 train 1.595 bpb
+step 8850 t=15607s lr=4.91e-04 train 1.600 bpb
+step 8900 t=15696s lr=4.87e-04 train 1.591 bpb
+step 8950 t=15792s lr=4.82e-04 train 1.589 bpb
+step 9000 t=15891s lr=4.77e-04 train 1.590 bpb
+step 9000 VAL 1.603 bpb
+step 9050 t=15993s lr=4.72e-04 train 1.584 bpb
+step 9100 t=16092s lr=4.68e-04 train 1.589 bpb
+step 9150 t=16190s lr=4.63e-04 train 1.581 bpb
+step 9200 t=16288s lr=4.58e-04 train 1.584 bpb
+step 9250 t=16387s lr=4.53e-04 train 1.583 bpb
+step 9300 t=16486s lr=4.49e-04 train 1.585 bpb
+step 9350 t=16585s lr=4.44e-04 train 1.579 bpb
+step 9400 t=16684s lr=4.39e-04 train 1.571 bpb
+step 9450 t=16784s lr=4.34e-04 train 1.574 bpb
+step 9500 t=16883s lr=4.30e-04 train 1.585 bpb
+step 9500 VAL 1.592 bpb
+step 9550 t=16986s lr=4.25e-04 train 1.578 bpb
+step 9600 t=17088s lr=4.20e-04 train 1.573 bpb
+step 9650 t=17186s lr=4.15e-04 train 1.574 bpb
+step 9700 t=17282s lr=4.11e-04 train 1.571 bpb
+step 9750 t=17378s lr=4.06e-04 train 1.565 bpb
+step 9800 t=17471s lr=4.02e-04 train 1.556 bpb
+step 9850 t=17561s lr=3.98e-04 train 1.565 bpb
+step 9900 t=17652s lr=3.94e-04 train 1.564 bpb
+step 9950 t=17747s lr=3.89e-04 train 1.570 bpb
+step 10000 t=17847s lr=3.85e-04 train 1.559 bpb
+step 10000 VAL 1.586 bpb
+step 10050 t=17949s lr=3.80e-04 train 1.563 bpb
+step 10100 t=18045s lr=3.76e-04 train 1.559 bpb
+step 10150 t=18141s lr=3.72e-04 train 1.559 bpb
+step 10200 t=18238s lr=3.67e-04 train 1.570 bpb
+step 10250 t=18337s lr=3.63e-04 train 1.552 bpb
+step 10300 t=18433s lr=3.58e-04 train 1.549 bpb
+step 10350 t=18526s lr=3.54e-04 train 1.560 bpb
+step 10400 t=18620s lr=3.50e-04 train 1.567 bpb
+step 10450 t=18714s lr=3.46e-04 train 1.560 bpb
+step 10500 t=18806s lr=3.42e-04 train 1.554 bpb
+step 10500 VAL 1.574 bpb
+step 10550 t=18905s lr=3.38e-04 train 1.560 bpb
+step 10600 t=18994s lr=3.34e-04 train 1.554 bpb
+step 10650 t=19085s lr=3.30e-04 train 1.555 bpb
+step 10700 t=19175s lr=3.26e-04 train 1.548 bpb
+step 10750 t=19266s lr=3.22e-04 train 1.553 bpb
+step 10800 t=19357s lr=3.18e-04 train 1.553 bpb
+step 10850 t=19470s lr=3.14e-04 train 1.547 bpb
+step 10900 t=19697s lr=3.04e-04 train 1.543 bpb
+step 10950 t=19788s lr=3.01e-04 train 1.543 bpb
+step 11000 t=19880s lr=2.97e-04 train 1.546 bpb
+step 11000 VAL 1.570 bpb
+step 11050 t=19975s lr=2.93e-04 train 1.543 bpb
+step 11100 t=20065s lr=2.89e-04 train 1.548 bpb
+step 11150 t=20156s lr=2.86e-04 train 1.547 bpb
+step 11200 t=20248s lr=2.82e-04 train 1.544 bpb
+step 11250 t=20341s lr=2.78e-04 train 1.536 bpb
+step 11300 t=20433s lr=2.75e-04 train 1.544 bpb
+step 11350 t=20525s lr=2.71e-04 train 1.551 bpb
+step 11400 t=20619s lr=2.68e-04 train 1.549 bpb
+step 11450 t=20710s lr=2.64e-04 train 1.539 bpb
+step 11500 t=20799s lr=2.61e-04 train 1.546 bpb
+step 11500 VAL 1.561 bpb
+step 11550 t=20892s lr=2.57e-04 train 1.542 bpb
+step 11600 t=20983s lr=2.54e-04 train 1.539 bpb
+step 11650 t=21073s lr=2.51e-04 train 1.535 bpb
+step 11700 t=21166s lr=2.47e-04 train 1.534 bpb
+step 11750 t=21257s lr=2.44e-04 train 1.536 bpb
+step 11800 t=21346s lr=2.41e-04 train 1.530 bpb
+step 11850 t=21437s lr=2.38e-04 train 1.532 bpb
+step 11900 t=21529s lr=2.34e-04 train 1.540 bpb
+step 11950 t=21620s lr=2.31e-04 train 1.533 bpb
+step 12000 t=21709s lr=2.28e-04 train 1.530 bpb
+step 12000 VAL 1.555 bpb
+step 12050 t=21803s lr=2.25e-04 train 1.537 bpb
+step 12100 t=21896s lr=2.22e-04 train 1.522 bpb
+step 12150 t=21986s lr=2.19e-04 train 1.516 bpb
+step 12200 t=22081s lr=2.16e-04 train 1.528 bpb
+step 12250 t=22171s lr=2.13e-04 train 1.522 bpb
+step 12300 t=22260s lr=2.10e-04 train 1.529 bpb
+step 12350 t=22350s lr=2.07e-04 train 1.528 bpb
+step 12400 t=22439s lr=2.04e-04 train 1.525 bpb
+step 12450 t=22527s lr=2.01e-04 train 1.518 bpb
+step 12500 t=22618s lr=1.99e-04 train 1.529 bpb
+step 12500 VAL 1.550 bpb
+step 12550 t=22710s lr=1.96e-04 train 1.528 bpb
+step 12600 t=22798s lr=1.93e-04 train 1.529 bpb
+step 12650 t=22887s lr=1.90e-04 train 1.514 bpb
+step 12700 t=22977s lr=1.88e-04 train 1.516 bpb
+step 12750 t=23067s lr=1.85e-04 train 1.517 bpb
+step 12800 t=23158s lr=1.83e-04 train 1.518 bpb
+step 12850 t=23254s lr=1.80e-04 train 1.521 bpb
+step 12900 t=23352s lr=1.77e-04 train 1.522 bpb
+step 12950 t=23442s lr=1.75e-04 train 1.534 bpb
+step 13000 t=23532s lr=1.72e-04 train 1.519 bpb
+step 13000 VAL 1.542 bpb
+step 13050 t=23626s lr=1.70e-04 train 1.516 bpb
+step 13100 t=23718s lr=1.67e-04 train 1.524 bpb
+step 13150 t=23809s lr=1.65e-04 train 1.522 bpb
+step 13200 t=23901s lr=1.63e-04 train 1.524 bpb
+step 13250 t=23992s lr=1.61e-04 train 1.516 bpb
+step 13300 t=24083s lr=1.58e-04 train 1.518 bpb
+step 13350 t=24173s lr=1.56e-04 train 1.521 bpb
+step 13400 t=24262s lr=1.54e-04 train 1.514 bpb
+step 13450 t=24353s lr=1.52e-04 train 1.509 bpb
+step 13500 t=24444s lr=1.50e-04 train 1.513 bpb
+step 13500 VAL 1.540 bpb
+step 13550 t=24540s lr=1.48e-04 train 1.524 bpb
+step 13600 t=24631s lr=1.46e-04 train 1.512 bpb
+step 13650 t=24723s lr=1.44e-04 train 1.516 bpb
+step 13700 t=24973s lr=1.39e-04 train 1.521 bpb
+step 13750 t=25068s lr=1.37e-04 train 1.511 bpb
+step 13800 t=25166s lr=1.35e-04 train 1.517 bpb
+step 13850 t=25344s lr=1.32e-04 train 1.516 bpb
+step 13900 t=25438s lr=1.30e-04 train 1.512 bpb
+step 13950 t=25527s lr=1.28e-04 train 1.509 bpb
+step 14000 t=25617s lr=1.27e-04 train 1.508 bpb
+step 14000 VAL 1.534 bpb
+step 14050 t=25709s lr=1.25e-04 train 1.514 bpb
+step 14100 t=25799s lr=1.24e-04 train 1.510 bpb
+step 14150 t=25889s lr=1.23e-04 train 1.508 bpb
+step 14200 t=25981s lr=1.21e-04 train 1.509 bpb
+step 14250 t=26071s lr=1.20e-04 train 1.509 bpb
+step 14300 t=26197s lr=1.18e-04 train 1.517 bpb
+step 14350 t=26285s lr=1.17e-04 train 1.498 bpb
+step 14400 t=26454s lr=1.15e-04 train 1.483 bpb
+step 14450 t=26548s lr=1.14e-04 train 1.501 bpb
+step 14500 t=26636s lr=1.12e-04 train 1.502 bpb
+step 14500 VAL 1.530 bpb
+step 14550 t=26728s lr=1.11e-04 train 1.495 bpb
+step 14600 t=26816s lr=1.11e-04 train 1.494 bpb
+step 14650 t=26904s lr=1.10e-04 train 1.506 bpb
+step 14700 t=26992s lr=1.09e-04 train 1.504 bpb
+step 14750 t=27080s lr=1.08e-04 train 1.508 bpb
+step 14800 t=27167s lr=1.07e-04 train 1.498 bpb
+step 14850 t=27255s lr=1.06e-04 train 1.492 bpb
+step 14900 t=27343s lr=1.06e-04 train 1.494 bpb
+step 14950 t=27431s lr=1.05e-04 train 1.501 bpb
+step 15000 t=27519s lr=1.04e-04 train 1.502 bpb
+step 15000 VAL 1.529 bpb
+step 15050 t=27611s lr=1.04e-04 train 1.505 bpb
+step 15100 t=27699s lr=1.03e-04 train 1.501 bpb
+step 15150 t=27787s lr=1.03e-04 train 1.511 bpb
+step 15200 t=27875s lr=1.02e-04 train 1.513 bpb
+step 15250 t=27963s lr=1.02e-04 train 1.501 bpb
+step 15300 t=28051s lr=1.02e-04 train 1.491 bpb
+step 15350 t=28139s lr=1.01e-04 train 1.502 bpb
+step 15400 t=28227s lr=1.01e-04 train 1.492 bpb
+step 15450 t=28315s lr=1.01e-04 train 1.499 bpb
+step 15500 t=28403s lr=1.00e-04 train 1.495 bpb
+step 15500 VAL 1.527 bpb
+step 15550 t=28494s lr=1.00e-04 train 1.493 bpb
+step 15600 t=28582s lr=1.00e-04 train 1.492 bpb
+step 15650 t=28669s lr=1.00e-04 train 1.500 bpb
+step 15700 t=28757s lr=1.00e-04 train 1.505 bpb
+step 15725 VAL 1.525 bpb
+saved /Users/agent/helloworld-jevzip/weights/jevzip-lanes-11m-enwik8.pt
