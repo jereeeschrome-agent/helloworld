@@ -184,8 +184,10 @@ release asset.
 - **Speed.** CPU encode and decode run at 2–10 KB/s.
 - **Portability.** Decoding fails within the first 4 bytes after a torch upgrade (2.14.1 → 2.8.0),
   on MPS against a CPU encode, or across fp32/bf16. Thread count doesn't matter on this Mac.
-  Coarser probability quantization doesn't fix it; integer-only inference would. CI decodes
-  committed fixtures on Linux x86 and macOS as an informational job.
+  Coarser probability quantization doesn't fix it; integer-only inference would. Across machines,
+  fixtures encoded on this M4 Pro (torch 2.14.1) decode 4/5 on GitHub's macOS arm64 runner with the
+  same torch and 0/5 on its Linux x86_64 runner. CI reruns that check on every push and reports it
+  as a warning.
 
 ## Site
 

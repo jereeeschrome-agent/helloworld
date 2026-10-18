@@ -34,7 +34,6 @@ jobs:
         run: python -m unittest discover -s jevzip -p "test_*.py" -t .
 
   portability:
-    continue-on-error: true
     strategy:
       fail-fast: false
       matrix:
@@ -57,6 +56,13 @@ jobs:
             pip install torch
           fi
           pip install numpy
-      - name: Decode the committed fixtures
+      - name: Decode the committed fixtures (a measurement, not a gate)
         if: hashFiles('jevzip/portability_check.py') != ''
-        run: python -m jevzip.portability_check
+        # .jz files are not portable across CPUs/builds by design (see README), so a failed decode is
+        # reported as a warning and in the job summary instead of a red check.
+        run: |
+          set +e
+          python -m jevzip.portability_check > portability.txt 2>&1; rc=$?
+          cat portability.txt
+          { echo '### Decode portability'; echo '```'; cat portability.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          if [ $rc -ne 0 ]; then echo "::warning title=portability::$(tail -1 portability.txt) (fixtures encoded on macOS arm64, torch 2.14.1)"; fi
