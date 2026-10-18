@@ -1,0 +1,1003 @@
+{
+ "device": "mps",
+ "entries": [
+  {
+   "key": "jevzip-lanes-11m-code.pt|networkx.py.txt|fp32|64K|parallel|16,32,64,128,512",
+   "command": "python -m jevzip.latency data/code/networkx.py.txt --weights weights/jevzip-lanes-11m-code.pt --device mps --sizes 64K --layouts parallel --rounds 16 32 64 128 512 --runs 3",
+   "started": "2026-10-18 19:52:31",
+   "device": "mps",
+   "dtype": "fp32",
+   "weights": {
+    "path": "weights/jevzip-lanes-11m-code.pt",
+    "sha256": "548d8879cbfd42e6115f432c71f19f306504899676c5a844a27e59d685339684",
+    "params": 11140096,
+    "config": {
+     "ctx": 512,
+     "block": 512,
+     "d_model": 384,
+     "n_layers": 6,
+     "n_heads": 6,
+     "ff_mult": 4,
+     "first": 8,
+     "order": "lanes"
+    }
+   },
+   "input": {
+    "path": "data/code/networkx.py.txt",
+    "bytes": 1048576,
+    "sha256": "97ac83b301c24bde1903b3eb34fb131bb3c36b84acd470fdcbd28f869b0387f4"
+   },
+   "runs": 3,
+   "max_batch": 256,
+   "codec_chunk": 128,
+   "env": {
+    "python": "3.12.13",
+    "torch": "2.14.1",
+    "numpy": "2.5.4",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "torch_threads": 4,
+    "cpu": "Apple M4 Pro",
+    "code_sha256": {
+     "model.py": "3a15f759e321beee",
+     "latency.py": "b4922bf7cfa54209",
+     "codec.py": "bcb55157a4fed837",
+     "schedule.py": "760c1b6aec2cd371",
+     "rans.py": "208600c9b005161e"
+    }
+   },
+   "ar_note": "K=512 is the AR baseline with a KV cache (one byte per round per block, all blocks batched) run on a model trained in lanes order",
+   "results": [
+    {
+     "size": "64K",
+     "bytes": 65536,
+     "sha256": "8a54b455d9196822d82ecbeb030f0947605855e9bc88ff690ef5ee5baaae51e1",
+     "layout": "parallel",
+     "K": 16,
+     "ar_baseline": false,
+     "blocks": 128,
+     "batches": 1,
+     "max_blocks_per_call": 128,
+     "forward_calls": 16,
+     "dependency_depth_rounds": 16,
+     "model_ms": 1859.6232500858605,
+     "model_ms_runs": [
+      1859.4029580708593,
+      1859.6232500858605,
+      1860.1515830960125
+     ],
+     "per_round_ms": 116.22645313036628,
+     "first_call_ms": 654.8530000727624,
+     "later_round_ms": 80.35323886821668,
+     "entropy_ms": 148.39087496511638,
+     "e2e_ms": 2008.0141250509769,
+     "kb_per_s": 32.6372206163322,
+     "model_share": 0.9261006817064351,
+     "coded_bytes": 13694,
+     "bits_per_byte": 1.671630859375,
+     "probs_sha256": [
+      "7d82d80db50660084441de17daa8737466ebf91c7bd03ce1fe4ef14402898455",
+      "7d82d80db50660084441de17daa8737466ebf91c7bd03ce1fe4ef14402898455",
+      "7d82d80db50660084441de17daa8737466ebf91c7bd03ce1fe4ef14402898455"
+     ],
+     "deterministic": true
+    },
+    {
+     "size": "64K",
+     "bytes": 65536,
+     "sha256": "8a54b455d9196822d82ecbeb030f0947605855e9bc88ff690ef5ee5baaae51e1",
+     "layout": "parallel",
+     "K": 32,
+     "ar_baseline": false,
+     "blocks": 128,
+     "batches": 1,
+     "max_blocks_per_call": 128,
+     "forward_calls": 32,
+     "dependency_depth_rounds": 32,
+     "model_ms": 2283.8425419759005,
+     "model_ms_runs": [
+      2320.069208042696,
+      2279.5284579042345,
+      2283.8425419759005
+     ],
+     "per_round_ms": 71.37007943674689,
+     "first_call_ms": 644.0597909968346,
+     "later_round_ms": 53.1454099297163,
+     "entropy_ms": 146.41783409751952,
+     "e2e_ms": 2430.26037607342,
+     "kb_per_s": 26.966657830255514,
+     "model_share": 0.9397522028754436,
+     "coded_bytes": 12070,
+     "bits_per_byte": 1.473388671875,
+     "probs_sha256": [
+      "9720cfea18171179ab5f2559c9ad3ec42227771954317c65c7127235b67676fb",
+      "9720cfea18171179ab5f2559c9ad3ec42227771954317c65c7127235b67676fb",
+      "9720cfea18171179ab5f2559c9ad3ec42227771954317c65c7127235b67676fb"
+     ],
+     "deterministic": true
+    },
+    {
+     "size": "64K",
+     "bytes": 65536,
+     "sha256": "8a54b455d9196822d82ecbeb030f0947605855e9bc88ff690ef5ee5baaae51e1",
+     "layout": "parallel",
+     "K": 64,
+     "ar_baseline": false,
+     "blocks": 128,
+     "batches": 1,
+     "max_blocks_per_call": 128,
+     "forward_calls": 64,
+     "dependency_depth_rounds": 64,
+     "model_ms": 4278.32300006412,
+     "model_ms_runs": [
+      4254.0898330044,
+      4278.32300006412,
+      4283.181666163728
+     ],
+     "per_round_ms": 66.84879687600187,
+     "first_call_ms": 650.4725001286715,
+     "later_round_ms": 57.564766523206515,
+     "entropy_ms": 120.54083310067654,
+     "e2e_ms": 4398.863833164796,
+     "kb_per_s": 14.898392513516297,
+     "model_share": 0.9725972801904276,
+     "coded_bytes": 11106,
+     "bits_per_byte": 1.355712890625,
+     "probs_sha256": [
+      "bcb1981d36874fbdc4ed976457494db23409519f3dca32216db399307a2e82e4",
+      "bcb1981d36874fbdc4ed976457494db23409519f3dca32216db399307a2e82e4",
+      "bcb1981d36874fbdc4ed976457494db23409519f3dca32216db399307a2e82e4"
+     ],
+     "deterministic": true
+    },
+    {
+     "size": "64K",
+     "bytes": 65536,
+     "sha256": "8a54b455d9196822d82ecbeb030f0947605855e9bc88ff690ef5ee5baaae51e1",
+     "layout": "parallel",
+     "K": 128,
+     "ar_baseline": false,
+     "blocks": 128,
+     "batches": 1,
+     "max_blocks_per_call": 128,
+     "forward_calls": 128,
+     "dependency_depth_rounds": 128,
+     "model_ms": 5100.124082993716,
+     "model_ms_runs": [
+      5100.124082993716,
+      5122.475041076541,
+      5084.736624965444
+     ],
+     "per_round_ms": 39.844719398388406,
+     "first_call_ms": 638.9182501006871,
+     "later_round_ms": 35.127827756502846,
+     "entropy_ms": 128.43608297407627,
+     "e2e_ms": 5228.560165967792,
+     "kb_per_s": 12.534234649639815,
+     "model_share": 0.9754356689227649,
+     "coded_bytes": 10546,
+     "bits_per_byte": 1.287353515625,
+     "probs_sha256": [
+      "04cc76c469d83a351c00092e9155b89b7b5c7f2c37cd474c527258cc44b7e2b0",
+      "04cc76c469d83a351c00092e9155b89b7b5c7f2c37cd474c527258cc44b7e2b0",
+      "04cc76c469d83a351c00092e9155b89b7b5c7f2c37cd474c527258cc44b7e2b0"
+     ],
+     "deterministic": true
+    },
+    {
+     "size": "64K",
+     "bytes": 65536,
+     "sha256": "8a54b455d9196822d82ecbeb030f0947605855e9bc88ff690ef5ee5baaae51e1",
+     "layout": "parallel",
+     "K": 512,
+     "ar_baseline": true,
+     "blocks": 128,
+     "batches": 1,
+     "max_blocks_per_call": 128,
+     "forward_calls": 512,
+     "dependency_depth_rounds": 512,
+     "model_ms": 13652.228000108153,
+     "model_ms_runs": [
+      13618.433166993782,
+      13870.51337491721,
+      13652.228000108153
+     ],
+     "per_round_ms": 26.664507812711236,
+     "first_call_ms": 629.1629169136286,
+     "later_round_ms": 25.47580381598389,
+     "entropy_ms": 131.96908310055733,
+     "e2e_ms": 13784.19708320871,
+     "kb_per_s": 4.754429989965321,
+     "model_share": 0.9904260594720228,
+     "coded_bytes": 10038,
+     "bits_per_byte": 1.225341796875,
+     "probs_sha256": [
+      "22850f95ff5bea9bf1c9fb27c3ca4787e5df6b74a2bb84f8be26202abfba6668",
+      "22850f95ff5bea9bf1c9fb27c3ca4787e5df6b74a2bb84f8be26202abfba6668",
+      "22850f95ff5bea9bf1c9fb27c3ca4787e5df6b74a2bb84f8be26202abfba6668"
+     ],
+     "deterministic": true
+    }
+   ],
+   "roundtrip": [
+    {
+     "size": "64K",
+     "bytes": 65536,
+     "sha256": "8a54b455d9196822d82ecbeb030f0947605855e9bc88ff690ef5ee5baaae51e1",
+     "layout": "parallel",
+     "K": 16,
+     "identical": true,
+     "first_mismatch": null,
+     "error": null,
+     "e2e_ms_interleaved": 2047.6103329565376,
+     "kb_per_s": 32.00608970622491
+    },
+    {
+     "size": "64K",
+     "bytes": 65536,
+     "sha256": "8a54b455d9196822d82ecbeb030f0947605855e9bc88ff690ef5ee5baaae51e1",
+     "layout": "parallel",
+     "K": 32,
+     "identical": true,
+     "first_mismatch": null,
+     "error": null,
+     "e2e_ms_interleaved": 2482.5008339248598,
+     "kb_per_s": 26.399185492472483
+    },
+    {
+     "size": "64K",
+     "bytes": 65536,
+     "sha256": "8a54b455d9196822d82ecbeb030f0947605855e9bc88ff690ef5ee5baaae51e1",
+     "layout": "parallel",
+     "K": 64,
+     "identical": true,
+     "first_mismatch": null,
+     "error": null,
+     "e2e_ms_interleaved": 4401.182833826169,
+     "kb_per_s": 14.890542491511596
+    },
+    {
+     "size": "64K",
+     "bytes": 65536,
+     "sha256": "8a54b455d9196822d82ecbeb030f0947605855e9bc88ff690ef5ee5baaae51e1",
+     "layout": "parallel",
+     "K": 128,
+     "identical": true,
+     "first_mismatch": null,
+     "error": null,
+     "e2e_ms_interleaved": 5206.310000037774,
+     "kb_per_s": 12.587802109272113
+    },
+    {
+     "size": "64K",
+     "bytes": 65536,
+     "sha256": "8a54b455d9196822d82ecbeb030f0947605855e9bc88ff690ef5ee5baaae51e1",
+     "layout": "parallel",
+     "K": 512,
+     "identical": true,
+     "first_mismatch": null,
+     "error": null,
+     "e2e_ms_interleaved": 14084.716165903956,
+     "kb_per_s": 4.652986913477777
+    }
+   ],
+   "overhead": {
+    "tiny_op_and_copy_ms": 0.22181321401149035,
+    "k512_rounds": [
+     {
+      "blocks": 1,
+      "round_ms": 5.9399999445304275,
+      "round_ms_no_copy": 4.583752602532816
+     },
+     {
+      "blocks": 8,
+      "round_ms": 7.524500018917024,
+      "round_ms_no_copy": 5.98110676704285
+     },
+     {
+      "blocks": 32,
+      "round_ms": 9.731104015372694,
+      "round_ms_no_copy": 8.46231595884698
+     },
+     {
+      "blocks": 128,
+      "round_ms": 20.104271126911044,
+      "round_ms_no_copy": 17.77349914482329
+     },
+     {
+      "blocks": 256,
+      "round_ms": 33.2846250385046,
+      "round_ms_no_copy": 32.469634563312866
+     }
+    ],
+    "rounds_per_measure": 48,
+    "aten_ops_per_round": 518
+   },
+   "finished": "2026-10-18 19:55:12"
+  },
+  {
+   "key": "jevzip-lanes-11m-code.pt|networkx.py.txt|fp32|64K|codec|16,32,128",
+   "command": "python -m jevzip.latency data/code/networkx.py.txt --weights weights/jevzip-lanes-11m-code.pt --device mps --sizes 64K --layouts codec --rounds 16 32 128 --runs 3 --roundtrip --no-overhead",
+   "started": "2026-10-18 19:55:14",
+   "device": "mps",
+   "dtype": "fp32",
+   "weights": {
+    "path": "weights/jevzip-lanes-11m-code.pt",
+    "sha256": "548d8879cbfd42e6115f432c71f19f306504899676c5a844a27e59d685339684",
+    "params": 11140096,
+    "config": {
+     "ctx": 512,
+     "block": 512,
+     "d_model": 384,
+     "n_layers": 6,
+     "n_heads": 6,
+     "ff_mult": 4,
+     "first": 8,
+     "order": "lanes"
+    }
+   },
+   "input": {
+    "path": "data/code/networkx.py.txt",
+    "bytes": 1048576,
+    "sha256": "97ac83b301c24bde1903b3eb34fb131bb3c36b84acd470fdcbd28f869b0387f4"
+   },
+   "runs": 3,
+   "max_batch": 256,
+   "codec_chunk": 128,
+   "env": {
+    "python": "3.12.13",
+    "torch": "2.14.1",
+    "numpy": "2.5.4",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "torch_threads": 4,
+    "cpu": "Apple M4 Pro",
+    "code_sha256": {
+     "model.py": "3a15f759e321beee",
+     "latency.py": "b4922bf7cfa54209",
+     "codec.py": "bcb55157a4fed837",
+     "schedule.py": "760c1b6aec2cd371",
+     "rans.py": "208600c9b005161e"
+    }
+   },
+   "ar_note": "K=512 is the AR baseline with a KV cache (one byte per round per block, all blocks batched) run on a model trained in lanes order",
+   "results": [
+    {
+     "size": "64K",
+     "bytes": 65536,
+     "sha256": "8a54b455d9196822d82ecbeb030f0947605855e9bc88ff690ef5ee5baaae51e1",
+     "layout": "codec",
+     "K": 16,
+     "ar_baseline": false,
+     "blocks": 128,
+     "batches": 8,
+     "max_blocks_per_call": 16,
+     "forward_calls": 128,
+     "dependency_depth_rounds": 128,
+     "model_ms": 2409.0805840678513,
+     "model_ms_runs": [
+      2448.6386659555137,
+      2376.5429169870913,
+      2409.0805840678513
+     ],
+     "per_round_ms": 18.82094206303009,
+     "first_call_ms": 72.19578625517897,
+     "later_round_ms": 15.266780209882805,
+     "entropy_ms": 139.28783289156854,
+     "e2e_ms": 2548.36841695942,
+     "kb_per_s": 25.716846733720757,
+     "model_share": 0.9453423484749668,
+     "coded_bytes": 11950,
+     "bits_per_byte": 1.458740234375,
+     "probs_sha256": [
+      "3c1d3d2258d3e5e4ce7fc1cea7f8746ea7818726ae3948045789fa53e4b386c9",
+      "3c1d3d2258d3e5e4ce7fc1cea7f8746ea7818726ae3948045789fa53e4b386c9",
+      "3c1d3d2258d3e5e4ce7fc1cea7f8746ea7818726ae3948045789fa53e4b386c9"
+     ],
+     "deterministic": true
+    },
+    {
+     "size": "64K",
+     "bytes": 65536,
+     "sha256": "8a54b455d9196822d82ecbeb030f0947605855e9bc88ff690ef5ee5baaae51e1",
+     "layout": "codec",
+     "K": 32,
+     "ar_baseline": false,
+     "blocks": 128,
+     "batches": 8,
+     "max_blocks_per_call": 16,
+     "forward_calls": 256,
+     "dependency_depth_rounds": 256,
+     "model_ms": 3595.1682499144226,
+     "model_ms_runs": [
+      3583.0818749964237,
+      3595.1682499144226,
+      3621.245500165969
+     ],
+     "per_round_ms": 14.043625976228213,
+     "first_call_ms": 71.41291661537252,
+     "later_round_ms": 12.193003697546139,
+     "entropy_ms": 143.27337499707937,
+     "e2e_ms": 3738.441624911502,
+     "kb_per_s": 17.53029913943123,
+     "model_share": 0.9616756420529983,
+     "coded_bytes": 10334,
+     "bits_per_byte": 1.261474609375,
+     "probs_sha256": [
+      "866f866ec2d3fc08303c312e9a97d8cef930089f49f410897e9c0b4e6b5c85b9",
+      "866f866ec2d3fc08303c312e9a97d8cef930089f49f410897e9c0b4e6b5c85b9",
+      "866f866ec2d3fc08303c312e9a97d8cef930089f49f410897e9c0b4e6b5c85b9"
+     ],
+     "deterministic": true
+    },
+    {
+     "size": "64K",
+     "bytes": 65536,
+     "sha256": "8a54b455d9196822d82ecbeb030f0947605855e9bc88ff690ef5ee5baaae51e1",
+     "layout": "codec",
+     "K": 128,
+     "ar_baseline": false,
+     "blocks": 128,
+     "batches": 8,
+     "max_blocks_per_call": 16,
+     "forward_calls": 1024,
+     "dependency_depth_rounds": 1024,
+     "model_ms": 12357.901250012219,
+     "model_ms_runs": [
+      12357.901250012219,
+      12792.868667049333,
+      12310.181374894455
+     ],
+     "per_round_ms": 12.068262939465058,
+     "first_call_ms": 105.55129707790911,
+     "later_round_ms": 11.332176056485183,
+     "entropy_ms": 142.25241704843938,
+     "e2e_ms": 12500.153667060658,
+     "kb_per_s": 5.242815548155612,
+     "model_share": 0.9886199465352742,
+     "coded_bytes": 8886,
+     "bits_per_byte": 1.084716796875,
+     "probs_sha256": [
+      "90dba5025f3fe1816eee5a67db3586e5d4c5f9f20bc9752982c0765d8563044b",
+      "90dba5025f3fe1816eee5a67db3586e5d4c5f9f20bc9752982c0765d8563044b",
+      "90dba5025f3fe1816eee5a67db3586e5d4c5f9f20bc9752982c0765d8563044b"
+     ],
+     "deterministic": true
+    }
+   ],
+   "roundtrip": [],
+   "finished": "2026-10-18 19:56:14"
+  },
+  {
+   "key": "jevzip-lanes-11m-code.pt|networkx.py.txt|fp32|256K|parallel|16,32,128,512",
+   "command": "python -m jevzip.latency data/code/networkx.py.txt --weights weights/jevzip-lanes-11m-code.pt --device mps --sizes 256K --layouts parallel --rounds 16 32 128 512 --runs 3 --roundtrip --no-overhead",
+   "started": "2026-10-18 19:56:15",
+   "device": "mps",
+   "dtype": "fp32",
+   "weights": {
+    "path": "weights/jevzip-lanes-11m-code.pt",
+    "sha256": "548d8879cbfd42e6115f432c71f19f306504899676c5a844a27e59d685339684",
+    "params": 11140096,
+    "config": {
+     "ctx": 512,
+     "block": 512,
+     "d_model": 384,
+     "n_layers": 6,
+     "n_heads": 6,
+     "ff_mult": 4,
+     "first": 8,
+     "order": "lanes"
+    }
+   },
+   "input": {
+    "path": "data/code/networkx.py.txt",
+    "bytes": 1048576,
+    "sha256": "97ac83b301c24bde1903b3eb34fb131bb3c36b84acd470fdcbd28f869b0387f4"
+   },
+   "runs": 3,
+   "max_batch": 256,
+   "codec_chunk": 128,
+   "env": {
+    "python": "3.12.13",
+    "torch": "2.14.1",
+    "numpy": "2.5.4",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "torch_threads": 4,
+    "cpu": "Apple M4 Pro",
+    "code_sha256": {
+     "model.py": "3a15f759e321beee",
+     "latency.py": "b4922bf7cfa54209",
+     "codec.py": "bcb55157a4fed837",
+     "schedule.py": "760c1b6aec2cd371",
+     "rans.py": "208600c9b005161e"
+    }
+   },
+   "ar_note": "K=512 is the AR baseline with a KV cache (one byte per round per block, all blocks batched) run on a model trained in lanes order",
+   "results": [
+    {
+     "size": "256K",
+     "bytes": 262144,
+     "sha256": "387bbb78d26c74def0c8dc1556aeb407229b9cdf33ecef5d3d57cca0be3c30ab",
+     "layout": "parallel",
+     "K": 16,
+     "ar_baseline": false,
+     "blocks": 512,
+     "batches": 2,
+     "max_blocks_per_call": 256,
+     "forward_calls": 32,
+     "dependency_depth_rounds": 16,
+     "model_ms": 7804.259832948446,
+     "model_ms_runs": [
+      7646.045374916866,
+      7804.259832948446,
+      7850.755375111476
+     ],
+     "per_round_ms": 243.88311977963895,
+     "first_call_ms": 1411.6021249210462,
+     "later_round_ms": 166.03518610354513,
+     "entropy_ms": 657.9305829945952,
+     "e2e_ms": 8462.190415943041,
+     "kb_per_s": 30.978267696046192,
+     "model_share": 0.9222505579932315,
+     "coded_bytes": 58270,
+     "bits_per_byte": 1.77825927734375,
+     "probs_sha256": [
+      "dc4d725f0f8f6eae4094b7309393d3d6d1fb29d556d2e219dab8e5317b45985c",
+      "dc4d725f0f8f6eae4094b7309393d3d6d1fb29d556d2e219dab8e5317b45985c",
+      "dc4d725f0f8f6eae4094b7309393d3d6d1fb29d556d2e219dab8e5317b45985c"
+     ],
+     "deterministic": true
+    },
+    {
+     "size": "256K",
+     "bytes": 262144,
+     "sha256": "387bbb78d26c74def0c8dc1556aeb407229b9cdf33ecef5d3d57cca0be3c30ab",
+     "layout": "parallel",
+     "K": 32,
+     "ar_baseline": false,
+     "blocks": 512,
+     "batches": 2,
+     "max_blocks_per_call": 256,
+     "forward_calls": 64,
+     "dependency_depth_rounds": 32,
+     "model_ms": 9391.45754207857,
+     "model_ms_runs": [
+      9391.45754207857,
+      9415.387083077803,
+      9375.436250120401
+     ],
+     "per_round_ms": 146.74152409497765,
+     "first_call_ms": 1387.1852710144594,
+     "later_round_ms": 106.82697042131856,
+     "entropy_ms": 597.8159171063453,
+     "e2e_ms": 9989.273459184915,
+     "kb_per_s": 26.242549177484417,
+     "model_share": 0.9401542144632484,
+     "coded_bytes": 51682,
+     "bits_per_byte": 1.57720947265625,
+     "probs_sha256": [
+      "a250cd3dbad02622f92e90f4b32a5bf2646b3f1595d947211817a667de8c4458",
+      "a250cd3dbad02622f92e90f4b32a5bf2646b3f1595d947211817a667de8c4458",
+      "a250cd3dbad02622f92e90f4b32a5bf2646b3f1595d947211817a667de8c4458"
+     ],
+     "deterministic": true
+    },
+    {
+     "size": "256K",
+     "bytes": 262144,
+     "sha256": "387bbb78d26c74def0c8dc1556aeb407229b9cdf33ecef5d3d57cca0be3c30ab",
+     "layout": "parallel",
+     "K": 128,
+     "ar_baseline": false,
+     "blocks": 512,
+     "batches": 2,
+     "max_blocks_per_call": 256,
+     "forward_calls": 256,
+     "dependency_depth_rounds": 128,
+     "model_ms": 18716.132125118747,
+     "model_ms_runs": [
+      18837.524915812537,
+      18716.132125118747,
+      18534.92825012654
+     ],
+     "per_round_ms": 73.1098911137451,
+     "first_call_ms": 1313.5299789719284,
+     "later_round_ms": 63.34280380777516,
+     "entropy_ms": 534.1105831321329,
+     "e2e_ms": 19250.24270825088,
+     "kb_per_s": 13.617698434921135,
+     "model_share": 0.9722543455047864,
+     "coded_bytes": 45786,
+     "bits_per_byte": 1.39727783203125,
+     "probs_sha256": [
+      "626f6fde9faca4ce95ea6bcb142a2799cfeb6acb78589a30b63ccd9cbda4901d",
+      "626f6fde9faca4ce95ea6bcb142a2799cfeb6acb78589a30b63ccd9cbda4901d",
+      "626f6fde9faca4ce95ea6bcb142a2799cfeb6acb78589a30b63ccd9cbda4901d"
+     ],
+     "deterministic": true
+    },
+    {
+     "size": "256K",
+     "bytes": 262144,
+     "sha256": "387bbb78d26c74def0c8dc1556aeb407229b9cdf33ecef5d3d57cca0be3c30ab",
+     "layout": "parallel",
+     "K": 512,
+     "ar_baseline": true,
+     "blocks": 512,
+     "batches": 2,
+     "max_blocks_per_call": 256,
+     "forward_calls": 1024,
+     "dependency_depth_rounds": 512,
+     "model_ms": 49234.2239159625,
+     "model_ms_runs": [
+      48599.52066699043,
+      49234.2239159625,
+      49476.63716599345
+     ],
+     "per_round_ms": 48.08029679293213,
+     "first_call_ms": 1346.0290415678173,
+     "later_round_ms": 45.540279679869734,
+     "entropy_ms": 559.8083331715316,
+     "e2e_ms": 49794.032249134034,
+     "kb_per_s": 5.264566618915642,
+     "model_share": 0.9887575215766691,
+     "coded_bytes": 43778,
+     "bits_per_byte": 1.33599853515625,
+     "probs_sha256": [
+      "1d547da8bebebcc43c1d4017f99d0892bfbf8fa30ef29582ba2332e29c2b9540",
+      "1d547da8bebebcc43c1d4017f99d0892bfbf8fa30ef29582ba2332e29c2b9540",
+      "1d547da8bebebcc43c1d4017f99d0892bfbf8fa30ef29582ba2332e29c2b9540"
+     ],
+     "deterministic": true
+    }
+   ],
+   "roundtrip": [],
+   "finished": "2026-10-18 20:01:20"
+  },
+  {
+   "key": "jevzip-lanes-11m-enwik8.pt|test.bin|fp32|64K|parallel|16,32,64,128,512",
+   "command": "python -m jevzip.latency data/enwik8/test.bin --weights weights/jevzip-lanes-11m-enwik8.pt --device mps --sizes 64K --layouts parallel --rounds 16 32 64 128 512 --runs 3 --roundtrip 32 512 --no-overhead",
+   "started": "2026-10-18 20:01:21",
+   "device": "mps",
+   "dtype": "fp32",
+   "weights": {
+    "path": "weights/jevzip-lanes-11m-enwik8.pt",
+    "sha256": "29c07faf7b4814101ba6fea7df0d4dbb3833196c14345c384556df1599a804a0",
+    "params": 11140096,
+    "config": {
+     "ctx": 512,
+     "block": 512,
+     "d_model": 384,
+     "n_layers": 6,
+     "n_heads": 6,
+     "ff_mult": 4,
+     "first": 8,
+     "order": "lanes"
+    }
+   },
+   "input": {
+    "path": "data/enwik8/test.bin",
+    "bytes": 5000000,
+    "sha256": "86f62c0adeb6c27763f308b8913bec743626421a4d2b4010f1e177a40eef7750"
+   },
+   "runs": 3,
+   "max_batch": 256,
+   "codec_chunk": 128,
+   "env": {
+    "python": "3.12.13",
+    "torch": "2.14.1",
+    "numpy": "2.5.4",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "torch_threads": 4,
+    "cpu": "Apple M4 Pro",
+    "code_sha256": {
+     "model.py": "3a15f759e321beee",
+     "latency.py": "b4922bf7cfa54209",
+     "codec.py": "bcb55157a4fed837",
+     "schedule.py": "760c1b6aec2cd371",
+     "rans.py": "208600c9b005161e"
+    }
+   },
+   "ar_note": "K=512 is the AR baseline with a KV cache (one byte per round per block, all blocks batched) run on a model trained in lanes order",
+   "results": [
+    {
+     "size": "64K",
+     "bytes": 65536,
+     "sha256": "94fa9cb5690b12f9c4fb4bbfb2b23202e2fb962f09f9606790f6ec224c5404a8",
+     "layout": "parallel",
+     "K": 16,
+     "ar_baseline": false,
+     "blocks": 128,
+     "batches": 1,
+     "max_blocks_per_call": 128,
+     "forward_calls": 16,
+     "dependency_depth_rounds": 16,
+     "model_ms": 1945.049249799922,
+     "model_ms_runs": [
+      1932.5077920220792,
+      1945.049249799922,
+      1960.6622089631855
+     ],
+     "per_round_ms": 121.56557811249513,
+     "first_call_ms": 683.6469999980181,
+     "later_round_ms": 84.09348332012694,
+     "entropy_ms": 170.66562501713634,
+     "e2e_ms": 2115.7148748170584,
+     "kb_per_s": 30.97581851886671,
+     "model_share": 0.9193342982797276,
+     "coded_bytes": 15022,
+     "bits_per_byte": 1.833740234375,
+     "probs_sha256": [
+      "b24ad6c3b969177b639809e11c68db3295e88e29a21f65bb4fb820f90e8158f9",
+      "b24ad6c3b969177b639809e11c68db3295e88e29a21f65bb4fb820f90e8158f9",
+      "b24ad6c3b969177b639809e11c68db3295e88e29a21f65bb4fb820f90e8158f9"
+     ],
+     "deterministic": true
+    },
+    {
+     "size": "64K",
+     "bytes": 65536,
+     "sha256": "94fa9cb5690b12f9c4fb4bbfb2b23202e2fb962f09f9606790f6ec224c5404a8",
+     "layout": "parallel",
+     "K": 32,
+     "ar_baseline": false,
+     "blocks": 128,
+     "batches": 1,
+     "max_blocks_per_call": 128,
+     "forward_calls": 32,
+     "dependency_depth_rounds": 32,
+     "model_ms": 2425.919916946441,
+     "model_ms_runs": [
+      2425.919916946441,
+      2462.2331249993294,
+      2376.984625123441
+     ],
+     "per_round_ms": 75.80999740457628,
+     "first_call_ms": 676.4130829833448,
+     "later_round_ms": 56.3422903238285,
+     "entropy_ms": 158.3839999511838,
+     "e2e_ms": 2584.3039168976247,
+     "kb_per_s": 25.359246476967733,
+     "model_share": 0.938713090625456,
+     "coded_bytes": 13566,
+     "bits_per_byte": 1.656005859375,
+     "probs_sha256": [
+      "7de7d6cf9ddc0203d7bb0a68eda02a61965f378a5d0ac9668be1c63934dc7b15",
+      "7de7d6cf9ddc0203d7bb0a68eda02a61965f378a5d0ac9668be1c63934dc7b15",
+      "7de7d6cf9ddc0203d7bb0a68eda02a61965f378a5d0ac9668be1c63934dc7b15"
+     ],
+     "deterministic": true
+    },
+    {
+     "size": "64K",
+     "bytes": 65536,
+     "sha256": "94fa9cb5690b12f9c4fb4bbfb2b23202e2fb962f09f9606790f6ec224c5404a8",
+     "layout": "parallel",
+     "K": 64,
+     "ar_baseline": false,
+     "blocks": 128,
+     "batches": 1,
+     "max_blocks_per_call": 128,
+     "forward_calls": 64,
+     "dependency_depth_rounds": 64,
+     "model_ms": 4407.759791938588,
+     "model_ms_runs": [
+      4415.574749931693,
+      4407.759791938588,
+      4393.5790420509875
+     ],
+     "per_round_ms": 68.87124674904044,
+     "first_call_ms": 697.9936249554157,
+     "later_round_ms": 58.69451587251018,
+     "entropy_ms": 174.7854168061167,
+     "e2e_ms": 4582.545208744705,
+     "kb_per_s": 14.301222795345266,
+     "model_share": 0.9618584413586188,
+     "coded_bytes": 12714,
+     "bits_per_byte": 1.552001953125,
+     "probs_sha256": [
+      "3ead05d9929ba2ee8436e76be994c89eb72c3c5aa1f9acbd6b679c70edb858f1",
+      "3ead05d9929ba2ee8436e76be994c89eb72c3c5aa1f9acbd6b679c70edb858f1",
+      "3ead05d9929ba2ee8436e76be994c89eb72c3c5aa1f9acbd6b679c70edb858f1"
+     ],
+     "deterministic": true
+    },
+    {
+     "size": "64K",
+     "bytes": 65536,
+     "sha256": "94fa9cb5690b12f9c4fb4bbfb2b23202e2fb962f09f9606790f6ec224c5404a8",
+     "layout": "parallel",
+     "K": 128,
+     "ar_baseline": false,
+     "blocks": 128,
+     "batches": 1,
+     "max_blocks_per_call": 128,
+     "forward_calls": 128,
+     "dependency_depth_rounds": 128,
+     "model_ms": 5190.430875169113,
+     "model_ms_runs": [
+      5168.572125025094,
+      5191.560749895871,
+      5190.430875169113
+     ],
+     "per_round_ms": 40.5502412122587,
+     "first_call_ms": 679.6564161777496,
+     "later_round_ms": 35.44055544001263,
+     "entropy_ms": 133.56270897202194,
+     "e2e_ms": 5323.993584141135,
+     "kb_per_s": 12.309556532001764,
+     "model_share": 0.9749130597433715,
+     "coded_bytes": 12290,
+     "bits_per_byte": 1.500244140625,
+     "probs_sha256": [
+      "c229260a2896a72fd941e204a2d2dedd633486e6075fd9090efc5bfbd1034417",
+      "c229260a2896a72fd941e204a2d2dedd633486e6075fd9090efc5bfbd1034417",
+      "c229260a2896a72fd941e204a2d2dedd633486e6075fd9090efc5bfbd1034417"
+     ],
+     "deterministic": true
+    },
+    {
+     "size": "64K",
+     "bytes": 65536,
+     "sha256": "94fa9cb5690b12f9c4fb4bbfb2b23202e2fb962f09f9606790f6ec224c5404a8",
+     "layout": "parallel",
+     "K": 512,
+     "ar_baseline": true,
+     "blocks": 128,
+     "batches": 1,
+     "max_blocks_per_call": 128,
+     "forward_calls": 512,
+     "dependency_depth_rounds": 512,
+     "model_ms": 13957.301540998742,
+     "model_ms_runs": [
+      14002.746334066615,
+      13607.861917000264,
+      13957.301540998742
+     ],
+     "per_round_ms": 27.260354572263168,
+     "first_call_ms": 646.6021249070764,
+     "later_round_ms": 26.051692677381105,
+     "entropy_ms": 136.02450001053512,
+     "e2e_ms": 14093.326041009277,
+     "kb_per_s": 4.650144317196731,
+     "model_share": 0.9903483038982618,
+     "coded_bytes": 11902,
+     "bits_per_byte": 1.452880859375,
+     "probs_sha256": [
+      "97259310cc4be333046ae806eb21707258c97c88a957638226d4ca05e116f499",
+      "97259310cc4be333046ae806eb21707258c97c88a957638226d4ca05e116f499",
+      "97259310cc4be333046ae806eb21707258c97c88a957638226d4ca05e116f499"
+     ],
+     "deterministic": true
+    }
+   ],
+   "roundtrip": [
+    {
+     "size": "64K",
+     "bytes": 65536,
+     "sha256": "94fa9cb5690b12f9c4fb4bbfb2b23202e2fb962f09f9606790f6ec224c5404a8",
+     "layout": "parallel",
+     "K": 32,
+     "identical": true,
+     "first_mismatch": null,
+     "error": null,
+     "e2e_ms_interleaved": 2519.855125108734,
+     "kb_per_s": 26.00784439826558
+    },
+    {
+     "size": "64K",
+     "bytes": 65536,
+     "sha256": "94fa9cb5690b12f9c4fb4bbfb2b23202e2fb962f09f9606790f6ec224c5404a8",
+     "layout": "parallel",
+     "K": 512,
+     "identical": true,
+     "first_mismatch": null,
+     "error": null,
+     "e2e_ms_interleaved": 13846.281416947022,
+     "kb_per_s": 4.733111947283394
+    }
+   ],
+   "finished": "2026-10-18 20:03:33"
+  },
+  {
+   "key": "jevzip-ar-11m-enwik8.pt|test.bin|fp32|64K|parallel|512",
+   "command": "python -m jevzip.latency data/enwik8/test.bin --weights weights/jevzip-ar-11m-enwik8.pt --device mps --sizes 64K --layouts parallel --rounds 512 --runs 3 --roundtrip 512 --no-overhead",
+   "started": "2026-10-18 20:03:34",
+   "device": "mps",
+   "dtype": "fp32",
+   "weights": {
+    "path": "weights/jevzip-ar-11m-enwik8.pt",
+    "sha256": "04ea6ad89b47cb04653e3581c6883275fad3ce4875399073dcd872968c82dbba",
+    "params": 11140096,
+    "config": {
+     "ctx": 512,
+     "block": 512,
+     "d_model": 384,
+     "n_layers": 6,
+     "n_heads": 6,
+     "ff_mult": 4,
+     "first": 8,
+     "order": "linear"
+    }
+   },
+   "input": {
+    "path": "data/enwik8/test.bin",
+    "bytes": 5000000,
+    "sha256": "86f62c0adeb6c27763f308b8913bec743626421a4d2b4010f1e177a40eef7750"
+   },
+   "runs": 3,
+   "max_batch": 256,
+   "codec_chunk": 128,
+   "env": {
+    "python": "3.12.13",
+    "torch": "2.14.1",
+    "numpy": "2.5.4",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "torch_threads": 4,
+    "cpu": "Apple M4 Pro",
+    "code_sha256": {
+     "model.py": "3a15f759e321beee",
+     "latency.py": "b4922bf7cfa54209",
+     "codec.py": "bcb55157a4fed837",
+     "schedule.py": "760c1b6aec2cd371",
+     "rans.py": "208600c9b005161e"
+    }
+   },
+   "ar_note": "K=512 is the AR baseline with a KV cache (one byte per round per block, all blocks batched) on a model trained in linear (AR) order",
+   "results": [
+    {
+     "size": "64K",
+     "bytes": 65536,
+     "sha256": "94fa9cb5690b12f9c4fb4bbfb2b23202e2fb962f09f9606790f6ec224c5404a8",
+     "layout": "parallel",
+     "K": 512,
+     "ar_baseline": true,
+     "blocks": 128,
+     "batches": 1,
+     "max_blocks_per_call": 128,
+     "forward_calls": 512,
+     "dependency_depth_rounds": 512,
+     "model_ms": 13895.497458055615,
+     "model_ms_runs": [
+      13890.180832939222,
+      14205.685792025179,
+      13895.497458055615
+     ],
+     "per_round_ms": 27.139643472764874,
+     "first_call_ms": 646.6137920506299,
+     "later_round_ms": 25.92978033249917,
+     "entropy_ms": 148.9742079284042,
+     "e2e_ms": 14044.47166598402,
+     "kb_per_s": 4.666320069464019,
+     "model_share": 0.9893926798051633,
+     "coded_bytes": 11642,
+     "bits_per_byte": 1.421142578125,
+     "probs_sha256": [
+      "8a9d7de5cb6de3fb5b99a8f95d2466c10a303cfd78f29ff179a6033456328a43",
+      "8a9d7de5cb6de3fb5b99a8f95d2466c10a303cfd78f29ff179a6033456328a43",
+      "8a9d7de5cb6de3fb5b99a8f95d2466c10a303cfd78f29ff179a6033456328a43"
+     ],
+     "deterministic": true
+    }
+   ],
+   "roundtrip": [
+    {
+     "size": "64K",
+     "bytes": 65536,
+     "sha256": "94fa9cb5690b12f9c4fb4bbfb2b23202e2fb962f09f9606790f6ec224c5404a8",
+     "layout": "parallel",
+     "K": 512,
+     "identical": true,
+     "first_mismatch": null,
+     "error": null,
+     "e2e_ms_interleaved": 14409.470167011023,
+     "kb_per_s": 4.548120037753909
+    }
+   ],
+   "finished": "2026-10-18 20:04:47"
+  }
+ ]
+}

@@ -1,0 +1,44 @@
+{
+ "command": "/Users/agent/helloworld-jevzip/.venv/bin/python -m jevzip.bench data/enwik8/test.bin --weights weights/jevzip-ar-11m-enwik8.pt --rounds 512 --baselines none --verify --threads 6 --json results/enwik8/ar-11m-test.json",
+ "torch": "2.14.1",
+ "environment": {
+  "python": "3.12.13",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "zstd": "v1.5.7",
+  "brotli": "brotli 1.2.0",
+  "xz": "xz (XZ Utils) 5.8.3",
+  "sevenzip": null,
+  "paq8px": "paq8px c84f576fc2c522194cd320743708652a154daf6b, cmake Release, Apple clang version 21.0.0 (clang-2100.3.34.2)",
+  "cmix": "cmix 194af9cd133b8b741d2a53afca13ed0ca453c276, -Ofast -mcpu=native -DP1_MODE=2 -DP3_BATCH -DP2_FASTMATH -DLSTM_QUANT=8, Apple clang version 21.0.0 (clang-2100.3.34.2)"
+ },
+ "results": [
+  {
+   "file": "data/enwik8/test.bin",
+   "size": 5000000,
+   "sha256": "86f62c0adeb6c27763f308b8913bec743626421a4d2b4010f1e177a40eef7750",
+   "rows": [
+    {
+     "name": "jevzip K=512 streams=127",
+     "kind": "jevzip",
+     "bytes": 780758,
+     "bits_per_byte": 1.2492128,
+     "enc_s": 2748.2660627365112,
+     "forward_calls": 39744,
+     "rounds": 512,
+     "streams": 127,
+     "threads": 6,
+     "bf16": false,
+     "verified": true,
+     "dec_s": 2590.9134941101074
+    }
+   ]
+  }
+ ],
+ "weights": {
+  "path": "weights/jevzip-ar-11m-enwik8.pt",
+  "bytes": 22304627,
+  "sha256": "04ea6ad89b47cb04653e3581c6883275fad3ce4875399073dcd872968c82dbba",
+  "params": 11140096
+ }
+}

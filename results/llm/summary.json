@@ -1,7 +1,1010 @@
 {
  "label": "LLM codelength (arithmetic coding adds < 0.01%)",
- "generated": "2026-10-18 14:25:14",
+ "generated": "2026-10-18 23:54:49",
  "runs": [
+  {
+   "source": "results/llm/runs/qwen-0.5b-lmic-chunks-mps.json",
+   "label": "LLM codelength (arithmetic coding adds up to 1.74%: flush per sequence)",
+   "file": "data/enwik8/test.bin",
+   "file_bytes": 5000000,
+   "sha256": "86f62c0adeb6c27763f308b8913bec743626421a4d2b4010f1e177a40eef7750",
+   "model": {
+    "name": "qwen-0.5b",
+    "repo": "Qwen/Qwen2.5-0.5B",
+    "revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+    "type": "qwen2",
+    "params": 494032768,
+    "bytes_bf16": 988065536,
+    "vocab": 151936,
+    "weights": {
+     "model.safetensors": "88c142557820ccad55bb59756bfcfcf891de9cc6202816bd346445188a0ed342"
+    },
+    "tokenizer_sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 151643,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.71
+   },
+   "method": "chunks",
+   "context": {
+    "chunk_bytes": 2048,
+    "batch": 16,
+    "context_across_chunks": false,
+    "chunks": 2442,
+    "chunks_scored": 2442,
+    "boundaries_moved_for_utf8": 9,
+    "codelength_bytes_whole_bytes_per_chunk": 564596
+   },
+   "complete": true,
+   "bytes": 5000000,
+   "nfc_stable": true,
+   "tokens": 1343107,
+   "bytes_per_token": 3.7227,
+   "bits": 4507018.196,
+   "bpb": 0.901404,
+   "codelength_bytes": 563378,
+   "total_with_model_bf16_bytes": 988628914,
+   "coder_overhead_est_bits": 78418.2,
+   "coder_overhead_est_rel": 0.0173991,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 365.61,
+   "tokens_per_s": 3673.6,
+   "forward_tokens_per_s": 3673.6
+  },
+  {
+   "source": "results/llm/runs/qwen-0.5b-window-mps.json",
+   "label": "LLM codelength (arithmetic coding adds < 0.01%)",
+   "file": "data/enwik8/test.bin",
+   "file_bytes": 5000000,
+   "sha256": "86f62c0adeb6c27763f308b8913bec743626421a4d2b4010f1e177a40eef7750",
+   "model": {
+    "name": "qwen-0.5b",
+    "repo": "Qwen/Qwen2.5-0.5B",
+    "revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+    "type": "qwen2",
+    "params": 494032768,
+    "bytes_bf16": 988065536,
+    "vocab": 151936,
+    "weights": {
+     "model.safetensors": "88c142557820ccad55bb59756bfcfcf891de9cc6202816bd346445188a0ed342"
+    },
+    "tokenizer_sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 151643,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 1.06
+   },
+   "method": "window",
+   "context": {
+    "window_tokens": 2048,
+    "stride_tokens": 1024,
+    "batch": 4,
+    "windows": 1309
+   },
+   "complete": true,
+   "bytes": 5000000,
+   "nfc_stable": true,
+   "tokens": 1340691,
+   "bytes_per_token": 3.7294,
+   "bits": 3971639.792,
+   "bpb": 0.794328,
+   "codelength_bytes": 496455,
+   "total_with_model_bf16_bytes": 988561991,
+   "coder_overhead_est_bits": 305.7,
+   "coder_overhead_est_rel": 7.7e-05,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 636.32,
+   "tokens_per_s": 2106.9,
+   "forward_tokens_per_s": 4211.8
+  },
+  {
+   "source": "results/llm/runs/qwen-0.5b-window-mps.json",
+   "label": "LLM codelength (arithmetic coding adds up to 0.02%: flush per sequence)",
+   "file": "data/code/networkx.py.txt",
+   "file_bytes": 1048576,
+   "sha256": "97ac83b301c24bde1903b3eb34fb131bb3c36b84acd470fdcbd28f869b0387f4",
+   "model": {
+    "name": "qwen-0.5b",
+    "repo": "Qwen/Qwen2.5-0.5B",
+    "revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+    "type": "qwen2",
+    "params": 494032768,
+    "bytes_bf16": 988065536,
+    "vocab": 151936,
+    "weights": {
+     "model.safetensors": "88c142557820ccad55bb59756bfcfcf891de9cc6202816bd346445188a0ed342"
+    },
+    "tokenizer_sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 151643,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 1.06
+   },
+   "method": "window",
+   "context": {
+    "window_tokens": 2048,
+    "stride_tokens": 1024,
+    "batch": 4,
+    "windows": 262
+   },
+   "complete": true,
+   "bytes": 1048576,
+   "nfc_stable": true,
+   "tokens": 269167,
+   "bytes_per_token": 3.8956,
+   "bits": 440373.271,
+   "bpb": 0.419973,
+   "codelength_bytes": 55047,
+   "total_with_model_bf16_bytes": 988120583,
+   "coder_overhead_est_bits": 86.9,
+   "coder_overhead_est_rel": 0.0001974,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 127.55,
+   "tokens_per_s": 2110.2,
+   "forward_tokens_per_s": 4205.6
+  },
+  {
+   "source": "results/llm/runs/qwen-0.5b-window-mps.json",
+   "label": "LLM codelength (arithmetic coding adds up to 0.02%: flush per sequence)",
+   "file": "data/code/pydoc_topics.txt",
+   "file_bytes": 519592,
+   "sha256": "5b5a37bce813f6c12f10b00a5cb2b475d3b43ce0ee60f27149002dc8a656a299",
+   "model": {
+    "name": "qwen-0.5b",
+    "repo": "Qwen/Qwen2.5-0.5B",
+    "revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+    "type": "qwen2",
+    "params": 494032768,
+    "bytes_bf16": 988065536,
+    "vocab": 151936,
+    "weights": {
+     "model.safetensors": "88c142557820ccad55bb59756bfcfcf891de9cc6202816bd346445188a0ed342"
+    },
+    "tokenizer_sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 151643,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 1.06
+   },
+   "method": "window",
+   "context": {
+    "window_tokens": 2048,
+    "stride_tokens": 1024,
+    "batch": 4,
+    "windows": 113
+   },
+   "complete": true,
+   "bytes": 519592,
+   "nfc_stable": true,
+   "tokens": 116309,
+   "bytes_per_token": 4.4673,
+   "bits": 298378.718,
+   "bpb": 0.574256,
+   "codelength_bytes": 37298,
+   "total_with_model_bf16_bytes": 988102834,
+   "coder_overhead_est_bits": 55.7,
+   "coder_overhead_est_rel": 0.0001868,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 55.08,
+   "tokens_per_s": 2111.7,
+   "forward_tokens_per_s": 4194.0
+  },
+  {
+   "source": "results/llm/runs/qwen-0.5b-window-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds up to 0.02%: flush per sequence)",
+   "file": "data/ood/c-headers/torch-c10.txt",
+   "file_bytes": 1026867,
+   "sha256": "ccdd6e112b0f819a2e4ad3f93e28d8118da8afa41872cea8308f9b276b4f328f",
+   "model": {
+    "name": "qwen-0.5b",
+    "repo": "Qwen/Qwen2.5-0.5B",
+    "revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+    "type": "qwen2",
+    "params": 494032768,
+    "bytes_bf16": 988065536,
+    "vocab": 151936,
+    "weights": {
+     "model.safetensors": "88c142557820ccad55bb59756bfcfcf891de9cc6202816bd346445188a0ed342"
+    },
+    "tokenizer_sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 151643,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.75
+   },
+   "method": "window",
+   "context": {
+    "window_tokens": 2048,
+    "stride_tokens": 1536,
+    "batch": 4,
+    "windows": 178
+   },
+   "complete": true,
+   "bytes": 1026867,
+   "nfc_stable": true,
+   "tokens": 273189,
+   "bytes_per_token": 3.7588,
+   "bits": 496709.024,
+   "bpb": 0.483713,
+   "codelength_bytes": 62089,
+   "total_with_model_bf16_bytes": 988127625,
+   "coder_overhead_est_bits": 87.8,
+   "coder_overhead_est_rel": 0.0001767,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 98.34,
+   "tokens_per_s": 2778.0,
+   "forward_tokens_per_s": 3699.6
+  },
+  {
+   "source": "results/llm/runs/qwen-0.5b-window-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds up to 0.20%: flush per sequence)",
+   "file": "data/ood/json/apache_builds.json",
+   "file_bytes": 127275,
+   "sha256": "f8e3422ac7d3c3550674afcb37e979e4e9bbeccffdb66933423495d55b6f5c74",
+   "model": {
+    "name": "qwen-0.5b",
+    "repo": "Qwen/Qwen2.5-0.5B",
+    "revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+    "type": "qwen2",
+    "params": 494032768,
+    "bytes_bf16": 988065536,
+    "vocab": 151936,
+    "weights": {
+     "model.safetensors": "88c142557820ccad55bb59756bfcfcf891de9cc6202816bd346445188a0ed342"
+    },
+    "tokenizer_sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 151643,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.75
+   },
+   "method": "window",
+   "context": {
+    "window_tokens": 2048,
+    "stride_tokens": 1536,
+    "batch": 4,
+    "windows": 28
+   },
+   "complete": true,
+   "bytes": 127275,
+   "nfc_stable": true,
+   "tokens": 42938,
+   "bytes_per_token": 2.9642,
+   "bits": 20888.602,
+   "bpb": 0.164122,
+   "codelength_bytes": 2612,
+   "total_with_model_bf16_bytes": 988068148,
+   "coder_overhead_est_bits": 40.8,
+   "coder_overhead_est_rel": 0.0019516,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 15.04,
+   "tokens_per_s": 2855.0,
+   "forward_tokens_per_s": 3774.2
+  },
+  {
+   "source": "results/llm/runs/qwen-0.5b-window-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds up to 0.02%: flush per sequence)",
+   "file": "data/ood/json/canada.json",
+   "file_bytes": 2251051,
+   "sha256": "f83b3b354030d5dd58740c68ac4fecef64cb730a0d12a90362a7f23077f50d78",
+   "model": {
+    "name": "qwen-0.5b",
+    "repo": "Qwen/Qwen2.5-0.5B",
+    "revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+    "type": "qwen2",
+    "params": 494032768,
+    "bytes_bf16": 988065536,
+    "vocab": 151936,
+    "weights": {
+     "model.safetensors": "88c142557820ccad55bb59756bfcfcf891de9cc6202816bd346445188a0ed342"
+    },
+    "tokenizer_sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 151643,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.75
+   },
+   "method": "window",
+   "context": {
+    "window_tokens": 2048,
+    "stride_tokens": 1536,
+    "batch": 4,
+    "windows": 1357
+   },
+   "complete": false,
+   "bytes": 378885,
+   "nfc_stable": true,
+   "tokens": 350720,
+   "bytes_per_token": 1.0803,
+   "bits": 434866.416,
+   "bpb": 1.147753,
+   "codelength_bytes": 54359,
+   "total_with_model_bf16_bytes": 988119895,
+   "coder_overhead_est_bits": 103.6,
+   "coder_overhead_est_rel": 0.0002382,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 121.3,
+   "tokens_per_s": 2891.3,
+   "forward_tokens_per_s": 3849.5
+  },
+  {
+   "source": "results/llm/runs/qwen-0.5b-window-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds up to 0.09%: flush per sequence)",
+   "file": "data/ood/json/citm_catalog.json",
+   "file_bytes": 1727204,
+   "sha256": "a73e7a883f6ea8de113dff59702975e60119b4b58d451d518a929f31c92e2059",
+   "model": {
+    "name": "qwen-0.5b",
+    "repo": "Qwen/Qwen2.5-0.5B",
+    "revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+    "type": "qwen2",
+    "params": 494032768,
+    "bytes_bf16": 988065536,
+    "vocab": 151936,
+    "weights": {
+     "model.safetensors": "88c142557820ccad55bb59756bfcfcf891de9cc6202816bd346445188a0ed342"
+    },
+    "tokenizer_sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 151643,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.75
+   },
+   "method": "window",
+   "context": {
+    "window_tokens": 2048,
+    "stride_tokens": 1536,
+    "batch": 4,
+    "windows": 231
+   },
+   "complete": false,
+   "bytes": 1683896,
+   "nfc_stable": true,
+   "tokens": 344576,
+   "bytes_per_token": 4.8869,
+   "bits": 107848.628,
+   "bpb": 0.064047,
+   "codelength_bytes": 13482,
+   "total_with_model_bf16_bytes": 988079018,
+   "coder_overhead_est_bits": 102.3,
+   "coder_overhead_est_rel": 0.0009489,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 122.0,
+   "tokens_per_s": 2824.5,
+   "forward_tokens_per_s": 3760.3
+  },
+  {
+   "source": "results/llm/runs/qwen-0.5b-window-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds up to 0.13%: flush per sequence)",
+   "file": "data/ood/json/github_events.json",
+   "file_bytes": 65132,
+   "sha256": "c9eebb2cf2d46649059e9d48700919bacb3e8e0fb58452065a1a9de7778fd22e",
+   "model": {
+    "name": "qwen-0.5b",
+    "repo": "Qwen/Qwen2.5-0.5B",
+    "revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+    "type": "qwen2",
+    "params": 494032768,
+    "bytes_bf16": 988065536,
+    "vocab": 151936,
+    "weights": {
+     "model.safetensors": "88c142557820ccad55bb59756bfcfcf891de9cc6202816bd346445188a0ed342"
+    },
+    "tokenizer_sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 151643,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.75
+   },
+   "method": "window",
+   "context": {
+    "window_tokens": 2048,
+    "stride_tokens": 1536,
+    "batch": 4,
+    "windows": 16
+   },
+   "complete": true,
+   "bytes": 65132,
+   "nfc_stable": true,
+   "tokens": 24406,
+   "bytes_per_token": 2.6687,
+   "bits": 28147.52,
+   "bpb": 0.432161,
+   "codelength_bytes": 3519,
+   "total_with_model_bf16_bytes": 988069055,
+   "coder_overhead_est_bits": 37.0,
+   "coder_overhead_est_rel": 0.0013139,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 8.68,
+   "tokens_per_s": 2810.4,
+   "forward_tokens_per_s": 3694.8
+  },
+  {
+   "source": "results/llm/runs/qwen-0.5b-window-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds up to 0.38%: flush per sequence)",
+   "file": "data/ood/json/instruments.json",
+   "file_bytes": 220346,
+   "sha256": "f3069235d4e2695d36c0c7735a435a7abb279fc4d64bbcf4ed9f888b8da1fdb9",
+   "model": {
+    "name": "qwen-0.5b",
+    "repo": "Qwen/Qwen2.5-0.5B",
+    "revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+    "type": "qwen2",
+    "params": 494032768,
+    "bytes_bf16": 988065536,
+    "vocab": 151936,
+    "weights": {
+     "model.safetensors": "88c142557820ccad55bb59756bfcfcf891de9cc6202816bd346445188a0ed342"
+    },
+    "tokenizer_sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 151643,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.75
+   },
+   "method": "window",
+   "context": {
+    "window_tokens": 2048,
+    "stride_tokens": 1536,
+    "batch": 4,
+    "windows": 42
+   },
+   "complete": true,
+   "bytes": 220346,
+   "nfc_stable": true,
+   "tokens": 64514,
+   "bytes_per_token": 3.4155,
+   "bits": 11965.71,
+   "bpb": 0.054304,
+   "codelength_bytes": 1496,
+   "total_with_model_bf16_bytes": 988067032,
+   "coder_overhead_est_bits": 45.2,
+   "coder_overhead_est_rel": 0.003775,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 22.83,
+   "tokens_per_s": 2826.1,
+   "forward_tokens_per_s": 3745.6
+  },
+  {
+   "source": "results/llm/runs/qwen-0.5b-window-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds up to 0.03%: flush per sequence)",
+   "file": "data/ood/json/mesh.json",
+   "file_bytes": 723597,
+   "sha256": "45bc8bf429340a874a7af8ea7056d60497402f80f55dba1e6ecc4ca8f1e46aff",
+   "model": {
+    "name": "qwen-0.5b",
+    "repo": "Qwen/Qwen2.5-0.5B",
+    "revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+    "type": "qwen2",
+    "params": 494032768,
+    "bytes_bf16": 988065536,
+    "vocab": 151936,
+    "weights": {
+     "model.safetensors": "88c142557820ccad55bb59756bfcfcf891de9cc6202816bd346445188a0ed342"
+    },
+    "tokenizer_sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 151643,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.75
+   },
+   "method": "window",
+   "context": {
+    "window_tokens": 2048,
+    "stride_tokens": 1536,
+    "batch": 4,
+    "windows": 461
+   },
+   "complete": false,
+   "bytes": 354965,
+   "nfc_stable": true,
+   "tokens": 344576,
+   "bytes_per_token": 1.0302,
+   "bits": 402550.964,
+   "bpb": 1.134058,
+   "codelength_bytes": 50319,
+   "total_with_model_bf16_bytes": 988115855,
+   "coder_overhead_est_bits": 102.3,
+   "coder_overhead_est_rel": 0.0002542,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 121.18,
+   "tokens_per_s": 2843.5,
+   "forward_tokens_per_s": 3785.7
+  },
+  {
+   "source": "results/llm/runs/qwen-0.5b-window-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds up to 0.03%: flush per sequence)",
+   "file": "data/ood/json/twitter.json",
+   "file_bytes": 631515,
+   "sha256": "30721e496a8d73cfc50658923c34eb2c0fbe15ee6835005e43ee624d8dedf200",
+   "model": {
+    "name": "qwen-0.5b",
+    "repo": "Qwen/Qwen2.5-0.5B",
+    "revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+    "type": "qwen2",
+    "params": 494032768,
+    "bytes_bf16": 988065536,
+    "vocab": 151936,
+    "weights": {
+     "model.safetensors": "88c142557820ccad55bb59756bfcfcf891de9cc6202816bd346445188a0ed342"
+    },
+    "tokenizer_sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 151643,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.75
+   },
+   "method": "window",
+   "context": {
+    "window_tokens": 2048,
+    "stride_tokens": 1536,
+    "batch": 4,
+    "windows": 117
+   },
+   "complete": true,
+   "bytes": 631515,
+   "nfc_stable": true,
+   "tokens": 179515,
+   "bytes_per_token": 3.5179,
+   "bits": 196149.413,
+   "bpb": 0.310601,
+   "codelength_bytes": 24519,
+   "total_with_model_bf16_bytes": 988090055,
+   "coder_overhead_est_bits": 68.6,
+   "coder_overhead_est_rel": 0.00035,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 63.67,
+   "tokens_per_s": 2819.6,
+   "forward_tokens_per_s": 3752.5
+  },
+  {
+   "source": "results/llm/runs/qwen-0.5b-window-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds up to 0.02%: flush per sequence)",
+   "file": "data/ood/json/update-center.json",
+   "file_bytes": 533178,
+   "sha256": "e7b6a037bfdb5abdf122fa3445ddfacea78522a23df31c4799884c4ebf4c01fa",
+   "model": {
+    "name": "qwen-0.5b",
+    "repo": "Qwen/Qwen2.5-0.5B",
+    "revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+    "type": "qwen2",
+    "params": 494032768,
+    "bytes_bf16": 988065536,
+    "vocab": 151936,
+    "weights": {
+     "model.safetensors": "88c142557820ccad55bb59756bfcfcf891de9cc6202816bd346445188a0ed342"
+    },
+    "tokenizer_sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 151643,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.75
+   },
+   "method": "window",
+   "context": {
+    "window_tokens": 2048,
+    "stride_tokens": 1536,
+    "batch": 4,
+    "windows": 116
+   },
+   "complete": true,
+   "bytes": 533178,
+   "nfc_stable": true,
+   "tokens": 178299,
+   "bytes_per_token": 2.9904,
+   "bits": 325465.003,
+   "bpb": 0.610425,
+   "codelength_bytes": 40684,
+   "total_with_model_bf16_bytes": 988106220,
+   "coder_overhead_est_bits": 68.4,
+   "coder_overhead_est_rel": 0.0002102,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 63.35,
+   "tokens_per_s": 2814.3,
+   "forward_tokens_per_s": 3743.7
+  },
+  {
+   "source": "results/llm/runs/qwen-0.5b-window-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds up to 0.25%: flush per sequence)",
+   "file": "data/ood/logs/Apache_2k.log",
+   "file_bytes": 171239,
+   "sha256": "c7efa3eb686e3a96bd2f8f4457b2a7887e9cf2f3649327f1b4e87af841363ce8",
+   "model": {
+    "name": "qwen-0.5b",
+    "repo": "Qwen/Qwen2.5-0.5B",
+    "revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+    "type": "qwen2",
+    "params": 494032768,
+    "bytes_bf16": 988065536,
+    "vocab": 151936,
+    "weights": {
+     "model.safetensors": "88c142557820ccad55bb59756bfcfcf891de9cc6202816bd346445188a0ed342"
+    },
+    "tokenizer_sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 151643,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.75
+   },
+   "method": "window",
+   "context": {
+    "window_tokens": 2048,
+    "stride_tokens": 1536,
+    "batch": 4,
+    "windows": 52
+   },
+   "complete": true,
+   "bytes": 171239,
+   "nfc_stable": true,
+   "tokens": 79542,
+   "bytes_per_token": 2.1528,
+   "bits": 19449.978,
+   "bpb": 0.113584,
+   "codelength_bytes": 2432,
+   "total_with_model_bf16_bytes": 988067968,
+   "coder_overhead_est_bits": 48.2,
+   "coder_overhead_est_rel": 0.0024801,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 28.58,
+   "tokens_per_s": 2782.7,
+   "forward_tokens_per_s": 3696.2
+  },
+  {
+   "source": "results/llm/runs/qwen-0.5b-window-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds up to 0.03%: flush per sequence)",
+   "file": "data/ood/logs/HDFS_2k.log",
+   "file_bytes": 287848,
+   "sha256": "7c967000980c086ed55fa6544ba4f05fe66d44622795e890c68caf8bbb635035",
+   "model": {
+    "name": "qwen-0.5b",
+    "repo": "Qwen/Qwen2.5-0.5B",
+    "revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+    "type": "qwen2",
+    "params": 494032768,
+    "bytes_bf16": 988065536,
+    "vocab": 151936,
+    "weights": {
+     "model.safetensors": "88c142557820ccad55bb59756bfcfcf891de9cc6202816bd346445188a0ed342"
+    },
+    "tokenizer_sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 151643,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.75
+   },
+   "method": "window",
+   "context": {
+    "window_tokens": 2048,
+    "stride_tokens": 1536,
+    "batch": 4,
+    "windows": 108
+   },
+   "complete": true,
+   "bytes": 287848,
+   "nfc_stable": true,
+   "tokens": 165589,
+   "bytes_per_token": 1.7383,
+   "bits": 236956.776,
+   "bpb": 0.823201,
+   "codelength_bytes": 29620,
+   "total_with_model_bf16_bytes": 988095156,
+   "coder_overhead_est_bits": 65.8,
+   "coder_overhead_est_rel": 0.0002777,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 58.37,
+   "tokens_per_s": 2837.0,
+   "forward_tokens_per_s": 3775.6
+  },
+  {
+   "source": "results/llm/runs/qwen-0.5b-window-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds up to 0.15%: flush per sequence)",
+   "file": "data/ood/logs/Linux_2k.log",
+   "file_bytes": 216485,
+   "sha256": "b3e20bc1afe732ab1bf3ed1de4bf9c809e4194e02f7dea911d918e5342e8e173",
+   "model": {
+    "name": "qwen-0.5b",
+    "repo": "Qwen/Qwen2.5-0.5B",
+    "revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+    "type": "qwen2",
+    "params": 494032768,
+    "bytes_bf16": 988065536,
+    "vocab": 151936,
+    "weights": {
+     "model.safetensors": "88c142557820ccad55bb59756bfcfcf891de9cc6202816bd346445188a0ed342"
+    },
+    "tokenizer_sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 151643,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.75
+   },
+   "method": "window",
+   "context": {
+    "window_tokens": 2048,
+    "stride_tokens": 1536,
+    "batch": 4,
+    "windows": 74
+   },
+   "complete": true,
+   "bytes": 216485,
+   "nfc_stable": true,
+   "tokens": 114044,
+   "bytes_per_token": 1.8983,
+   "bits": 37126.175,
+   "bpb": 0.171495,
+   "codelength_bytes": 4641,
+   "total_with_model_bf16_bytes": 988070177,
+   "coder_overhead_est_bits": 55.3,
+   "coder_overhead_est_rel": 0.001489,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 39.51,
+   "tokens_per_s": 2886.4,
+   "forward_tokens_per_s": 3832.3
+  },
+  {
+   "source": "results/llm/runs/qwen-0.5b-window-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds up to 0.02%: flush per sequence)",
+   "file": "data/ood/logs/Mac_2k.log",
+   "file_bytes": 319414,
+   "sha256": "d9ea495488728d8c989dc942fca3324a3cc7b19b0a6f409a5fd568ad547fd931",
+   "model": {
+    "name": "qwen-0.5b",
+    "repo": "Qwen/Qwen2.5-0.5B",
+    "revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+    "type": "qwen2",
+    "params": 494032768,
+    "bytes_bf16": 988065536,
+    "vocab": 151936,
+    "weights": {
+     "model.safetensors": "88c142557820ccad55bb59756bfcfcf891de9cc6202816bd346445188a0ed342"
+    },
+    "tokenizer_sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 151643,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.75
+   },
+   "method": "window",
+   "context": {
+    "window_tokens": 2048,
+    "stride_tokens": 1536,
+    "batch": 4,
+    "windows": 92
+   },
+   "complete": true,
+   "bytes": 319414,
+   "nfc_stable": true,
+   "tokens": 141186,
+   "bytes_per_token": 2.2624,
+   "bits": 294608.181,
+   "bpb": 0.92234,
+   "codelength_bytes": 36827,
+   "total_with_model_bf16_bytes": 988102363,
+   "coder_overhead_est_bits": 60.8,
+   "coder_overhead_est_rel": 0.0002065,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 48.96,
+   "tokens_per_s": 2883.8,
+   "forward_tokens_per_s": 3835.5
+  },
+  {
+   "source": "results/llm/runs/qwen-0.5b-window-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds up to 0.25%: flush per sequence)",
+   "file": "data/ood/logs/OpenSSH_2k.log",
+   "file_bytes": 225216,
+   "sha256": "1e4912727fa88245113d41b16a0cd25ceadba7f931e1c406542885b91254264f",
+   "model": {
+    "name": "qwen-0.5b",
+    "repo": "Qwen/Qwen2.5-0.5B",
+    "revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+    "type": "qwen2",
+    "params": 494032768,
+    "bytes_bf16": 988065536,
+    "vocab": 151936,
+    "weights": {
+     "model.safetensors": "88c142557820ccad55bb59756bfcfcf891de9cc6202816bd346445188a0ed342"
+    },
+    "tokenizer_sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 151643,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.75
+   },
+   "method": "window",
+   "context": {
+    "window_tokens": 2048,
+    "stride_tokens": 1536,
+    "batch": 4,
+    "windows": 73
+   },
+   "complete": true,
+   "bytes": 225216,
+   "nfc_stable": true,
+   "tokens": 112576,
+   "bytes_per_token": 2.0006,
+   "bits": 21854.508,
+   "bpb": 0.097038,
+   "codelength_bytes": 2732,
+   "total_with_model_bf16_bytes": 988068268,
+   "coder_overhead_est_bits": 55.0,
+   "coder_overhead_est_rel": 0.0025158,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 39.04,
+   "tokens_per_s": 2883.7,
+   "forward_tokens_per_s": 3828.0
+  },
+  {
+   "source": "results/llm/runs/qwen-0.5b-window-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds up to 0.13%: flush per sequence)",
+   "file": "data/ood/logs/Spark_2k.log",
+   "file_bytes": 196268,
+   "sha256": "2e8b9a37fc5c238253e0b8e18a8bd5e489671def91767ae1192d28c8e1f95901",
+   "model": {
+    "name": "qwen-0.5b",
+    "repo": "Qwen/Qwen2.5-0.5B",
+    "revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+    "type": "qwen2",
+    "params": 494032768,
+    "bytes_bf16": 988065536,
+    "vocab": 151936,
+    "weights": {
+     "model.safetensors": "88c142557820ccad55bb59756bfcfcf891de9cc6202816bd346445188a0ed342"
+    },
+    "tokenizer_sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 151643,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.75
+   },
+   "method": "window",
+   "context": {
+    "window_tokens": 2048,
+    "stride_tokens": 1536,
+    "batch": 4,
+    "windows": 59
+   },
+   "complete": true,
+   "bytes": 196268,
+   "nfc_stable": true,
+   "tokens": 90188,
+   "bytes_per_token": 2.1762,
+   "bits": 37398.718,
+   "bpb": 0.190549,
+   "codelength_bytes": 4675,
+   "total_with_model_bf16_bytes": 988070211,
+   "coder_overhead_est_bits": 50.4,
+   "coder_overhead_est_rel": 0.0013479,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 31.95,
+   "tokens_per_s": 2822.6,
+   "forward_tokens_per_s": 3751.9
+  },
+  {
+   "source": "results/llm/runs/qwen-0.5b-window-text8-mps.json",
+   "label": "LLM codelength (arithmetic coding adds < 0.01%)",
+   "file": "data/text8/test.bin",
+   "file_bytes": 5000000,
+   "sha256": "b336f67a7616a0d94ed6cc2049437928aafe01318e76a84abe6918320660f98c",
+   "model": {
+    "name": "qwen-0.5b",
+    "repo": "Qwen/Qwen2.5-0.5B",
+    "revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+    "type": "qwen2",
+    "params": 494032768,
+    "bytes_bf16": 988065536,
+    "vocab": 151936,
+    "weights": {
+     "model.safetensors": "88c142557820ccad55bb59756bfcfcf891de9cc6202816bd346445188a0ed342"
+    },
+    "tokenizer_sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 151643,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.74
+   },
+   "method": "window",
+   "context": {
+    "window_tokens": 2048,
+    "stride_tokens": 1536,
+    "batch": 4,
+    "windows": 636
+   },
+   "complete": true,
+   "bytes": 5000000,
+   "nfc_stable": true,
+   "tokens": 976828,
+   "bytes_per_token": 5.1186,
+   "bits": 4801412.311,
+   "bpb": 0.960282,
+   "codelength_bytes": 600177,
+   "total_with_model_bf16_bytes": 988665713,
+   "coder_overhead_est_bits": 231.4,
+   "coder_overhead_est_rel": 4.82e-05,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 338.82,
+   "tokens_per_s": 2883.0,
+   "forward_tokens_per_s": 3842.6
+  },
   {
    "source": "results/llm/runs/rwkv-169m-lmic-chunks-cpu.json",
    "label": "LLM codelength (arithmetic coding adds up to 1.40%: flush per sequence)",
@@ -253,6 +1256,726 @@
    "forward_tokens_per_s": 939.8
   },
   {
+   "source": "results/llm/runs/rwkv-169m-stream-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds < 0.01%)",
+   "file": "data/ood/c-headers/torch-c10.txt",
+   "file_bytes": 1026867,
+   "sha256": "ccdd6e112b0f819a2e4ad3f93e28d8118da8afa41872cea8308f9b276b4f328f",
+   "model": {
+    "name": "rwkv-169m",
+    "repo": "RWKV/rwkv-4-169m-pile",
+    "revision": "46bdc280eb97b6141d5d51a935e0c4870ecaefcc",
+    "type": "rwkv",
+    "params": 169342464,
+    "bytes_bf16": 338684928,
+    "vocab": 50277,
+    "weights": {
+     "pytorch_model.bin": "ea1a661560c91e280ce41d8cc52424b93e97b1b7050dedadc962b204b4dbe7a5"
+    },
+    "tokenizer_sha256": "3cf430678137c8491ca82fb7092ee49e44ad38857fffe1e4a4a5ed860139a5b8",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 0,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.83
+   },
+   "method": "stream",
+   "context": {
+    "stream_tokens": 1024,
+    "pieces": 319
+   },
+   "complete": true,
+   "bytes": 1026867,
+   "nfc_stable": true,
+   "tokens": 326654,
+   "bytes_per_token": 3.1436,
+   "bits": 769633.107,
+   "bpb": 0.749496,
+   "codelength_bytes": 96205,
+   "total_with_model_bf16_bytes": 338781133,
+   "coder_overhead_est_bits": 54.1,
+   "coder_overhead_est_rel": 7.02e-05,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 93.66,
+   "tokens_per_s": 3487.8,
+   "forward_tokens_per_s": 3487.8
+  },
+  {
+   "source": "results/llm/runs/rwkv-169m-stream-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds up to 0.07%: flush per sequence)",
+   "file": "data/ood/json/apache_builds.json",
+   "file_bytes": 127275,
+   "sha256": "f8e3422ac7d3c3550674afcb37e979e4e9bbeccffdb66933423495d55b6f5c74",
+   "model": {
+    "name": "rwkv-169m",
+    "repo": "RWKV/rwkv-4-169m-pile",
+    "revision": "46bdc280eb97b6141d5d51a935e0c4870ecaefcc",
+    "type": "rwkv",
+    "params": 169342464,
+    "bytes_bf16": 338684928,
+    "vocab": 50277,
+    "weights": {
+     "pytorch_model.bin": "ea1a661560c91e280ce41d8cc52424b93e97b1b7050dedadc962b204b4dbe7a5"
+    },
+    "tokenizer_sha256": "3cf430678137c8491ca82fb7092ee49e44ad38857fffe1e4a4a5ed860139a5b8",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 0,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.83
+   },
+   "method": "stream",
+   "context": {
+    "stream_tokens": 1024,
+    "pieces": 52
+   },
+   "complete": true,
+   "bytes": 127275,
+   "nfc_stable": true,
+   "tokens": 53153,
+   "bytes_per_token": 2.3945,
+   "bits": 51595.003,
+   "bpb": 0.405382,
+   "codelength_bytes": 6450,
+   "total_with_model_bf16_bytes": 338691378,
+   "coder_overhead_est_bits": 35.6,
+   "coder_overhead_est_rel": 0.0006898,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 15.4,
+   "tokens_per_s": 3451.8,
+   "forward_tokens_per_s": 3451.8
+  },
+  {
+   "source": "results/llm/runs/rwkv-169m-stream-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds < 0.01%)",
+   "file": "data/ood/json/canada.json",
+   "file_bytes": 2251051,
+   "sha256": "f83b3b354030d5dd58740c68ac4fecef64cb730a0d12a90362a7f23077f50d78",
+   "model": {
+    "name": "rwkv-169m",
+    "repo": "RWKV/rwkv-4-169m-pile",
+    "revision": "46bdc280eb97b6141d5d51a935e0c4870ecaefcc",
+    "type": "rwkv",
+    "params": 169342464,
+    "bytes_bf16": 338684928,
+    "vocab": 50277,
+    "weights": {
+     "pytorch_model.bin": "ea1a661560c91e280ce41d8cc52424b93e97b1b7050dedadc962b204b4dbe7a5"
+    },
+    "tokenizer_sha256": "3cf430678137c8491ca82fb7092ee49e44ad38857fffe1e4a4a5ed860139a5b8",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 0,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.83
+   },
+   "method": "stream",
+   "context": {
+    "stream_tokens": 1024,
+    "pieces": 906
+   },
+   "complete": false,
+   "bytes": 1524379,
+   "nfc_stable": true,
+   "tokens": 627712,
+   "bytes_per_token": 2.4285,
+   "bits": 2209898.433,
+   "bpb": 1.449704,
+   "codelength_bytes": 276238,
+   "total_with_model_bf16_bytes": 338961166,
+   "coder_overhead_est_bits": 74.4,
+   "coder_overhead_est_rel": 3.37e-05,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 180.09,
+   "tokens_per_s": 3485.6,
+   "forward_tokens_per_s": 3485.6
+  },
+  {
+   "source": "results/llm/runs/rwkv-169m-stream-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds up to 0.01%: flush per sequence)",
+   "file": "data/ood/json/citm_catalog.json",
+   "file_bytes": 1727204,
+   "sha256": "a73e7a883f6ea8de113dff59702975e60119b4b58d451d518a929f31c92e2059",
+   "model": {
+    "name": "rwkv-169m",
+    "repo": "RWKV/rwkv-4-169m-pile",
+    "revision": "46bdc280eb97b6141d5d51a935e0c4870ecaefcc",
+    "type": "rwkv",
+    "params": 169342464,
+    "bytes_bf16": 338684928,
+    "vocab": 50277,
+    "weights": {
+     "pytorch_model.bin": "ea1a661560c91e280ce41d8cc52424b93e97b1b7050dedadc962b204b4dbe7a5"
+    },
+    "tokenizer_sha256": "3cf430678137c8491ca82fb7092ee49e44ad38857fffe1e4a4a5ed860139a5b8",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 0,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.83
+   },
+   "method": "stream",
+   "context": {
+    "stream_tokens": 1024,
+    "pieces": 322
+   },
+   "complete": true,
+   "bytes": 1727204,
+   "nfc_stable": true,
+   "tokens": 329191,
+   "bytes_per_token": 5.2468,
+   "bits": 374591.789,
+   "bpb": 0.216878,
+   "codelength_bytes": 46824,
+   "total_with_model_bf16_bytes": 338731752,
+   "coder_overhead_est_bits": 54.2,
+   "coder_overhead_est_rel": 0.0001448,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 94.45,
+   "tokens_per_s": 3485.3,
+   "forward_tokens_per_s": 3485.3
+  },
+  {
+   "source": "results/llm/runs/rwkv-169m-stream-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds up to 0.07%: flush per sequence)",
+   "file": "data/ood/json/github_events.json",
+   "file_bytes": 65132,
+   "sha256": "c9eebb2cf2d46649059e9d48700919bacb3e8e0fb58452065a1a9de7778fd22e",
+   "model": {
+    "name": "rwkv-169m",
+    "repo": "RWKV/rwkv-4-169m-pile",
+    "revision": "46bdc280eb97b6141d5d51a935e0c4870ecaefcc",
+    "type": "rwkv",
+    "params": 169342464,
+    "bytes_bf16": 338684928,
+    "vocab": 50277,
+    "weights": {
+     "pytorch_model.bin": "ea1a661560c91e280ce41d8cc52424b93e97b1b7050dedadc962b204b4dbe7a5"
+    },
+    "tokenizer_sha256": "3cf430678137c8491ca82fb7092ee49e44ad38857fffe1e4a4a5ed860139a5b8",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 0,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.83
+   },
+   "method": "stream",
+   "context": {
+    "stream_tokens": 1024,
+    "pieces": 26
+   },
+   "complete": true,
+   "bytes": 65132,
+   "nfc_stable": true,
+   "tokens": 26046,
+   "bytes_per_token": 2.5007,
+   "bits": 46956.506,
+   "bpb": 0.720944,
+   "codelength_bytes": 5870,
+   "total_with_model_bf16_bytes": 338690798,
+   "coder_overhead_est_bits": 33.8,
+   "coder_overhead_est_rel": 0.000719,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 7.5,
+   "tokens_per_s": 3470.8,
+   "forward_tokens_per_s": 3470.8
+  },
+  {
+   "source": "results/llm/runs/rwkv-169m-stream-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds up to 0.03%: flush per sequence)",
+   "file": "data/ood/json/instruments.json",
+   "file_bytes": 220346,
+   "sha256": "f3069235d4e2695d36c0c7735a435a7abb279fc4d64bbcf4ed9f888b8da1fdb9",
+   "model": {
+    "name": "rwkv-169m",
+    "repo": "RWKV/rwkv-4-169m-pile",
+    "revision": "46bdc280eb97b6141d5d51a935e0c4870ecaefcc",
+    "type": "rwkv",
+    "params": 169342464,
+    "bytes_bf16": 338684928,
+    "vocab": 50277,
+    "weights": {
+     "pytorch_model.bin": "ea1a661560c91e280ce41d8cc52424b93e97b1b7050dedadc962b204b4dbe7a5"
+    },
+    "tokenizer_sha256": "3cf430678137c8491ca82fb7092ee49e44ad38857fffe1e4a4a5ed860139a5b8",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 0,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.83
+   },
+   "method": "stream",
+   "context": {
+    "stream_tokens": 1024,
+    "pieces": 70
+   },
+   "complete": true,
+   "bytes": 220346,
+   "nfc_stable": true,
+   "tokens": 70669,
+   "bytes_per_token": 3.118,
+   "bits": 116020.204,
+   "bpb": 0.526536,
+   "codelength_bytes": 14503,
+   "total_with_model_bf16_bytes": 338699431,
+   "coder_overhead_est_bits": 36.8,
+   "coder_overhead_est_rel": 0.000317,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 20.52,
+   "tokens_per_s": 3444.6,
+   "forward_tokens_per_s": 3444.6
+  },
+  {
+   "source": "results/llm/runs/rwkv-169m-stream-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds < 0.01%)",
+   "file": "data/ood/json/mesh.json",
+   "file_bytes": 723597,
+   "sha256": "45bc8bf429340a874a7af8ea7056d60497402f80f55dba1e6ecc4ca8f1e46aff",
+   "model": {
+    "name": "rwkv-169m",
+    "repo": "RWKV/rwkv-4-169m-pile",
+    "revision": "46bdc280eb97b6141d5d51a935e0c4870ecaefcc",
+    "type": "rwkv",
+    "params": 169342464,
+    "bytes_bf16": 338684928,
+    "vocab": 50277,
+    "weights": {
+     "pytorch_model.bin": "ea1a661560c91e280ce41d8cc52424b93e97b1b7050dedadc962b204b4dbe7a5"
+    },
+    "tokenizer_sha256": "3cf430678137c8491ca82fb7092ee49e44ad38857fffe1e4a4a5ed860139a5b8",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 0,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.83
+   },
+   "method": "stream",
+   "context": {
+    "stream_tokens": 1024,
+    "pieces": 363
+   },
+   "complete": true,
+   "bytes": 723597,
+   "nfc_stable": true,
+   "tokens": 371406,
+   "bytes_per_token": 1.9483,
+   "bits": 1190802.739,
+   "bpb": 1.645671,
+   "codelength_bytes": 148851,
+   "total_with_model_bf16_bytes": 338833779,
+   "coder_overhead_est_bits": 57.1,
+   "coder_overhead_est_rel": 4.79e-05,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 106.74,
+   "tokens_per_s": 3479.4,
+   "forward_tokens_per_s": 3479.4
+  },
+  {
+   "source": "results/llm/runs/rwkv-169m-stream-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds up to 0.01%: flush per sequence)",
+   "file": "data/ood/json/twitter.json",
+   "file_bytes": 631515,
+   "sha256": "30721e496a8d73cfc50658923c34eb2c0fbe15ee6835005e43ee624d8dedf200",
+   "model": {
+    "name": "rwkv-169m",
+    "repo": "RWKV/rwkv-4-169m-pile",
+    "revision": "46bdc280eb97b6141d5d51a935e0c4870ecaefcc",
+    "type": "rwkv",
+    "params": 169342464,
+    "bytes_bf16": 338684928,
+    "vocab": 50277,
+    "weights": {
+     "pytorch_model.bin": "ea1a661560c91e280ce41d8cc52424b93e97b1b7050dedadc962b204b4dbe7a5"
+    },
+    "tokenizer_sha256": "3cf430678137c8491ca82fb7092ee49e44ad38857fffe1e4a4a5ed860139a5b8",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 0,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.83
+   },
+   "method": "stream",
+   "context": {
+    "stream_tokens": 1024,
+    "pieces": 208
+   },
+   "complete": true,
+   "bytes": 631515,
+   "nfc_stable": true,
+   "tokens": 212510,
+   "bytes_per_token": 2.9717,
+   "bits": 459588.238,
+   "bpb": 0.727755,
+   "codelength_bytes": 57449,
+   "total_with_model_bf16_bytes": 338742377,
+   "coder_overhead_est_bits": 46.4,
+   "coder_overhead_est_rel": 0.0001009,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 61.11,
+   "tokens_per_s": 3477.7,
+   "forward_tokens_per_s": 3477.7
+  },
+  {
+   "source": "results/llm/runs/rwkv-169m-stream-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds < 0.01%)",
+   "file": "data/ood/json/update-center.json",
+   "file_bytes": 533178,
+   "sha256": "e7b6a037bfdb5abdf122fa3445ddfacea78522a23df31c4799884c4ebf4c01fa",
+   "model": {
+    "name": "rwkv-169m",
+    "repo": "RWKV/rwkv-4-169m-pile",
+    "revision": "46bdc280eb97b6141d5d51a935e0c4870ecaefcc",
+    "type": "rwkv",
+    "params": 169342464,
+    "bytes_bf16": 338684928,
+    "vocab": 50277,
+    "weights": {
+     "pytorch_model.bin": "ea1a661560c91e280ce41d8cc52424b93e97b1b7050dedadc962b204b4dbe7a5"
+    },
+    "tokenizer_sha256": "3cf430678137c8491ca82fb7092ee49e44ad38857fffe1e4a4a5ed860139a5b8",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 0,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.83
+   },
+   "method": "stream",
+   "context": {
+    "stream_tokens": 1024,
+    "pieces": 181
+   },
+   "complete": true,
+   "bytes": 533178,
+   "nfc_stable": true,
+   "tokens": 184697,
+   "bytes_per_token": 2.8868,
+   "bits": 694484.286,
+   "bpb": 1.302537,
+   "codelength_bytes": 86811,
+   "total_with_model_bf16_bytes": 338771739,
+   "coder_overhead_est_bits": 44.5,
+   "coder_overhead_est_rel": 6.4e-05,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 52.96,
+   "tokens_per_s": 3487.5,
+   "forward_tokens_per_s": 3487.5
+  },
+  {
+   "source": "results/llm/runs/rwkv-169m-stream-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds up to 0.03%: flush per sequence)",
+   "file": "data/ood/logs/Apache_2k.log",
+   "file_bytes": 171239,
+   "sha256": "c7efa3eb686e3a96bd2f8f4457b2a7887e9cf2f3649327f1b4e87af841363ce8",
+   "model": {
+    "name": "rwkv-169m",
+    "repo": "RWKV/rwkv-4-169m-pile",
+    "revision": "46bdc280eb97b6141d5d51a935e0c4870ecaefcc",
+    "type": "rwkv",
+    "params": 169342464,
+    "bytes_bf16": 338684928,
+    "vocab": 50277,
+    "weights": {
+     "pytorch_model.bin": "ea1a661560c91e280ce41d8cc52424b93e97b1b7050dedadc962b204b4dbe7a5"
+    },
+    "tokenizer_sha256": "3cf430678137c8491ca82fb7092ee49e44ad38857fffe1e4a4a5ed860139a5b8",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 0,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.83
+   },
+   "method": "stream",
+   "context": {
+    "stream_tokens": 1024,
+    "pieces": 60
+   },
+   "complete": true,
+   "bytes": 171239,
+   "nfc_stable": true,
+   "tokens": 61101,
+   "bytes_per_token": 2.8026,
+   "bits": 103455.506,
+   "bpb": 0.604159,
+   "codelength_bytes": 12932,
+   "total_with_model_bf16_bytes": 338697860,
+   "coder_overhead_est_bits": 36.1,
+   "coder_overhead_est_rel": 0.0003492,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 17.57,
+   "tokens_per_s": 3476.7,
+   "forward_tokens_per_s": 3476.7
+  },
+  {
+   "source": "results/llm/runs/rwkv-169m-stream-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds < 0.01%)",
+   "file": "data/ood/logs/HDFS_2k.log",
+   "file_bytes": 287848,
+   "sha256": "7c967000980c086ed55fa6544ba4f05fe66d44622795e890c68caf8bbb635035",
+   "model": {
+    "name": "rwkv-169m",
+    "repo": "RWKV/rwkv-4-169m-pile",
+    "revision": "46bdc280eb97b6141d5d51a935e0c4870ecaefcc",
+    "type": "rwkv",
+    "params": 169342464,
+    "bytes_bf16": 338684928,
+    "vocab": 50277,
+    "weights": {
+     "pytorch_model.bin": "ea1a661560c91e280ce41d8cc52424b93e97b1b7050dedadc962b204b4dbe7a5"
+    },
+    "tokenizer_sha256": "3cf430678137c8491ca82fb7092ee49e44ad38857fffe1e4a4a5ed860139a5b8",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 0,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.83
+   },
+   "method": "stream",
+   "context": {
+    "stream_tokens": 1024,
+    "pieces": 108
+   },
+   "complete": true,
+   "bytes": 287848,
+   "nfc_stable": true,
+   "tokens": 109691,
+   "bytes_per_token": 2.6242,
+   "bits": 500389.894,
+   "bpb": 1.738382,
+   "codelength_bytes": 62549,
+   "total_with_model_bf16_bytes": 338747477,
+   "coder_overhead_est_bits": 39.4,
+   "coder_overhead_est_rel": 7.88e-05,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 31.63,
+   "tokens_per_s": 3467.5,
+   "forward_tokens_per_s": 3467.5
+  },
+  {
+   "source": "results/llm/runs/rwkv-169m-stream-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds up to 0.03%: flush per sequence)",
+   "file": "data/ood/logs/Linux_2k.log",
+   "file_bytes": 216485,
+   "sha256": "b3e20bc1afe732ab1bf3ed1de4bf9c809e4194e02f7dea911d918e5342e8e173",
+   "model": {
+    "name": "rwkv-169m",
+    "repo": "RWKV/rwkv-4-169m-pile",
+    "revision": "46bdc280eb97b6141d5d51a935e0c4870ecaefcc",
+    "type": "rwkv",
+    "params": 169342464,
+    "bytes_bf16": 338684928,
+    "vocab": 50277,
+    "weights": {
+     "pytorch_model.bin": "ea1a661560c91e280ce41d8cc52424b93e97b1b7050dedadc962b204b4dbe7a5"
+    },
+    "tokenizer_sha256": "3cf430678137c8491ca82fb7092ee49e44ad38857fffe1e4a4a5ed860139a5b8",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 0,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.83
+   },
+   "method": "stream",
+   "context": {
+    "stream_tokens": 1024,
+    "pieces": 84
+   },
+   "complete": true,
+   "bytes": 216485,
+   "nfc_stable": true,
+   "tokens": 85232,
+   "bytes_per_token": 2.5399,
+   "bits": 114361.505,
+   "bpb": 0.528265,
+   "codelength_bytes": 14296,
+   "total_with_model_bf16_bytes": 338699224,
+   "coder_overhead_est_bits": 37.8,
+   "coder_overhead_est_rel": 0.0003302,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 24.62,
+   "tokens_per_s": 3461.6,
+   "forward_tokens_per_s": 3461.6
+  },
+  {
+   "source": "results/llm/runs/rwkv-169m-stream-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds < 0.01%)",
+   "file": "data/ood/logs/Mac_2k.log",
+   "file_bytes": 319414,
+   "sha256": "d9ea495488728d8c989dc942fca3324a3cc7b19b0a6f409a5fd568ad547fd931",
+   "model": {
+    "name": "rwkv-169m",
+    "repo": "RWKV/rwkv-4-169m-pile",
+    "revision": "46bdc280eb97b6141d5d51a935e0c4870ecaefcc",
+    "type": "rwkv",
+    "params": 169342464,
+    "bytes_bf16": 338684928,
+    "vocab": 50277,
+    "weights": {
+     "pytorch_model.bin": "ea1a661560c91e280ce41d8cc52424b93e97b1b7050dedadc962b204b4dbe7a5"
+    },
+    "tokenizer_sha256": "3cf430678137c8491ca82fb7092ee49e44ad38857fffe1e4a4a5ed860139a5b8",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 0,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.83
+   },
+   "method": "stream",
+   "context": {
+    "stream_tokens": 1024,
+    "pieces": 115
+   },
+   "complete": true,
+   "bytes": 319414,
+   "nfc_stable": true,
+   "tokens": 117436,
+   "bytes_per_token": 2.7199,
+   "bits": 502805.591,
+   "bpb": 1.57415,
+   "codelength_bytes": 62851,
+   "total_with_model_bf16_bytes": 338747779,
+   "coder_overhead_est_bits": 39.9,
+   "coder_overhead_est_rel": 7.94e-05,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 33.73,
+   "tokens_per_s": 3481.2,
+   "forward_tokens_per_s": 3481.2
+  },
+  {
+   "source": "results/llm/runs/rwkv-169m-stream-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds up to 0.02%: flush per sequence)",
+   "file": "data/ood/logs/OpenSSH_2k.log",
+   "file_bytes": 225216,
+   "sha256": "1e4912727fa88245113d41b16a0cd25ceadba7f931e1c406542885b91254264f",
+   "model": {
+    "name": "rwkv-169m",
+    "repo": "RWKV/rwkv-4-169m-pile",
+    "revision": "46bdc280eb97b6141d5d51a935e0c4870ecaefcc",
+    "type": "rwkv",
+    "params": 169342464,
+    "bytes_bf16": 338684928,
+    "vocab": 50277,
+    "weights": {
+     "pytorch_model.bin": "ea1a661560c91e280ce41d8cc52424b93e97b1b7050dedadc962b204b4dbe7a5"
+    },
+    "tokenizer_sha256": "3cf430678137c8491ca82fb7092ee49e44ad38857fffe1e4a4a5ed860139a5b8",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 0,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.83
+   },
+   "method": "stream",
+   "context": {
+    "stream_tokens": 1024,
+    "pieces": 84
+   },
+   "complete": true,
+   "bytes": 225216,
+   "nfc_stable": true,
+   "tokens": 85384,
+   "bytes_per_token": 2.6377,
+   "bits": 167795.502,
+   "bpb": 0.745043,
+   "codelength_bytes": 20975,
+   "total_with_model_bf16_bytes": 338705903,
+   "coder_overhead_est_bits": 37.8,
+   "coder_overhead_est_rel": 0.0002251,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 24.63,
+   "tokens_per_s": 3466.3,
+   "forward_tokens_per_s": 3466.3
+  },
+  {
+   "source": "results/llm/runs/rwkv-169m-stream-ood-mps.json",
+   "label": "LLM codelength (arithmetic coding adds up to 0.03%: flush per sequence)",
+   "file": "data/ood/logs/Spark_2k.log",
+   "file_bytes": 196268,
+   "sha256": "2e8b9a37fc5c238253e0b8e18a8bd5e489671def91767ae1192d28c8e1f95901",
+   "model": {
+    "name": "rwkv-169m",
+    "repo": "RWKV/rwkv-4-169m-pile",
+    "revision": "46bdc280eb97b6141d5d51a935e0c4870ecaefcc",
+    "type": "rwkv",
+    "params": 169342464,
+    "bytes_bf16": 338684928,
+    "vocab": 50277,
+    "weights": {
+     "pytorch_model.bin": "ea1a661560c91e280ce41d8cc52424b93e97b1b7050dedadc962b204b4dbe7a5"
+    },
+    "tokenizer_sha256": "3cf430678137c8491ca82fb7092ee49e44ad38857fffe1e4a4a5ed860139a5b8",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 0,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.83
+   },
+   "method": "stream",
+   "context": {
+    "stream_tokens": 1024,
+    "pieces": 70
+   },
+   "complete": true,
+   "bytes": 196268,
+   "nfc_stable": true,
+   "tokens": 71018,
+   "bytes_per_token": 2.7636,
+   "bits": 123497.495,
+   "bpb": 0.629229,
+   "codelength_bytes": 15438,
+   "total_with_model_bf16_bytes": 338700366,
+   "coder_overhead_est_bits": 36.8,
+   "coder_overhead_est_rel": 0.000298,
+   "device": "mps",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 20.44,
+   "tokens_per_s": 3475.3,
+   "forward_tokens_per_s": 3475.3
+  },
+  {
    "source": "results/llm/runs/rwkv-169m-stream-text8-cpu.json",
    "label": "LLM codelength (arithmetic coding adds < 0.01%)",
    "file": "data/text8/test.bin",
@@ -299,6 +2022,27 @@
    "seconds": 630.21,
    "tokens_per_s": 1601.3,
    "forward_tokens_per_s": 1601.3
+  },
+  {
+   "source": "results/llm/runs/rwkv-169m-window-mps.json",
+   "file": "data/enwik8/test.bin",
+   "file_bytes": 5000000,
+   "sha256": "86f62c0adeb6c27763f308b8913bec743626421a4d2b4010f1e177a40eef7750",
+   "skipped": "error: TypeError: Cannot convert a MPS Tensor to float64 dtype as the MPS framework doesn't support float64. Please use float32 instead."
+  },
+  {
+   "source": "results/llm/runs/rwkv-169m-window-mps.json",
+   "file": "data/code/networkx.py.txt",
+   "file_bytes": 1048576,
+   "sha256": "97ac83b301c24bde1903b3eb34fb131bb3c36b84acd470fdcbd28f869b0387f4",
+   "skipped": "error: TypeError: Cannot convert a MPS Tensor to float64 dtype as the MPS framework doesn't support float64. Please use float32 instead."
+  },
+  {
+   "source": "results/llm/runs/rwkv-169m-window-mps.json",
+   "file": "data/code/pydoc_topics.txt",
+   "file_bytes": 519592,
+   "sha256": "5b5a37bce813f6c12f10b00a5cb2b475d3b43ce0ee60f27149002dc8a656a299",
+   "skipped": "error: TypeError: Cannot convert a MPS Tensor to float64 dtype as the MPS framework doesn't support float64. Please use float32 instead."
   }
  ],
  "published": [

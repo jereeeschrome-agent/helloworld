@@ -1,4 +1,26 @@
 {
+  "jevzip-ar-11m-enwik8.pt": {
+    "kind": "weights",
+    "url": "https://github.com/jereeeschrome-agent/jevzip/releases/download/v0.2.0/jevzip-ar-11m-enwik8.pt",
+    "sha256": "04ea6ad89b47cb04653e3581c6883275fad3ce4875399073dcd872968c82dbba",
+    "size": 22304627,
+    "description": "AR control: same 11M architecture, linear order, trained only at K=512 for the same 15,725 steps as the lanes model",
+    "license": "MIT",
+    "params": 11140096,
+    "order": "linear",
+    "config": {
+      "ctx": 512,
+      "block": 512,
+      "d_model": 384,
+      "n_layers": 6,
+      "n_heads": 6,
+      "ff_mult": 4,
+      "first": 8,
+      "order": "linear"
+    },
+    "trained_on": "enwik8 bytes [0, 90M)",
+    "recipe": "--order linear --kmin 512 --kmax 512 --val-rounds 512 --d-model 384 --n-layers 6 --n-heads 6 --ctx 512 --bs 32 --lr 1e-3 --warmup 500 --steps 15725 --no-amp, MPS, M4 Pro"
+  },
   "jevzip-code-testset.tar.xz": {
     "kind": "data",
     "url": "https://github.com/jereeeschrome-agent/jevzip/releases/download/v0.2.0/jevzip-code-testset.tar.xz",

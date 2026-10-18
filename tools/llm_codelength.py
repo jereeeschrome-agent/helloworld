@@ -161,7 +161,7 @@ def head_bits(m, h, t):
     out = []
     for i in range(0, len(h), ROWS):
         z = F.linear(h[i:i + ROWS].float(), W, bias)
-        out.append((torch.logsumexp(z, -1) - z.gather(1, t[i:i + ROWS, None])[:, 0]).double().cpu())
+        out.append((torch.logsumexp(z, -1) - z.gather(1, t[i:i + ROWS, None])[:, 0]).cpu().double())
     return (torch.cat(out) if out else torch.zeros(0, dtype=torch.float64)) / LN2
 
 
