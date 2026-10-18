@@ -5,7 +5,7 @@ import unittest
 import numpy as np
 import torch
 
-from .codec import HEADER, MODE_RAW, compress, decompress
+from .codec import HEADER, MODE_RAW, compress, decompress, default_streams
 from .model import Config, JevZip
 from .rans import Decoder, Encoder, quantize
 from .schedule import coding_order, filtered_order, reveal_plan, round_bounds
@@ -87,6 +87,13 @@ class CodecTest(unittest.TestCase):
         for rounds in (1, 3, 16, 32, 64):
             for streams in (1, 2, 5, 1000):
                 self.roundtrip(data, rounds=rounds, streams=streams)
+
+    def test_default_streams(self):
+        """streams=None picks default_streams(blocks) and stores it; files cut any other way still decode."""
+        data = b"for i in range(3):\n    print(i)\n" * 60  # 60 blocks
+        blob = self.roundtrip(data)
+        self.assertEqual(HEADER.unpack_from(blob)[7], default_streams(-(-len(data) // 32)))
+        self.roundtrip(data, streams=60 // 8)  # the pre-refactor default
 
     def test_other_orders(self):
         for order in ("linear", "lanes"):

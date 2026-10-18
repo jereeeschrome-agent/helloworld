@@ -32,3 +32,8 @@ downloads/
 runs/
 weights/
 release/
+__pycache__/
+
+# results/ is tracked in full, logs included (the *.log and logs rules above are for tooling noise)
+!results/**/logs/
+!results/**/*.log

@@ -1,0 +1,62 @@
+# Unit tests on CPU (tiny random models, no weights, no network), and a decode check of the
+# committed .jz fixtures that shows whether a bitstream made on one machine decodes on another.
+name: tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  unit:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: jevzip/requirements.txt
+      - name: Install torch (CPU wheel on Linux, PyPI on macOS)
+        run: |
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            pip install torch --index-url https://download.pytorch.org/whl/cpu
+          else
+            pip install torch
+          fi
+          pip install numpy zstandard brotli
+          python -c "import torch, numpy; print('torch', torch.__version__, 'numpy', numpy.__version__)"
+      - name: Unit tests
+        run: python -m unittest discover -s jevzip -p "test_*.py" -t .
+
+  portability:
+    continue-on-error: true
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        if: hashFiles('jevzip/portability_check.py') != ''
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: jevzip/requirements.txt
+      - name: Install torch (CPU wheel on Linux, PyPI on macOS)
+        if: hashFiles('jevzip/portability_check.py') != ''
+        run: |
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            pip install torch --index-url https://download.pytorch.org/whl/cpu
+          else
+            pip install torch
+          fi
+          pip install numpy
+      - name: Decode the committed fixtures
+        if: hashFiles('jevzip/portability_check.py') != ''
+        run: python -m jevzip.portability_check

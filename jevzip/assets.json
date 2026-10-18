@@ -1,0 +1,59 @@
+{
+  "jevzip-code-testset.tar.xz": {
+    "kind": "data",
+    "url": "https://github.com/jereeeschrome-agent/jevzip/releases/download/v0.2.0/jevzip-code-testset.tar.xz",
+    "sha256": "70ff434414fb175f5dbd43c0c83512f141112d3c926d4efa1cdb0d55c76e0534",
+    "size": 303956,
+    "description": "Held-out Python test files: first 1 MiB of NetworkX 3.7 source and the pydoc_data package of CPython 3.12.13, with their licenses",
+    "license": "BSD-3-Clause AND PSF-2.0",
+    "contents": [
+      "code/LICENSES.txt",
+      "code/networkx.py.txt",
+      "code/pydoc_topics.txt"
+    ]
+  },
+  "jevzip-lanes-11m-code.pt": {
+    "kind": "weights",
+    "url": "https://github.com/jereeeschrome-agent/jevzip/releases/download/v0.2.0/jevzip-lanes-11m-code.pt",
+    "sha256": "548d8879cbfd42e6115f432c71f19f306504899676c5a844a27e59d685339684",
+    "size": 22304295,
+    "description": "11.14M-parameter lanes-order model (ctx 512, block 512, d_model 384, 6 layers, 6 heads) for Python source code",
+    "license": "MIT",
+    "params": 11140096,
+    "order": "lanes",
+    "config": {
+      "ctx": 512,
+      "block": 512,
+      "d_model": 384,
+      "n_layers": 6,
+      "n_heads": 6,
+      "ff_mult": 4,
+      "first": 8,
+      "order": "lanes"
+    },
+    "trained_on": "jevzip Python-source corpus: data/code/train.bin, 147.8 MB (python -m jevzip.data: site-packages + CPython 3.12 stdlib on the build machine, minus held-out mpmath, networkx, pydoc_data)",
+    "recipe": "--order lanes --kmin 8 --kmax 512 --val-rounds 32 --d-model 384 --n-layers 6 --n-heads 6 --ctx 512 --bs 32 --lr 1e-3 --warmup 500 --minutes 480 --no-amp, MPS, M4 Pro"
+  },
+  "jevzip-lanes-11m-enwik8.pt": {
+    "kind": "weights",
+    "url": "https://github.com/jereeeschrome-agent/jevzip/releases/download/v0.2.0/jevzip-lanes-11m-enwik8.pt",
+    "sha256": "29c07faf7b4814101ba6fea7df0d4dbb3833196c14345c384556df1599a804a0",
+    "size": 22304940,
+    "description": "11.14M-parameter lanes-order model (ctx 512, block 512, d_model 384, 6 layers, 6 heads) for English Wikipedia XML text; the default model",
+    "license": "MIT",
+    "params": 11140096,
+    "order": "lanes",
+    "config": {
+      "ctx": 512,
+      "block": 512,
+      "d_model": 384,
+      "n_layers": 6,
+      "n_heads": 6,
+      "ff_mult": 4,
+      "first": 8,
+      "order": "lanes"
+    },
+    "trained_on": "enwik8, first 90,000,000 bytes (data/enwik8/train.bin; standard 90M/5M/5M LM split, val = next 5M, test = last 5M)",
+    "recipe": "--order lanes --kmin 8 --kmax 512 --val-rounds 32 --val-batches 16 --d-model 384 --n-layers 6 --n-heads 6 --ctx 512 --bs 32 --lr 1e-3 --warmup 500 --minutes 480 --no-amp, MPS, M4 Pro"
+  }
+}

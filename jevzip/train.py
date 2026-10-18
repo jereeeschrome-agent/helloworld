@@ -54,6 +54,7 @@ def main():
     ap.add_argument("--data", type=Path, default=Path("data"))
     ap.add_argument("--out", type=Path, default=Path(__file__).parent / "weights" / "jevzip-custom.pt")
     ap.add_argument("--minutes", type=float, default=100)
+    ap.add_argument("--steps", type=int, help="step budget: the LR schedule runs over steps, --minutes is only a cap (for equal-compute controls)")
     ap.add_argument("--bs", type=int, default=16)
     ap.add_argument("--lr", type=float, default=2e-3)
     ap.add_argument("--warmup", type=int, default=200)
@@ -99,8 +100,10 @@ def main():
     args.out.parent.mkdir(parents=True, exist_ok=True)
     while True:
         frac = (time.time() - start) / budget
-        if frac >= 1:
+        if frac >= 1 or (args.steps and step >= args.steps):
             break
+        if args.steps:
+            frac = step / args.steps
         lr = args.lr * min(1, (step + 1) / args.warmup) * (0.1 + 0.9 * 0.5 * (1 + math.cos(math.pi * frac)))
         for group in opt.param_groups:
             group["lr"] = lr

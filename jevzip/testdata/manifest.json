@@ -1,0 +1,162 @@
+{
+ "what": "jevzip decode-portability fixtures (python -m jevzip.portability_check)",
+ "made": "2026-10-18 13:02:20 +0300",
+ "platform": {
+  "python": "3.12.13",
+  "torch": "2.14.1",
+  "numpy": "2.5.4",
+  "os": "macOS-27.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "processor": "arm",
+  "cpu_capability": "DEFAULT"
+ },
+ "weight_scale": 8.0,
+ "models": {
+  "tiny-bitrev": {
+   "file": "tiny-bitrev.pt",
+   "sha256": "91eccdb1221506b61a1cdd3470fdaf395c3c8a6cf1cb9461eee91fb5e3d2f7a5",
+   "config": {
+    "ctx": 32,
+    "block": 64,
+    "d_model": 32,
+    "n_layers": 2,
+    "n_heads": 2,
+    "ff_mult": 2,
+    "first": 4,
+    "order": "bitrev"
+   },
+   "seed": 0,
+   "fingerprint": "52c691402fea0a90"
+  },
+  "tiny-lanes": {
+   "file": "tiny-lanes.pt",
+   "sha256": "33c13efcb6b16f05c42aa23dd50d48e4c43f3b31ecf7e65f6c262a901af0b4f2",
+   "config": {
+    "ctx": 32,
+    "block": 64,
+    "d_model": 32,
+    "n_layers": 2,
+    "n_heads": 2,
+    "ff_mult": 2,
+    "first": 4,
+    "order": "lanes"
+   },
+   "seed": 1,
+   "fingerprint": "ac1bd291267e8972"
+  }
+ },
+ "originals": {
+  "a.bin": {
+   "sha256": "a99c8275effc8f52f874e1e0a0f670f346789d3d57eb5b701d96333db02d54e3",
+   "bytes": 2048,
+   "source": "schedule.py[0:2048]"
+  },
+  "b.bin": {
+   "sha256": "6bd57643f3961646072f7795fe6f356361162c55843854b1bc7b03dc51f8db7b",
+   "bytes": 1000,
+   "source": "schedule.py[2048:3048]"
+  }
+ },
+ "fixtures": [
+  {
+   "file": "tiny-bitrev-a-k8-t1.jz",
+   "model": "tiny-bitrev",
+   "original": "a.bin",
+   "rounds": 8,
+   "threads": 1,
+   "bf16": false,
+   "bytes": 2126,
+   "sha256": "4bc9015b724bc21e51494fe93c21b4c1f64c68ff82d3e78cbd249cf84a0def40"
+  },
+  {
+   "file": "tiny-bitrev-a-k8-t4.jz",
+   "model": "tiny-bitrev",
+   "original": "a.bin",
+   "rounds": 8,
+   "threads": 4,
+   "bf16": false,
+   "bytes": 2126,
+   "sha256": "9c24fbc22a68b17bcc829ae746587c1e883b731231abf1948465ee20a070a048"
+  },
+  {
+   "file": "tiny-bitrev-a-k32-t1.jz",
+   "model": "tiny-bitrev",
+   "original": "a.bin",
+   "rounds": 32,
+   "threads": 1,
+   "bf16": false,
+   "bytes": 2126,
+   "sha256": "c6f691f1f9b561b59cc087fb408521c255850912719f87adebdac173b2073f50"
+  },
+  {
+   "file": "tiny-bitrev-a-k32-t4.jz",
+   "model": "tiny-bitrev",
+   "original": "a.bin",
+   "rounds": 32,
+   "threads": 4,
+   "bf16": false,
+   "bytes": 2126,
+   "sha256": "c6e5ead11e7e7c3e342b28bbd620a2f9a9400adbed690b3397c2fb35bb2aedb0"
+  },
+  {
+   "file": "tiny-lanes-a-k8-t1.jz",
+   "model": "tiny-lanes",
+   "original": "a.bin",
+   "rounds": 8,
+   "threads": 1,
+   "bf16": false,
+   "bytes": 2206,
+   "sha256": "ac63d65d46e0f9af2124b75d3b0db32a089a0b9266953573d85469fd5efc46ae"
+  },
+  {
+   "file": "tiny-lanes-a-k8-t4.jz",
+   "model": "tiny-lanes",
+   "original": "a.bin",
+   "rounds": 8,
+   "threads": 4,
+   "bf16": false,
+   "bytes": 2206,
+   "sha256": "34d0515a351c16de754cd9b363873e23ebd0fcb2c7b402cfe7ee1937bcb9ed70"
+  },
+  {
+   "file": "tiny-lanes-a-k32-t1.jz",
+   "model": "tiny-lanes",
+   "original": "a.bin",
+   "rounds": 32,
+   "threads": 1,
+   "bf16": false,
+   "bytes": 2210,
+   "sha256": "0b73b7db50855026d2bb88311e8e74673bb78f75748806b1df67c9cf53298716"
+  },
+  {
+   "file": "tiny-lanes-a-k32-t4.jz",
+   "model": "tiny-lanes",
+   "original": "a.bin",
+   "rounds": 32,
+   "threads": 4,
+   "bf16": false,
+   "bytes": 2210,
+   "sha256": "1f28e641fe25724f5864e79b3a0aa78e649718093ba4b2e0c745ee90a14899b6"
+  },
+  {
+   "file": "tiny-bitrev-b-k8-t1.jz",
+   "model": "tiny-bitrev",
+   "original": "b.bin",
+   "rounds": 8,
+   "threads": 1,
+   "bf16": false,
+   "bytes": 1058,
+   "sha256": "7d0597ff7ebeec90b0a6140b46da764b50a07978484fdac20d05119e7ad87890"
+  },
+  {
+   "file": "tiny-lanes-b-k32-t4.jz",
+   "model": "tiny-lanes",
+   "original": "b.bin",
+   "rounds": 32,
+   "threads": 4,
+   "bf16": false,
+   "bytes": 1118,
+   "sha256": "223d95a0ddd095631d1dfbd20cb86b8ab43e4a3b46539dd1016bd52393cf00d9"
+  }
+ ]
+}
