@@ -64,6 +64,7 @@ def main():
     ap.add_argument("--kmax", type=int, default=128)
     ap.add_argument("--order", choices=["bitrev", "lanes", "linear"], default="bitrev", help="linear + --kmin/--kmax 512 = AR control")
     ap.add_argument("--val-rounds", type=int, default=16)
+    ap.add_argument("--val-batches", type=int, default=4, help="validation batches of 16 windows each")
     ap.add_argument("--device", default="cpu", help="cpu, mps (Apple silicon) or cuda")
     ap.add_argument("--no-amp", action="store_true", help="fp32 instead of bf16 autocast")
     size = ap.add_argument_group("model size (fresh models only)")
@@ -86,7 +87,7 @@ def main():
     print(f"params {sum(p.numel() for p in model.parameters()) / 1e6:.2f}M on {args.device} {cfg}", flush=True)
     train = np.memmap(args.data / "train.bin", dtype=np.uint8, mode="r")
     val = np.memmap(args.data / "val.bin", dtype=np.uint8, mode="r")
-    val_batches = [make_batch(val, cfg, 16, np.random.default_rng(1000 + i), p_noctx=0, p_trunc=0, rounds=args.val_rounds) for i in range(4)]
+    val_batches = [make_batch(val, cfg, 16, np.random.default_rng(1000 + i), p_noctx=0, p_trunc=0, rounds=args.val_rounds) for i in range(args.val_batches)]
 
     decay = [p for n, p in model.named_parameters() if p.dim() >= 2 and "pos" not in n and "tok" not in n]
     other = [p for n, p in model.named_parameters() if not (p.dim() >= 2 and "pos" not in n and "tok" not in n)]
