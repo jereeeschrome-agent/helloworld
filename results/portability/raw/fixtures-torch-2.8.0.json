@@ -1,0 +1,112 @@
+{
+ "encoded_on": {
+  "python": "3.12.13",
+  "torch": "2.14.1",
+  "numpy": "2.5.4",
+  "os": "macOS-27.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "processor": "arm",
+  "cpu_capability": "DEFAULT"
+ },
+ "decoded_on": {
+  "python": "3.12.13",
+  "torch": "2.8.0",
+  "numpy": "2.5.4",
+  "os": "macOS-27.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "processor": "arm",
+  "cpu_capability": "NO AVX"
+ },
+ "results": [
+  {
+   "fixture": "tiny-bitrev-a-k8-t1.jz",
+   "ok": false,
+   "mode": "rANS end state",
+   "error": "ValueError: trailing rANS data: decoder diverged or stream is corrupt",
+   "reencode_identical": false,
+   "reencode_first_diff_byte": 42,
+   "seconds": 0.138
+  },
+  {
+   "fixture": "tiny-bitrev-a-k8-t4.jz",
+   "ok": false,
+   "mode": "rANS end state",
+   "error": "ValueError: trailing rANS data: decoder diverged or stream is corrupt",
+   "reencode_identical": false,
+   "reencode_first_diff_byte": 42,
+   "seconds": 0.665
+  },
+  {
+   "fixture": "tiny-bitrev-a-k32-t1.jz",
+   "ok": false,
+   "mode": "rANS end state",
+   "error": "ValueError: trailing rANS data: decoder diverged or stream is corrupt",
+   "reencode_identical": false,
+   "reencode_first_diff_byte": 42,
+   "seconds": 0.387
+  },
+  {
+   "fixture": "tiny-bitrev-a-k32-t4.jz",
+   "ok": false,
+   "mode": "rANS end state",
+   "error": "ValueError: trailing rANS data: decoder diverged or stream is corrupt",
+   "reencode_identical": false,
+   "reencode_first_diff_byte": 42,
+   "seconds": 1.854
+  },
+  {
+   "fixture": "tiny-lanes-a-k8-t1.jz",
+   "ok": false,
+   "mode": "rANS end state",
+   "error": "ValueError: trailing rANS data: decoder diverged or stream is corrupt",
+   "reencode_identical": false,
+   "reencode_first_diff_byte": 42,
+   "seconds": 0.1
+  },
+  {
+   "fixture": "tiny-lanes-a-k8-t4.jz",
+   "ok": false,
+   "mode": "rANS end state",
+   "error": "ValueError: trailing rANS data: decoder diverged or stream is corrupt",
+   "reencode_identical": false,
+   "reencode_first_diff_byte": 42,
+   "seconds": 0.471
+  },
+  {
+   "fixture": "tiny-lanes-a-k32-t1.jz",
+   "ok": false,
+   "mode": "rANS end state",
+   "error": "ValueError: trailing rANS data: decoder diverged or stream is corrupt",
+   "reencode_identical": false,
+   "reencode_first_diff_byte": 38,
+   "seconds": 0.347
+  },
+  {
+   "fixture": "tiny-lanes-a-k32-t4.jz",
+   "ok": false,
+   "mode": "rANS end state",
+   "error": "ValueError: trailing rANS data: decoder diverged or stream is corrupt",
+   "reencode_identical": false,
+   "reencode_first_diff_byte": 38,
+   "seconds": 1.578
+  },
+  {
+   "fixture": "tiny-bitrev-b-k8-t1.jz",
+   "ok": false,
+   "mode": "rANS end state",
+   "error": "ValueError: trailing rANS data: decoder diverged or stream is corrupt",
+   "reencode_identical": false,
+   "reencode_first_diff_byte": 38,
+   "seconds": 0.078
+  },
+  {
+   "fixture": "tiny-lanes-b-k32-t4.jz",
+   "ok": false,
+   "mode": "rANS end state",
+   "error": "ValueError: trailing rANS data: decoder diverged or stream is corrupt",
+   "reencode_identical": false,
+   "reencode_first_diff_byte": 34,
+   "seconds": 1.363
+  }
+ ]
+}

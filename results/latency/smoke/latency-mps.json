@@ -1,0 +1,189 @@
+{
+ "device": "mps",
+ "entries": [
+  {
+   "key": "jevzip-lanes-11m-code.pt|networkx.py.txt|fp32",
+   "command": "python -m jevzip.latency /Users/agent/helloworld-jevzip/data/code/networkx.py.txt --weights /Users/agent/helloworld-jevzip/weights/jevzip-lanes-11m-code.pt --device mps --sizes 16K --rounds 16 128 --layouts parallel codec --runs 1 --roundtrip 16 --no-overhead --out /private/tmp/claude-502/-Users-agent-helloworld/264cf11b-ad26-46ff-9f2a-33afb5990d45/scratchpad/lat",
+   "started": "2026-10-18 13:00:46",
+   "device": "mps",
+   "dtype": "fp32",
+   "weights": {
+    "path": "/Users/agent/helloworld-jevzip/weights/jevzip-lanes-11m-code.pt",
+    "sha256": "548d8879cbfd42e6115f432c71f19f306504899676c5a844a27e59d685339684",
+    "params": 11140096,
+    "config": {
+     "ctx": 512,
+     "block": 512,
+     "d_model": 384,
+     "n_layers": 6,
+     "n_heads": 6,
+     "ff_mult": 4,
+     "first": 8,
+     "order": "lanes"
+    }
+   },
+   "input": {
+    "path": "/Users/agent/helloworld-jevzip/data/code/networkx.py.txt",
+    "bytes": 1048576,
+    "sha256": "97ac83b301c24bde1903b3eb34fb131bb3c36b84acd470fdcbd28f869b0387f4"
+   },
+   "runs": 1,
+   "max_batch": 256,
+   "codec_chunk": 128,
+   "env": {
+    "python": "3.12.13",
+    "torch": "2.14.1",
+    "numpy": "2.5.4",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "torch_threads": 4,
+    "cpu": "Apple M4 Pro",
+    "code_sha256": {
+     "model.py": "3a15f759e321beee",
+     "latency.py": "59b067359aeda5a6",
+     "codec.py": "8bfdbcc9c655d181",
+     "schedule.py": "760c1b6aec2cd371",
+     "rans.py": "208600c9b005161e"
+    }
+   },
+   "ar_note": "K=512 is the AR baseline with a KV cache (one byte per round per block, all blocks batched)",
+   "results": [
+    {
+     "size": "16K",
+     "bytes": 16384,
+     "sha256": "47a32861f95e68fb37ad76e5f4b448a0e621093c782e0f385b2e2afb7aa30afb",
+     "layout": "parallel",
+     "K": 16,
+     "ar_baseline": false,
+     "blocks": 32,
+     "batches": 1,
+     "max_blocks_per_call": 32,
+     "forward_calls": 16,
+     "dependency_depth_rounds": 16,
+     "model_ms": 919.2672080826014,
+     "model_ms_runs": [
+      919.2672080826014
+     ],
+     "per_round_ms": 57.45420050516259,
+     "first_call_ms": 191.30954192951322,
+     "later_round_ms": 48.53051107687255,
+     "entropy_ms": 51.16612510755658,
+     "e2e_ms": 970.433333190158,
+     "kb_per_s": 16.88317933818286,
+     "model_share": 0.9472749715435316,
+     "coded_bytes": 3398,
+     "bits_per_byte": 1.6591796875,
+     "probs_sha256": [
+      "deca5a3bd9dd68bf636a8efce655d8a136da2521ceff72a895cb80f481babc4d"
+     ],
+     "deterministic": true
+    },
+    {
+     "size": "16K",
+     "bytes": 16384,
+     "sha256": "47a32861f95e68fb37ad76e5f4b448a0e621093c782e0f385b2e2afb7aa30afb",
+     "layout": "parallel",
+     "K": 128,
+     "ar_baseline": false,
+     "blocks": 32,
+     "batches": 1,
+     "max_blocks_per_call": 32,
+     "forward_calls": 128,
+     "dependency_depth_rounds": 128,
+     "model_ms": 5041.861708043143,
+     "model_ms_runs": [
+      5041.861708043143
+     ],
+     "per_round_ms": 39.389544594087056,
+     "first_call_ms": 204.01616697199643,
+     "later_round_ms": 38.09327197693816,
+     "entropy_ms": 36.91320796497166,
+     "e2e_ms": 5078.774916008115,
+     "kb_per_s": 3.22597482088805,
+     "model_share": 0.9927318677091551,
+     "coded_bytes": 2550,
+     "bits_per_byte": 1.2451171875,
+     "probs_sha256": [
+      "61c8d54ef32c6403aa9ee7d3d16cecca2c3b55588bee9069cde5f1ced9b45808"
+     ],
+     "deterministic": true
+    },
+    {
+     "size": "16K",
+     "bytes": 16384,
+     "sha256": "47a32861f95e68fb37ad76e5f4b448a0e621093c782e0f385b2e2afb7aa30afb",
+     "layout": "codec",
+     "K": 16,
+     "ar_baseline": false,
+     "blocks": 32,
+     "batches": 8,
+     "max_blocks_per_call": 4,
+     "forward_calls": 128,
+     "dependency_depth_rounds": 128,
+     "model_ms": 3970.6167089752853,
+     "model_ms_runs": [
+      3970.6167089752853
+     ],
+     "per_round_ms": 31.020443038869416,
+     "first_call_ms": 50.78295315615833,
+     "later_round_ms": 29.70294236438349,
+     "entropy_ms": 37.64320816844702,
+     "e2e_ms": 4008.2599171437323,
+     "kb_per_s": 4.087559274767582,
+     "model_share": 0.9906085910228917,
+     "coded_bytes": 2982,
+     "bits_per_byte": 1.4560546875,
+     "probs_sha256": [
+      "0542454cb30ea5aba352d2164be96978e2d1d9b1128e5b32ed8fb0e16058ea95"
+     ],
+     "deterministic": true
+    },
+    {
+     "size": "16K",
+     "bytes": 16384,
+     "sha256": "47a32861f95e68fb37ad76e5f4b448a0e621093c782e0f385b2e2afb7aa30afb",
+     "layout": "codec",
+     "K": 128,
+     "ar_baseline": false,
+     "blocks": 32,
+     "batches": 8,
+     "max_blocks_per_call": 4,
+     "forward_calls": 1024,
+     "dependency_depth_rounds": 1024,
+     "model_ms": 26599.444209132344,
+     "model_ms_runs": [
+      26599.444209132344
+     ],
+     "per_round_ms": 25.976019735480804,
+     "first_call_ms": 63.11884900787845,
+     "later_round_ms": 25.6835565128635,
+     "entropy_ms": 43.89499989338219,
+     "e2e_ms": 26643.339209025726,
+     "kb_per_s": 0.6149379351988185,
+     "model_share": 0.9983524963012702,
+     "coded_bytes": 2178,
+     "bits_per_byte": 1.0634765625,
+     "probs_sha256": [
+      "c50497b49c7f1f50f673a69a2ec683677e2b42097b2a7d8fa99f4a44de87fb3e"
+     ],
+     "deterministic": true
+    }
+   ],
+   "roundtrip": [
+    {
+     "size": "16K",
+     "bytes": 16384,
+     "sha256": "47a32861f95e68fb37ad76e5f4b448a0e621093c782e0f385b2e2afb7aa30afb",
+     "layout": "parallel",
+     "K": 16,
+     "identical": true,
+     "first_mismatch": null,
+     "error": null,
+     "e2e_ms_interleaved": 1301.2656250502914,
+     "kb_per_s": 12.590819033866962
+    }
+   ],
+   "finished": "2026-10-18 13:01:37"
+  }
+ ]
+}

@@ -1,0 +1,70 @@
+{
+ "label": "LLM codelength (arithmetic coding adds < 0.01%)",
+ "command": "/Users/agent/helloworld-jevzip/.venv/bin/python -I tools/llm_codelength.py data/enwik8/test.bin --model qwen-0.5b --method chunks --chunk-bytes 2048 --json results/llm/validation/consist-qwen-0.5b-test-chunks.json --threads 1 --limit-bytes 2000",
+ "cwd": "/Users/agent/helloworld-jevzip",
+ "date": "2026-10-18 13:03:11 +0300",
+ "versions": {
+  "python": "3.12.13",
+  "torch": "2.14.1",
+  "transformers": "5.20.1",
+  "tokenizers": "0.23.3",
+  "numpy": "2.5.4",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "machine": "arm64"
+ },
+ "runs": [
+  {
+   "label": "LLM codelength (arithmetic coding adds up to 1.57%: flush per sequence)",
+   "file": "data/enwik8/test.bin",
+   "file_bytes": 5000000,
+   "sha256": "86f62c0adeb6c27763f308b8913bec743626421a4d2b4010f1e177a40eef7750",
+   "slice_sha256": "b8c6d910b1664154b69e4af1e369fc4fe75fbdf7620a495dba16704b2a2f3ae6",
+   "model": {
+    "name": "qwen-0.5b",
+    "repo": "Qwen/Qwen2.5-0.5B",
+    "revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+    "type": "qwen2",
+    "params": 494032768,
+    "bytes_bf16": 988065536,
+    "vocab": 151936,
+    "weights": {
+     "model.safetensors": "88c142557820ccad55bb59756bfcfcf891de9cc6202816bd346445188a0ed342"
+    },
+    "tokenizer_sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 151643,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 1.42
+   },
+   "method": "chunks",
+   "context": {
+    "chunk_bytes": 2048,
+    "batch": 1,
+    "context_across_chunks": false,
+    "chunks": 1,
+    "chunks_scored": 1,
+    "boundaries_moved_for_utf8": 0,
+    "codelength_bytes_whole_bytes_per_chunk": 256
+   },
+   "complete": true,
+   "bytes": 2000,
+   "nfc_stable": true,
+   "tokens": 567,
+   "bytes_per_token": 3.5273,
+   "bits": 2043.901,
+   "bpb": 1.021951,
+   "codelength_bytes": 256,
+   "total_with_model_bf16_bytes": 988065792,
+   "coder_overhead_est_bits": 32.1,
+   "coder_overhead_est_rel": 0.015713,
+   "device": "cpu",
+   "dtype": "fp32",
+   "threads": 1,
+   "seconds": 1.95,
+   "tokens_per_s": 290.1,
+   "forward_tokens_per_s": 290.1
+  }
+ ]
+}

@@ -1,0 +1,311 @@
+{
+ "topic": "datasets",
+ "date": "2026-10-18",
+ "manifest": "jevzip/datasets.json",
+ "manifest_sha256": "1be6d24b70286bd2ea851aa830d6d736272c92bdb0c56311bf1e0542cc6c1964",
+ "tools": {
+  "python": "3.12.13",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "curl": "curl 8.7.1 (x86_64-apple-darwin26.0) libcurl/8.7.1 (SecureTransport) LibreSSL/3.3.6 zlib/1.2.12 nghttp2/1.69.0",
+  "downloader": "urllib (jevzip/data.py)"
+ },
+ "commands": [
+  "python -I jevzip/data.py text8",
+  "python -I jevzip/data.py silesia",
+  "python -I jevzip/data.py ood",
+  "python -I jevzip/data.py code --test-only   # networkx.py.txt and pydoc_topics.txt: unchanged; wrote networkx-files/",
+  "python -I jevzip/data.py code --out <scratch>   # full rebuild check: val/test identical, train.bin differs (see notes)",
+  "python -I jevzip/data.py enwik8 --out <tmp>/enwik8 && python -I jevzip/data.py verify enwik8 --data <tmp>   # 3/3 ok",
+  "python -I jevzip/data.py verify --downloads --record   # 56/56 ok",
+  "python -m unittest jevzip.test_data   # 17 tests OK"
+ ],
+ "groups": {
+  "code/code": {
+   "files": 2,
+   "bytes": 1568168
+  },
+  "standard/enwik8": {
+   "files": 1,
+   "bytes": 5000000
+  },
+  "standard/text8": {
+   "files": 1,
+   "bytes": 5000000
+  },
+  "standard/silesia": {
+   "files": 12,
+   "bytes": 211938580
+  },
+  "ood/json": {
+   "files": 8,
+   "bytes": 6279298
+  },
+  "ood/logs": {
+   "files": 6,
+   "bytes": 1416470
+  },
+  "ood/c-headers": {
+   "files": 1,
+   "bytes": 1026867
+  },
+  "ood/binary": {
+   "files": 5,
+   "bytes": 83069420
+  },
+  "ood/non-english": {
+   "files": 1,
+   "bytes": 6627202
+  }
+ },
+ "files": {
+  "code/train.bin": {
+   "size": 147802575,
+   "sha256": "ab86af3dab966b35c3e517566bbf4cc2f068f4c99d183a5dbe6af2fffc8c0fe7"
+  },
+  "code/val.bin": {
+   "size": 1932426,
+   "sha256": "58de32d7a3f32e8f43c60c149aef6e4aa866c2a14c3ed05612136446d8451990"
+  },
+  "code/networkx.py.txt": {
+   "size": 1048576,
+   "sha256": "97ac83b301c24bde1903b3eb34fb131bb3c36b84acd470fdcbd28f869b0387f4"
+  },
+  "code/pydoc_topics.txt": {
+   "size": 519592,
+   "sha256": "5b5a37bce813f6c12f10b00a5cb2b475d3b43ce0ee60f27149002dc8a656a299"
+  },
+  "code/networkx-files/index.json": {
+   "size": 15421,
+   "sha256": "21edd51f71f356f7a2e6a8640c899b9583e7fa90f5d10bf48727fb3d6b2f0f07"
+  },
+  "enwik8/train.bin": {
+   "size": 90000000,
+   "sha256": "f8978bd9ca51fbea387d5145d310652ab39904bcbc8ab2647932c8c2e0539e64"
+  },
+  "enwik8/val.bin": {
+   "size": 5000000,
+   "sha256": "16b8b889f05ebeb5684d497d49383e8e55eb3634cee2f9a023dcab68cbf64f17"
+  },
+  "enwik8/test.bin": {
+   "size": 5000000,
+   "sha256": "86f62c0adeb6c27763f308b8913bec743626421a4d2b4010f1e177a40eef7750"
+  },
+  "text8/train.bin": {
+   "size": 90000000,
+   "sha256": "af83e65b7d7aa95dfe2c571da8f3e2d1b0c385f177140a21f3db07520a3ac6f4"
+  },
+  "text8/val.bin": {
+   "size": 5000000,
+   "sha256": "c9395f11fb185c7cf73f57134be37b6a32c6364ce36e9cec3127d27c7b8bc5dd"
+  },
+  "text8/test.bin": {
+   "size": 5000000,
+   "sha256": "b336f67a7616a0d94ed6cc2049437928aafe01318e76a84abe6918320660f98c"
+  },
+  "silesia/dickens": {
+   "size": 10192446,
+   "sha256": "b24c37886142e11d0ee687db6ab06f936207aa7f2ea1fd1d9a36763c7a507e6a"
+  },
+  "silesia/mozilla": {
+   "size": 51220480,
+   "sha256": "657fc3764b0c75ac9de9623125705831ebbfbe08fed248df73bc2dc66e2a963b"
+  },
+  "silesia/mr": {
+   "size": 9970564,
+   "sha256": "68637ed52e3e4860174ed2dc0840ac77d5f1a60abbcb13770d5754e3774d53e6"
+  },
+  "silesia/nci": {
+   "size": 33553445,
+   "sha256": "fc63a31770947b8c2062d3b19ca94c00485a232bb91b502021948fee983e1635"
+  },
+  "silesia/ooffice": {
+   "size": 6152192,
+   "sha256": "e7ee013880d34dd5208283d0d3d91b07f442e067454276095ded14f322a656eb"
+  },
+  "silesia/osdb": {
+   "size": 10085684,
+   "sha256": "60f027179302ca3ad87c58ac90b6be72ec23588aaa7a3b7fe8ecc0f11def3fa3"
+  },
+  "silesia/reymont": {
+   "size": 6627202,
+   "sha256": "0eac0114a3dfe6e2ee1f345a0f79d653cb26c3bc9f0ed79238af4933422b7578"
+  },
+  "silesia/samba": {
+   "size": 21606400,
+   "sha256": "93ba07bc44d8267789c1d911992f40b089ffa2140b4a160fac11ccae9a40e7b2"
+  },
+  "silesia/sao": {
+   "size": 7251944,
+   "sha256": "c2d0ea2cc59d4c21b7fe43a71499342a00cbe530a1d5548770e91ecd6214adcc"
+  },
+  "silesia/webster": {
+   "size": 41458703,
+   "sha256": "6a68f69b26daf09f9dd84f7470368553194a0b294fcfa80f1604efb11143a383"
+  },
+  "silesia/x-ray": {
+   "size": 8474240,
+   "sha256": "7de9fce1405dc44ae5e6813ed21cd5751e761bd4265655a005d39b9685d1c9ad"
+  },
+  "silesia/xml": {
+   "size": 5345280,
+   "sha256": "0e82e54e695c1938e4193448022543845b33020c8be6bf3bf3ead2224903e08c"
+  },
+  "ood/json/twitter.json": {
+   "size": 631515,
+   "sha256": "30721e496a8d73cfc50658923c34eb2c0fbe15ee6835005e43ee624d8dedf200"
+  },
+  "ood/json/citm_catalog.json": {
+   "size": 1727204,
+   "sha256": "a73e7a883f6ea8de113dff59702975e60119b4b58d451d518a929f31c92e2059"
+  },
+  "ood/json/canada.json": {
+   "size": 2251051,
+   "sha256": "f83b3b354030d5dd58740c68ac4fecef64cb730a0d12a90362a7f23077f50d78"
+  },
+  "ood/json/github_events.json": {
+   "size": 65132,
+   "sha256": "c9eebb2cf2d46649059e9d48700919bacb3e8e0fb58452065a1a9de7778fd22e"
+  },
+  "ood/json/update-center.json": {
+   "size": 533178,
+   "sha256": "e7b6a037bfdb5abdf122fa3445ddfacea78522a23df31c4799884c4ebf4c01fa"
+  },
+  "ood/json/apache_builds.json": {
+   "size": 127275,
+   "sha256": "f8e3422ac7d3c3550674afcb37e979e4e9bbeccffdb66933423495d55b6f5c74"
+  },
+  "ood/json/instruments.json": {
+   "size": 220346,
+   "sha256": "f3069235d4e2695d36c0c7735a435a7abb279fc4d64bbcf4ed9f888b8da1fdb9"
+  },
+  "ood/json/mesh.json": {
+   "size": 723597,
+   "sha256": "45bc8bf429340a874a7af8ea7056d60497402f80f55dba1e6ecc4ca8f1e46aff"
+  },
+  "ood/logs/Apache_2k.log": {
+   "size": 171239,
+   "sha256": "c7efa3eb686e3a96bd2f8f4457b2a7887e9cf2f3649327f1b4e87af841363ce8"
+  },
+  "ood/logs/HDFS_2k.log": {
+   "size": 287848,
+   "sha256": "7c967000980c086ed55fa6544ba4f05fe66d44622795e890c68caf8bbb635035"
+  },
+  "ood/logs/Linux_2k.log": {
+   "size": 216485,
+   "sha256": "b3e20bc1afe732ab1bf3ed1de4bf9c809e4194e02f7dea911d918e5342e8e173"
+  },
+  "ood/logs/OpenSSH_2k.log": {
+   "size": 225216,
+   "sha256": "1e4912727fa88245113d41b16a0cd25ceadba7f931e1c406542885b91254264f"
+  },
+  "ood/logs/Spark_2k.log": {
+   "size": 196268,
+   "sha256": "2e8b9a37fc5c238253e0b8e18a8bd5e489671def91767ae1192d28c8e1f95901"
+  },
+  "ood/logs/Mac_2k.log": {
+   "size": 319414,
+   "sha256": "d9ea495488728d8c989dc942fca3324a3cc7b19b0a6f409a5fd568ad547fd931"
+  },
+  "ood/c-headers/torch-c10.txt": {
+   "size": 1026867,
+   "sha256": "ccdd6e112b0f819a2e4ad3f93e28d8118da8afa41872cea8308f9b276b4f328f"
+  },
+  "ood/c-headers/torch-c10-files/index.json": {
+   "size": 29273,
+   "sha256": "777f48a9c2984fac8a5e36f3dec65315b2db8ce423d07b9307aa4b64a61b8a41"
+  }
+ },
+ "downloads": {
+  "enwik8/enwik8.zip": {
+   "url": "https://mattmahoney.net/dc/enwik8.zip",
+   "size": 36445475,
+   "sha256": "547994d9980ebed1288380d652999f38a14fe291a6247c157c3d33d4932534bc"
+  },
+  "text8/text8.zip": {
+   "url": "https://mattmahoney.net/dc/text8.zip",
+   "size": 31344016,
+   "sha256": "a6640522afe85d1963ad56c05b0ede0a0c000dddc9671758a6cc09b7a38e5232"
+  },
+  "silesia/silesia.zip": {
+   "url": "https://sun.aei.polsl.pl/~sdeor/corpus/silesia.zip",
+   "size": 68182744,
+   "sha256": "0626e25f45c0ffb5dc801f13b7c82a3b75743ba07e3a71835a41e3d9f63c77af"
+  },
+  "ood-json/twitter.json": {
+   "url": "https://raw.githubusercontent.com/simdjson/simdjson/33d926bd4448e2e087511f34e49461230691a503/jsonexamples/twitter.json",
+   "size": 631515,
+   "sha256": "30721e496a8d73cfc50658923c34eb2c0fbe15ee6835005e43ee624d8dedf200"
+  },
+  "ood-json/citm_catalog.json": {
+   "url": "https://raw.githubusercontent.com/simdjson/simdjson/33d926bd4448e2e087511f34e49461230691a503/jsonexamples/citm_catalog.json",
+   "size": 1727204,
+   "sha256": "a73e7a883f6ea8de113dff59702975e60119b4b58d451d518a929f31c92e2059"
+  },
+  "ood-json/canada.json": {
+   "url": "https://raw.githubusercontent.com/simdjson/simdjson/33d926bd4448e2e087511f34e49461230691a503/jsonexamples/canada.json",
+   "size": 2251051,
+   "sha256": "f83b3b354030d5dd58740c68ac4fecef64cb730a0d12a90362a7f23077f50d78"
+  },
+  "ood-json/github_events.json": {
+   "url": "https://raw.githubusercontent.com/simdjson/simdjson/33d926bd4448e2e087511f34e49461230691a503/jsonexamples/github_events.json",
+   "size": 65132,
+   "sha256": "c9eebb2cf2d46649059e9d48700919bacb3e8e0fb58452065a1a9de7778fd22e"
+  },
+  "ood-json/update-center.json": {
+   "url": "https://raw.githubusercontent.com/simdjson/simdjson/33d926bd4448e2e087511f34e49461230691a503/jsonexamples/update-center.json",
+   "size": 533178,
+   "sha256": "e7b6a037bfdb5abdf122fa3445ddfacea78522a23df31c4799884c4ebf4c01fa"
+  },
+  "ood-json/apache_builds.json": {
+   "url": "https://raw.githubusercontent.com/simdjson/simdjson/33d926bd4448e2e087511f34e49461230691a503/jsonexamples/apache_builds.json",
+   "size": 127275,
+   "sha256": "f8e3422ac7d3c3550674afcb37e979e4e9bbeccffdb66933423495d55b6f5c74"
+  },
+  "ood-json/instruments.json": {
+   "url": "https://raw.githubusercontent.com/simdjson/simdjson/33d926bd4448e2e087511f34e49461230691a503/jsonexamples/instruments.json",
+   "size": 220346,
+   "sha256": "f3069235d4e2695d36c0c7735a435a7abb279fc4d64bbcf4ed9f888b8da1fdb9"
+  },
+  "ood-json/mesh.json": {
+   "url": "https://raw.githubusercontent.com/simdjson/simdjson/33d926bd4448e2e087511f34e49461230691a503/jsonexamples/mesh.json",
+   "size": 723597,
+   "sha256": "45bc8bf429340a874a7af8ea7056d60497402f80f55dba1e6ecc4ca8f1e46aff"
+  },
+  "ood-logs/Apache_2k.log": {
+   "url": "https://raw.githubusercontent.com/logpai/loghub/dd61d0952749ee7963bde24220d1be5ede023033/Apache/Apache_2k.log",
+   "size": 171239,
+   "sha256": "c7efa3eb686e3a96bd2f8f4457b2a7887e9cf2f3649327f1b4e87af841363ce8"
+  },
+  "ood-logs/HDFS_2k.log": {
+   "url": "https://raw.githubusercontent.com/logpai/loghub/dd61d0952749ee7963bde24220d1be5ede023033/HDFS/HDFS_2k.log",
+   "size": 287848,
+   "sha256": "7c967000980c086ed55fa6544ba4f05fe66d44622795e890c68caf8bbb635035"
+  },
+  "ood-logs/Linux_2k.log": {
+   "url": "https://raw.githubusercontent.com/logpai/loghub/dd61d0952749ee7963bde24220d1be5ede023033/Linux/Linux_2k.log",
+   "size": 216485,
+   "sha256": "b3e20bc1afe732ab1bf3ed1de4bf9c809e4194e02f7dea911d918e5342e8e173"
+  },
+  "ood-logs/OpenSSH_2k.log": {
+   "url": "https://raw.githubusercontent.com/logpai/loghub/dd61d0952749ee7963bde24220d1be5ede023033/OpenSSH/OpenSSH_2k.log",
+   "size": 225216,
+   "sha256": "1e4912727fa88245113d41b16a0cd25ceadba7f931e1c406542885b91254264f"
+  },
+  "ood-logs/Spark_2k.log": {
+   "url": "https://raw.githubusercontent.com/logpai/loghub/dd61d0952749ee7963bde24220d1be5ede023033/Spark/Spark_2k.log",
+   "size": 196268,
+   "sha256": "2e8b9a37fc5c238253e0b8e18a8bd5e489671def91767ae1192d28c8e1f95901"
+  },
+  "ood-logs/Mac_2k.log": {
+   "url": "https://raw.githubusercontent.com/logpai/loghub/dd61d0952749ee7963bde24220d1be5ede023033/Mac/Mac_2k.log",
+   "size": 319414,
+   "sha256": "d9ea495488728d8c989dc942fca3324a3cc7b19b0a6f409a5fd568ad547fd931"
+  }
+ },
+ "notes": [
+  "data/code/train.bin rebuilt today is 226,402,819 bytes (sha256 24c41255...) instead of the recorded 147,802,575: packages (transformers, tokenizers, matplotlib, ...) were installed into the .venv after the corpus was built on 2026-10-17. val.bin and both test files rebuild byte-identically. The recorded train.bin is the one the code models were trained on; do not rebuild it with --force.",
+  "simdjson's jsonexamples/ was moved to simdjson/simdjson-data after v0.9.x; pinned to tag v0.9.7 (commit 33d926bd), the last tag with the full directory. Each JSON/log download is checked against its git blob id at the pinned commit as well as its SHA-256.",
+  "loghub is research/academic-use only: not redistributable by jevzip; text8/enwik8 are Wikipedia (CC BY-SA/GFDL); Silesia states no license.",
+  "text8.zip and silesia.zip have no published checksums; their SHA-256s were recorded on first download (2026-10-18)."
+ ]
+}

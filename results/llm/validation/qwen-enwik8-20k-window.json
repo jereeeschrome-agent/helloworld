@@ -1,0 +1,67 @@
+{
+ "label": "LLM codelength (arithmetic coding adds < 0.01%)",
+ "command": "/Users/agent/helloworld-jevzip/.venv/bin/python -I tools/llm_codelength.py data/enwik8/test.bin --model qwen-0.5b --method window --window 1024 --stride 512 --limit-bytes 20000 --json results/llm/validation/qwen-enwik8-20k-window.json",
+ "cwd": "/Users/agent/helloworld-jevzip",
+ "date": "2026-10-18 13:00:47 +0300",
+ "versions": {
+  "python": "3.12.13",
+  "torch": "2.14.1",
+  "transformers": "5.20.1",
+  "tokenizers": "0.23.3",
+  "numpy": "2.5.4",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "machine": "arm64"
+ },
+ "runs": [
+  {
+   "label": "LLM codelength (arithmetic coding adds up to 0.20%: flush per sequence)",
+   "file": "data/enwik8/test.bin",
+   "file_bytes": 5000000,
+   "sha256": "86f62c0adeb6c27763f308b8913bec743626421a4d2b4010f1e177a40eef7750",
+   "slice_sha256": "ad2acb393a8d5712d2355b196964e6d9251af2193ee4fdba88eeb31db76c8cd7",
+   "model": {
+    "name": "qwen-0.5b",
+    "repo": "Qwen/Qwen2.5-0.5B",
+    "revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+    "type": "qwen2",
+    "params": 494032768,
+    "bytes_bf16": 988065536,
+    "vocab": 151936,
+    "weights": {
+     "model.safetensors": "88c142557820ccad55bb59756bfcfcf891de9cc6202816bd346445188a0ed342"
+    },
+    "tokenizer_sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 151643,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 2.23
+   },
+   "method": "window",
+   "context": {
+    "window_tokens": 1024,
+    "stride_tokens": 512,
+    "batch": 1,
+    "windows": 10
+   },
+   "complete": true,
+   "bytes": 20000,
+   "nfc_stable": true,
+   "tokens": 5146,
+   "bytes_per_token": 3.8865,
+   "bits": 16204.545,
+   "bpb": 0.810227,
+   "codelength_bytes": 2026,
+   "total_with_model_bf16_bytes": 988067562,
+   "coder_overhead_est_bits": 33.1,
+   "coder_overhead_est_rel": 0.0020396,
+   "device": "cpu",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 14.61,
+   "tokens_per_s": 352.3,
+   "forward_tokens_per_s": 667.7
+  }
+ ]
+}

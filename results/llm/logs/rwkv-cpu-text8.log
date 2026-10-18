@@ -1,0 +1,7 @@
+W1018 14:02:58.058000 11233 torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+Loading weights:   0%|          | 0/222 [00:00<?, ?it/s]Loading weights: 100%|██████████| 222/222 [00:00<00:00, 44526.37it/s]
+data/text8/test.bin: rwkv-169m stream 5,000,000 B 1,009,171 tok 797,637 B  1.2762 bpb  630 s  1,601 tok/s
+W1018 14:13:36.375000 11626 torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+Loading weights:   0%|          | 0/222 [00:00<?, ?it/s]Loading weights: 100%|██████████| 222/222 [00:00<00:00, 35419.21it/s]
+data/text8/test.bin: rwkv-169m chunks 5,000,000 B 1,011,906 tok 797,663 B  1.2763 bpb  671 s  1,509 tok/s
+done

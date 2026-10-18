@@ -1,0 +1,303 @@
+{
+ "runs": [
+  {
+   "file": "results/baselines/parts/fast-enwik8-test.json",
+   "command": "/Users/agent/helloworld-jevzip/.venv/bin/python -m jevzip.baselines data/enwik8/test.bin --group fast --corpus data/enwik8/train.bin --json results/baselines/parts/fast-enwik8-test.json",
+   "started": "2026-10-18T13:24:27+0300",
+   "finished": "2026-10-18T13:32:18+0300",
+   "environment": {
+    "python": "3.12.13",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "zstd": "v1.5.7",
+    "brotli": "brotli 1.2.0",
+    "xz": "xz (XZ Utils) 5.8.3",
+    "sevenzip": null,
+    "paq8px": "paq8px c84f576fc2c522194cd320743708652a154daf6b, cmake Release, Apple clang version 21.0.0 (clang-2100.3.34.2)",
+    "cmix": "cmix 194af9cd133b8b741d2a53afca13ed0ca453c276, -Ofast -mcpu=native -DP1_MODE=2 -DP3_BATCH -DP2_FASTMATH -DLSTM_QUANT=8, Apple clang version 21.0.0 (clang-2100.3.34.2)"
+   }
+  },
+  {
+   "file": "results/baselines/parts/ppmd-enwik8-test.json",
+   "command": "/Users/agent/helloworld-jevzip/.venv/bin/python -m jevzip.baselines data/enwik8/test.bin --corpus data/enwik8/train.bin --only 7zz.* --json results/baselines/parts/ppmd-enwik8-test.json",
+   "started": "2026-10-18T13:40:13+0300",
+   "finished": "2026-10-18T13:40:14+0300",
+   "environment": {
+    "python": "3.12.13",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "zstd": "v1.5.7",
+    "brotli": "brotli 1.2.0",
+    "xz": "xz (XZ Utils) 5.8.3",
+    "sevenzip": null,
+    "paq8px": "paq8px c84f576fc2c522194cd320743708652a154daf6b, cmake Release, Apple clang version 21.0.0 (clang-2100.3.34.2)",
+    "cmix": "cmix 194af9cd133b8b741d2a53afca13ed0ca453c276, -Ofast -mcpu=native -DP1_MODE=2 -DP3_BATCH -DP2_FASTMATH -DLSTM_QUANT=8, Apple clang version 21.0.0 (clang-2100.3.34.2)"
+   }
+  },
+  {
+   "file": "results/baselines/parts/paq8px-enwik8-test.json",
+   "command": "/Users/agent/helloworld-jevzip/.venv/bin/python -m jevzip.baselines data/enwik8/test.bin --only paq8px -8L --json results/baselines/parts/paq8px-enwik8-test.json",
+   "started": "2026-10-18T13:40:32+0300",
+   "finished": "2026-10-18T14:45:18+0300",
+   "environment": {
+    "python": "3.12.13",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "zstd": "v1.5.7",
+    "brotli": "brotli 1.2.0",
+    "xz": "xz (XZ Utils) 5.8.3",
+    "sevenzip": null,
+    "paq8px": "paq8px c84f576fc2c522194cd320743708652a154daf6b, cmake Release, Apple clang version 21.0.0 (clang-2100.3.34.2)",
+    "cmix": "cmix 194af9cd133b8b741d2a53afca13ed0ca453c276, -Ofast -mcpu=native -DP1_MODE=2 -DP3_BATCH -DP2_FASTMATH -DLSTM_QUANT=8, Apple clang version 21.0.0 (clang-2100.3.34.2)"
+   }
+  },
+  {
+   "file": "results/baselines/parts/paq8px-primed-enwik8-test.json",
+   "command": "/Users/agent/helloworld-jevzip/.venv/bin/python -m jevzip.baselines data/enwik8/test.bin --corpus data/enwik8/train.bin --only paq8px -8 primed --json results/baselines/parts/paq8px-primed-enwik8-test.json",
+   "started": "2026-10-18T15:53:42+0300",
+   "finished": "2026-10-18T16:43:42+0300",
+   "environment": {
+    "python": "3.12.13",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "zstd": "v1.5.7",
+    "brotli": "brotli 1.2.0",
+    "xz": "xz (XZ Utils) 5.8.3",
+    "sevenzip": null,
+    "paq8px": "paq8px c84f576fc2c522194cd320743708652a154daf6b, cmake Release, Apple clang version 21.0.0 (clang-2100.3.34.2)",
+    "cmix": "cmix 194af9cd133b8b741d2a53afca13ed0ca453c276, -Ofast -mcpu=native -DP1_MODE=2 -DP3_BATCH -DP2_FASTMATH -DLSTM_QUANT=8, Apple clang version 21.0.0 (clang-2100.3.34.2)"
+   }
+  },
+  {
+   "file": "results/baselines/parts/cmix-enwik8-test.json",
+   "command": "/Users/agent/helloworld-jevzip/.venv/bin/python -m jevzip.baselines data/enwik8/test.bin --only cmix --json results/baselines/parts/cmix-enwik8-test.json",
+   "started": "2026-10-18T14:14:38+0300",
+   "finished": "2026-10-18T15:38:55+0300",
+   "environment": {
+    "python": "3.12.13",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "zstd": "v1.5.7",
+    "brotli": "brotli 1.2.0",
+    "xz": "xz (XZ Utils) 5.8.3",
+    "sevenzip": null,
+    "paq8px": "paq8px c84f576fc2c522194cd320743708652a154daf6b, cmake Release, Apple clang version 21.0.0 (clang-2100.3.34.2)",
+    "cmix": "cmix 194af9cd133b8b741d2a53afca13ed0ca453c276, -Ofast -mcpu=native -DP1_MODE=2 -DP3_BATCH -DP2_FASTMATH -DLSTM_QUANT=8, Apple clang version 21.0.0 (clang-2100.3.34.2)"
+   }
+  }
+ ],
+ "results": [
+  {
+   "file": "data/enwik8/test.bin",
+   "size": 5000000,
+   "sha256": "86f62c0adeb6c27763f308b8913bec743626421a4d2b4010f1e177a40eef7750",
+   "rows": [
+    {
+     "name": "gzip -9",
+     "kind": "standalone",
+     "bytes": 1761271,
+     "verified": true,
+     "enc_s": 0.17653417587280273,
+     "dec_s": 0.009984016418457031,
+     "command": "gzip.compress(data, 9, mtime=0)",
+     "version": "zlib 1.2.12",
+     "bits_per_byte": 2.8180336
+    },
+    {
+     "name": "bzip2 -9",
+     "kind": "standalone",
+     "bytes": 1408792,
+     "verified": true,
+     "enc_s": 0.32862091064453125,
+     "dec_s": 0.2976858615875244,
+     "command": "bz2.compress(data, 9)",
+     "version": "python 3.12.13 bz2",
+     "bits_per_byte": 2.2540672
+    },
+    {
+     "name": "xz -9e",
+     "kind": "standalone",
+     "bytes": 1356736,
+     "verified": true,
+     "enc_s": 3.455073118209839,
+     "dec_s": 0.05958986282348633,
+     "command": "lzma.compress(data, preset=9 | lzma.PRESET_EXTREME)",
+     "version": "python 3.12.13 lzma",
+     "bits_per_byte": 2.1707776
+    },
+    {
+     "name": "zstd -19",
+     "kind": "standalone",
+     "bytes": 1394418,
+     "verified": true,
+     "enc_s": 3.089851140975952,
+     "dec_s": 0.007895946502685547,
+     "command": "zstandard.ZstdCompressor(level=19).compress(data)",
+     "version": "zstandard 0.25.0 (libzstd (1, 5, 7))",
+     "bits_per_byte": 2.2310688
+    },
+    {
+     "name": "brotli -q11",
+     "kind": "standalone",
+     "bytes": 1343830,
+     "verified": true,
+     "enc_s": 9.304072856903076,
+     "dec_s": 0.016144752502441406,
+     "command": "brotli.compress(data, quality=11, lgwin=24)",
+     "version": "brotli 1.2.0",
+     "bits_per_byte": 2.150128
+    },
+    {
+     "name": "zstd --ultra -22 --long=27",
+     "kind": "standalone",
+     "bytes": 1394409,
+     "verified": true,
+     "enc_s": 3.4788339138031006,
+     "dec_s": 0.02798318862915039,
+     "command": "zstd -q --ultra -22 --long=27 x -o x.c",
+     "decode_command": "zstd -q -d --long=27 x.c -o y",
+     "version": "zstd v1.5.7",
+     "bits_per_byte": 2.2310544
+    },
+    {
+     "name": "brotli -q 11 --large_window=30",
+     "kind": "standalone",
+     "bytes": 1343832,
+     "verified": true,
+     "enc_s": 9.72122597694397,
+     "dec_s": 0.025276899337768555,
+     "command": "brotli -q 11 --large_window=30 x -o x.c",
+     "decode_command": "brotli -d --large_window=30 x.c -o y",
+     "version": "brotli 1.2.0",
+     "note": "large-window brotli: a bitstream standard brotli decoders reject",
+     "bits_per_byte": 2.1501312
+    },
+    {
+     "name": "zstd -19 + 110 KiB dict",
+     "kind": "dictionary",
+     "bytes": 1512313,
+     "verified": true,
+     "enc_s": 1.1343669891357422,
+     "dec_s": 0.019582033157348633,
+     "command": "zstd -q -19 -D /var/folders/1f/2vwmsfvs2m747llgnv5mqd2m0000gp/T/jevzip-baselines-veu6h15b/zstd-112640.dict x -o x.c",
+     "decode_command": "zstd -q -d -D /var/folders/1f/2vwmsfvs2m747llgnv5mqd2m0000gp/T/jevzip-baselines-veu6h15b/zstd-112640.dict x.c -o y",
+     "version": "zstd v1.5.7",
+     "ref_bytes": 112640,
+     "ref": "zstd --train -B4096 --maxdict=112640 on a 32 MiB sample of the corpus (256 evenly spaced runs)",
+     "bits_per_byte": 2.4197008
+    },
+    {
+     "name": "zstd -19 + 1 MiB dict",
+     "kind": "dictionary",
+     "bytes": 1365284,
+     "verified": true,
+     "enc_s": 3.9956820011138916,
+     "dec_s": 0.022317886352539062,
+     "command": "zstd -q -19 -D /var/folders/1f/2vwmsfvs2m747llgnv5mqd2m0000gp/T/jevzip-baselines-veu6h15b/zstd-1048576.dict x -o x.c",
+     "decode_command": "zstd -q -d -D /var/folders/1f/2vwmsfvs2m747llgnv5mqd2m0000gp/T/jevzip-baselines-veu6h15b/zstd-1048576.dict x.c -o y",
+     "version": "zstd v1.5.7",
+     "ref_bytes": 1048576,
+     "ref": "zstd --train -B4096 --maxdict=1048576 on a 32 MiB sample of the corpus (256 evenly spaced runs)",
+     "bits_per_byte": 2.1844544
+    },
+    {
+     "name": "zstd --ultra -22 --long=31 --patch-from=corpus",
+     "kind": "dictionary",
+     "bytes": 1185225,
+     "verified": true,
+     "enc_s": 236.6912932395935,
+     "dec_s": 0.043287038803100586,
+     "command": "zstd -q --ultra -22 --long=31 --memory=2048MB --patch-from=/Users/agent/helloworld-jevzip/data/enwik8/train.bin x -o x.c",
+     "decode_command": "zstd -q -d --long=31 --memory=2048MB --patch-from=/Users/agent/helloworld-jevzip/data/enwik8/train.bin x.c -o y",
+     "version": "zstd v1.5.7",
+     "ref_bytes": 90000000,
+     "ref": "the whole training corpus",
+     "bits_per_byte": 1.89636
+    },
+    {
+     "name": "brotli -q 11 -w 24 -D corpus tail",
+     "kind": "dictionary",
+     "bytes": 1294732,
+     "verified": true,
+     "enc_s": 12.889535903930664,
+     "dec_s": 0.039888858795166016,
+     "command": "brotli -q 11 -w 24 -D /var/folders/1f/2vwmsfvs2m747llgnv5mqd2m0000gp/T/jevzip-baselines-veu6h15b/tail-11711664.bin x -o x.c",
+     "decode_command": "brotli -d -D /var/folders/1f/2vwmsfvs2m747llgnv5mqd2m0000gp/T/jevzip-baselines-veu6h15b/tail-11711664.bin x.c -o y",
+     "version": "brotli 1.2.0",
+     "ref_bytes": 11711664,
+     "ref": "the last 11711664 bytes of the corpus (what fits the 16 MiB window)",
+     "bits_per_byte": 2.0715712
+    },
+    {
+     "name": "xz -9e primed",
+     "kind": "marginal",
+     "bytes": 1172432,
+     "verified": null,
+     "enc_s": 96.64588212966919,
+     "prefix_s": 87.76302194595337,
+     "command": "|xz -9e --lzma2=dict=2^ceil(log2|P+x|)(P + x)| - |xz -9e --lzma2=dict=2^ceil(log2|P+x|)(P)|",
+     "ref_bytes": 67108864,
+     "ref": "P = the last 67108864 bytes of the corpus",
+     "note": "marginal (equivalent to a preset-dictionary coder up to a few bytes; not a standalone file)",
+     "prefix_compressed": 16939508,
+     "version": "python 3.12.13 lzma",
+     "bits_per_byte": 1.8758912
+    },
+    {
+     "name": "7zz PPMd o=32 mem=1g",
+     "kind": "standalone",
+     "skipped": "7zz not found (brew install sevenzip; tools/build_competitors.sh)"
+    },
+    {
+     "name": "7zz PPMd o=32 mem=1g primed",
+     "kind": "marginal",
+     "skipped": "7zz not found (brew install sevenzip; tools/build_competitors.sh)"
+    },
+    {
+     "name": "paq8px -8L",
+     "kind": "standalone",
+     "bytes": 882938,
+     "verified": true,
+     "enc_s": 2373.1742770671844,
+     "dec_s": 1513.5230898857117,
+     "command": "/Users/agent/helloworld-jevzip/downloads/paq8px-build/paq8px -8L x x.c",
+     "decode_command": "/Users/agent/helloworld-jevzip/downloads/paq8px-build/paq8px -d x.c y",
+     "version": "paq8px c84f576fc2c522194cd320743708652a154daf6b, cmake Release, Apple clang version 21.0.0 (clang-2100.3.34.2)",
+     "note": "level 8 (2.4 GB) + LSTM; built for this CPU: decodes with the same binary",
+     "bits_per_byte": 1.4127008
+    },
+    {
+     "name": "paq8px -8 primed",
+     "kind": "marginal",
+     "bytes": 805295,
+     "verified": null,
+     "enc_s": 1715.1415848731995,
+     "prefix_s": 1284.854653120041,
+     "command": "|paq8px -8(P + x)| - |paq8px -8(P)|",
+     "ref_bytes": 16777216,
+     "ref": "P = the last 16777216 bytes of the corpus",
+     "note": "marginal (equivalent to a preset-dictionary coder up to a few bytes; not a standalone file)",
+     "prefix_compressed": 2970806,
+     "version": "paq8px c84f576fc2c522194cd320743708652a154daf6b, cmake Release, Apple clang version 21.0.0 (clang-2100.3.34.2)",
+     "bits_per_byte": 1.288472
+    },
+    {
+     "name": "cmix",
+     "kind": "standalone",
+     "bytes": 815915,
+     "verified": true,
+     "enc_s": 2621.1486060619354,
+     "dec_s": 2435.92249584198,
+     "command": "/Users/agent/helloworld-jevzip/downloads/cmix-build/cmix -c /Users/agent/helloworld-jevzip/downloads/cmix-build/dictionary/english.dic x x.c",
+     "decode_command": "/Users/agent/helloworld-jevzip/downloads/cmix-build/cmix -d /Users/agent/helloworld-jevzip/downloads/cmix-build/dictionary/english.dic x.c y",
+     "version": "cmix 194af9cd133b8b741d2a53afca13ed0ca453c276, -Ofast -mcpu=native -DP1_MODE=2 -DP3_BATCH -DP2_FASTMATH -DLSTM_QUANT=8, Apple clang version 21.0.0 (clang-2100.3.34.2)",
+     "note": "default mode with its english.dic (411996 B, not counted); ~19 GB RAM",
+     "bits_per_byte": 1.305464
+    }
+   ],
+   "corpus": "data/enwik8/train.bin",
+   "corpus_size": 90000000,
+   "corpus_sha256": "f8978bd9ca51fbea387d5145d310652ab39904bcbc8ab2647932c8c2e0539e64"
+  }
+ ]
+}

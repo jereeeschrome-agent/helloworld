@@ -1,0 +1,65 @@
+{
+ "label": "LLM codelength (arithmetic coding adds < 0.01%)",
+ "command": "/Users/agent/helloworld-jevzip/.venv/bin/python -I tools/llm_codelength.py data/code/networkx.py.txt --model rwkv-169m --method stream --stream-tokens 100 --json results/llm/validation/consist-rwkv-169m-networkx.py.txt-stream.json --threads 1 --limit-bytes 2000",
+ "cwd": "/Users/agent/helloworld-jevzip",
+ "date": "2026-10-18 13:02:53 +0300",
+ "versions": {
+  "python": "3.12.13",
+  "torch": "2.14.1",
+  "transformers": "5.20.1",
+  "tokenizers": "0.23.3",
+  "numpy": "2.5.4",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "machine": "arm64"
+ },
+ "runs": [
+  {
+   "label": "LLM codelength (arithmetic coding adds up to 1.73%: flush per sequence)",
+   "file": "data/code/networkx.py.txt",
+   "file_bytes": 1048576,
+   "sha256": "97ac83b301c24bde1903b3eb34fb131bb3c36b84acd470fdcbd28f869b0387f4",
+   "slice_sha256": "eb647dbc07d49931ac86e6b2d0c116e9570944284933203b1ee9df438eee9b1b",
+   "model": {
+    "name": "rwkv-169m",
+    "repo": "RWKV/rwkv-4-169m-pile",
+    "revision": "46bdc280eb97b6141d5d51a935e0c4870ecaefcc",
+    "type": "rwkv",
+    "params": 169342464,
+    "bytes_bf16": 338684928,
+    "vocab": 50277,
+    "weights": {
+     "pytorch_model.bin": "ea1a661560c91e280ce41d8cc52424b93e97b1b7050dedadc962b204b4dbe7a5"
+    },
+    "tokenizer_sha256": "3cf430678137c8491ca82fb7092ee49e44ad38857fffe1e4a4a5ed860139a5b8",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 0,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.71
+   },
+   "method": "stream",
+   "context": {
+    "stream_tokens": 100,
+    "pieces": 6
+   },
+   "complete": true,
+   "bytes": 2000,
+   "nfc_stable": true,
+   "tokens": 562,
+   "bytes_per_token": 3.5587,
+   "bits": 1849.031,
+   "bpb": 0.924515,
+   "codelength_bytes": 232,
+   "total_with_model_bf16_bytes": 338685160,
+   "coder_overhead_est_bits": 32.0,
+   "coder_overhead_est_rel": 0.0173269,
+   "device": "cpu",
+   "dtype": "fp32",
+   "threads": 1,
+   "seconds": 1.15,
+   "tokens_per_s": 490.1,
+   "forward_tokens_per_s": 490.1
+  }
+ ]
+}

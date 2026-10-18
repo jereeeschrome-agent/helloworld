@@ -1,0 +1,334 @@
+{
+ "label": "LLM codelength (arithmetic coding adds < 0.01%)",
+ "generated": "2026-10-18 14:25:14",
+ "runs": [
+  {
+   "source": "results/llm/runs/rwkv-169m-lmic-chunks-cpu.json",
+   "label": "LLM codelength (arithmetic coding adds up to 1.40%: flush per sequence)",
+   "file": "data/enwik8/test.bin",
+   "file_bytes": 5000000,
+   "sha256": "86f62c0adeb6c27763f308b8913bec743626421a4d2b4010f1e177a40eef7750",
+   "model": {
+    "name": "rwkv-169m",
+    "repo": "RWKV/rwkv-4-169m-pile",
+    "revision": "46bdc280eb97b6141d5d51a935e0c4870ecaefcc",
+    "type": "rwkv",
+    "params": 169342464,
+    "bytes_bf16": 338684928,
+    "vocab": 50277,
+    "weights": {
+     "pytorch_model.bin": "ea1a661560c91e280ce41d8cc52424b93e97b1b7050dedadc962b204b4dbe7a5"
+    },
+    "tokenizer_sha256": "3cf430678137c8491ca82fb7092ee49e44ad38857fffe1e4a4a5ed860139a5b8",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 0,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.67
+   },
+   "method": "chunks",
+   "context": {
+    "chunk_bytes": 2048,
+    "batch": 8,
+    "context_across_chunks": false,
+    "chunks": 2442,
+    "chunks_scored": 2442,
+    "boundaries_moved_for_utf8": 9,
+    "codelength_bytes_whole_bytes_per_chunk": 700489
+   },
+   "complete": true,
+   "bytes": 5000000,
+   "nfc_stable": true,
+   "tokens": 1389492,
+   "bytes_per_token": 3.5984,
+   "bits": 5594039.954,
+   "bpb": 1.118808,
+   "codelength_bytes": 699255,
+   "total_with_model_bf16_bytes": 339384183,
+   "coder_overhead_est_bits": 78237.9,
+   "coder_overhead_est_rel": 0.0139859,
+   "device": "cpu",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 1086.84,
+   "tokens_per_s": 1278.5,
+   "forward_tokens_per_s": 1278.5
+  },
+  {
+   "source": "results/llm/runs/rwkv-169m-lmic-chunks-text8-cpu.json",
+   "label": "LLM codelength (arithmetic coding adds up to 1.23%: flush per sequence)",
+   "file": "data/text8/test.bin",
+   "file_bytes": 5000000,
+   "sha256": "b336f67a7616a0d94ed6cc2049437928aafe01318e76a84abe6918320660f98c",
+   "model": {
+    "name": "rwkv-169m",
+    "repo": "RWKV/rwkv-4-169m-pile",
+    "revision": "46bdc280eb97b6141d5d51a935e0c4870ecaefcc",
+    "type": "rwkv",
+    "params": 169342464,
+    "bytes_bf16": 338684928,
+    "vocab": 50277,
+    "weights": {
+     "pytorch_model.bin": "ea1a661560c91e280ce41d8cc52424b93e97b1b7050dedadc962b204b4dbe7a5"
+    },
+    "tokenizer_sha256": "3cf430678137c8491ca82fb7092ee49e44ad38857fffe1e4a4a5ed860139a5b8",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 0,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.74
+   },
+   "method": "chunks",
+   "context": {
+    "chunk_bytes": 2048,
+    "batch": 8,
+    "context_across_chunks": false,
+    "chunks": 2442,
+    "chunks_scored": 2442,
+    "boundaries_moved_for_utf8": 0,
+    "codelength_bytes_whole_bytes_per_chunk": 798872
+   },
+   "complete": true,
+   "bytes": 5000000,
+   "nfc_stable": true,
+   "tokens": 1011906,
+   "bytes_per_token": 4.9412,
+   "bits": 6381301.129,
+   "bpb": 1.27626,
+   "codelength_bytes": 797663,
+   "total_with_model_bf16_bytes": 339482591,
+   "coder_overhead_est_bits": 78212.4,
+   "coder_overhead_est_rel": 0.0122565,
+   "device": "cpu",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 670.63,
+   "tokens_per_s": 1508.9,
+   "forward_tokens_per_s": 1508.9
+  },
+  {
+   "source": "results/llm/runs/rwkv-169m-stream-cpu.json",
+   "label": "LLM codelength (arithmetic coding adds < 0.01%)",
+   "file": "data/enwik8/test.bin",
+   "file_bytes": 5000000,
+   "sha256": "86f62c0adeb6c27763f308b8913bec743626421a4d2b4010f1e177a40eef7750",
+   "model": {
+    "name": "rwkv-169m",
+    "repo": "RWKV/rwkv-4-169m-pile",
+    "revision": "46bdc280eb97b6141d5d51a935e0c4870ecaefcc",
+    "type": "rwkv",
+    "params": 169342464,
+    "bytes_bf16": 338684928,
+    "vocab": 50277,
+    "weights": {
+     "pytorch_model.bin": "ea1a661560c91e280ce41d8cc52424b93e97b1b7050dedadc962b204b4dbe7a5"
+    },
+    "tokenizer_sha256": "3cf430678137c8491ca82fb7092ee49e44ad38857fffe1e4a4a5ed860139a5b8",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 0,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.77
+   },
+   "method": "stream",
+   "context": {
+    "stream_tokens": 1024,
+    "pieces": 1355
+   },
+   "complete": true,
+   "bytes": 5000000,
+   "nfc_stable": true,
+   "tokens": 1387065,
+   "bytes_per_token": 3.6047,
+   "bits": 5484095.928,
+   "bpb": 1.096819,
+   "codelength_bytes": 685512,
+   "total_with_model_bf16_bytes": 339370440,
+   "coder_overhead_est_bits": 125.7,
+   "coder_overhead_est_rel": 2.29e-05,
+   "device": "cpu",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 1977.88,
+   "tokens_per_s": 701.3,
+   "forward_tokens_per_s": 701.3
+  },
+  {
+   "source": "results/llm/runs/rwkv-169m-stream-cpu.json",
+   "label": "LLM codelength (arithmetic coding adds < 0.01%)",
+   "file": "data/code/networkx.py.txt",
+   "file_bytes": 1048576,
+   "sha256": "97ac83b301c24bde1903b3eb34fb131bb3c36b84acd470fdcbd28f869b0387f4",
+   "model": {
+    "name": "rwkv-169m",
+    "repo": "RWKV/rwkv-4-169m-pile",
+    "revision": "46bdc280eb97b6141d5d51a935e0c4870ecaefcc",
+    "type": "rwkv",
+    "params": 169342464,
+    "bytes_bf16": 338684928,
+    "vocab": 50277,
+    "weights": {
+     "pytorch_model.bin": "ea1a661560c91e280ce41d8cc52424b93e97b1b7050dedadc962b204b4dbe7a5"
+    },
+    "tokenizer_sha256": "3cf430678137c8491ca82fb7092ee49e44ad38857fffe1e4a4a5ed860139a5b8",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 0,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.77
+   },
+   "method": "stream",
+   "context": {
+    "stream_tokens": 1024,
+    "pieces": 301
+   },
+   "complete": true,
+   "bytes": 1048576,
+   "nfc_stable": true,
+   "tokens": 307586,
+   "bytes_per_token": 3.409,
+   "bits": 866495.754,
+   "bpb": 0.826355,
+   "codelength_bytes": 108312,
+   "total_with_model_bf16_bytes": 338793240,
+   "coder_overhead_est_bits": 52.8,
+   "coder_overhead_est_rel": 6.09e-05,
+   "device": "cpu",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 329.87,
+   "tokens_per_s": 932.4,
+   "forward_tokens_per_s": 932.4
+  },
+  {
+   "source": "results/llm/runs/rwkv-169m-stream-cpu.json",
+   "label": "LLM codelength (arithmetic coding adds < 0.01%)",
+   "file": "data/code/pydoc_topics.txt",
+   "file_bytes": 519592,
+   "sha256": "5b5a37bce813f6c12f10b00a5cb2b475d3b43ce0ee60f27149002dc8a656a299",
+   "model": {
+    "name": "rwkv-169m",
+    "repo": "RWKV/rwkv-4-169m-pile",
+    "revision": "46bdc280eb97b6141d5d51a935e0c4870ecaefcc",
+    "type": "rwkv",
+    "params": 169342464,
+    "bytes_bf16": 338684928,
+    "vocab": 50277,
+    "weights": {
+     "pytorch_model.bin": "ea1a661560c91e280ce41d8cc52424b93e97b1b7050dedadc962b204b4dbe7a5"
+    },
+    "tokenizer_sha256": "3cf430678137c8491ca82fb7092ee49e44ad38857fffe1e4a4a5ed860139a5b8",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 0,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.77
+   },
+   "method": "stream",
+   "context": {
+    "stream_tokens": 1024,
+    "pieces": 126
+   },
+   "complete": true,
+   "bytes": 519592,
+   "nfc_stable": true,
+   "tokens": 128248,
+   "bytes_per_token": 4.0515,
+   "bits": 451531.484,
+   "bpb": 0.869012,
+   "codelength_bytes": 56442,
+   "total_with_model_bf16_bytes": 338741370,
+   "coder_overhead_est_bits": 40.7,
+   "coder_overhead_est_rel": 9.01e-05,
+   "device": "cpu",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 136.46,
+   "tokens_per_s": 939.8,
+   "forward_tokens_per_s": 939.8
+  },
+  {
+   "source": "results/llm/runs/rwkv-169m-stream-text8-cpu.json",
+   "label": "LLM codelength (arithmetic coding adds < 0.01%)",
+   "file": "data/text8/test.bin",
+   "file_bytes": 5000000,
+   "sha256": "b336f67a7616a0d94ed6cc2049437928aafe01318e76a84abe6918320660f98c",
+   "model": {
+    "name": "rwkv-169m",
+    "repo": "RWKV/rwkv-4-169m-pile",
+    "revision": "46bdc280eb97b6141d5d51a935e0c4870ecaefcc",
+    "type": "rwkv",
+    "params": 169342464,
+    "bytes_bf16": 338684928,
+    "vocab": 50277,
+    "weights": {
+     "pytorch_model.bin": "ea1a661560c91e280ce41d8cc52424b93e97b1b7050dedadc962b204b4dbe7a5"
+    },
+    "tokenizer_sha256": "3cf430678137c8491ca82fb7092ee49e44ad38857fffe1e4a4a5ed860139a5b8",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 0,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 0.71
+   },
+   "method": "stream",
+   "context": {
+    "stream_tokens": 1024,
+    "pieces": 986
+   },
+   "complete": true,
+   "bytes": 5000000,
+   "nfc_stable": true,
+   "tokens": 1009171,
+   "bytes_per_token": 4.9546,
+   "bits": 6381093.586,
+   "bpb": 1.276219,
+   "codelength_bytes": 797637,
+   "total_with_model_bf16_bytes": 339482565,
+   "coder_overhead_est_bits": 100.2,
+   "coder_overhead_est_rel": 1.57e-05,
+   "device": "cpu",
+   "dtype": "fp32",
+   "threads": 4,
+   "seconds": 630.21,
+   "tokens_per_s": 1601.3,
+   "forward_tokens_per_s": 1601.3
+  }
+ ],
+ "published": [
+  {
+   "id": "ts_zip-enwik8",
+   "method": "ts_zip",
+   "dataset": "enwik8",
+   "bpb": 1.106059,
+   "params": "169M (RWKV 169M v4, quantized to 8 bits/parameter, evaluated in BF16)"
+  },
+  {
+   "id": "deletang-chinchilla-1b",
+   "method": "Chinchilla 1B",
+   "dataset": "enwik9 (2048-byte chunks, each coded with no history)",
+   "bpb": 0.904,
+   "params": "1B"
+  },
+  {
+   "id": "deletang-llama-2-7b",
+   "method": "Llama 2 (7B)",
+   "dataset": "enwik9 (2048-byte chunks, each coded with no history)",
+   "bpb": 0.712,
+   "params": "7B"
+  },
+  {
+   "id": "deletang-transformer-3-2m-trained-on-enwik8",
+   "method": "Transformer 3.2M (trained on enwik8)",
+   "dataset": "enwik9 (2048-byte chunks, each coded with no history)",
+   "bpb": 1.36,
+   "params": "3.2M"
+  }
+ ]
+}

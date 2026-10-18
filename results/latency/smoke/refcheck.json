@@ -1,0 +1,43 @@
+{
+ "what": "compress() with the refactored model.py (device-built, cached step masks) vs runs/ref outputs of the pre-refactor code",
+ "command": "nice -n 10 .venv/bin/python scratchpad/refcheck.py (compress(data, JevZip.load(W), rounds=K, threads=4, bf16=...); decompress round trip for fp32)",
+ "torch": "2.14.1",
+ "numpy": "2.5.4",
+ "python": "3.12.13",
+ "date": "2026-10-18",
+ "weights": {
+  "path": "weights/jevzip-lanes-11m-code.pt",
+  "sha256": "548d8879cbfd42e6115f432c71f19f306504899676c5a844a27e59d685339684"
+ },
+ "input": {
+  "path": "runs/ref/networkx-64k.bin",
+  "sha256": "8a54b455d9196822d82ecbeb030f0947605855e9bc88ff690ef5ee5baaae51e1"
+ },
+ "model_py_sha256": "3a15f759e321beee9565850e54375eda67a1d07fc11d936da8de4955e6400566",
+ "results": [
+  {
+   "ref": "networkx-64k-k32-fp32-t4.jz",
+   "ref_sha256": "697c61df4ccba01847aec2902813f176e11bede009a698c059d5ca22daa8583e",
+   "bytes": 10334,
+   "identical": true,
+   "decompress_roundtrip": true
+  },
+  {
+   "ref": "networkx-64k-k128-fp32-t4.jz",
+   "ref_sha256": "7e03b604e2f6267c08fa13446e0bda8e64764b5002f246d3b61e969f1768883a",
+   "bytes": 8886,
+   "identical": true,
+   "decompress_roundtrip": true
+  },
+  {
+   "ref": "networkx-64k-k32-bf16-t4.jz",
+   "ref_sha256": "b08387a88f71b61a68dc5112b6adb6bdede1a965d130b9a7d9111100c378ed22",
+   "bytes": 10334,
+   "identical": true,
+   "decompress_roundtrip": null
+  }
+ ],
+ "not_checked": [
+  "networkx-64k-k128-bf16-t4.jz (bf16 ~2 min each on this CPU; K=32 bf16 checked)"
+ ]
+}

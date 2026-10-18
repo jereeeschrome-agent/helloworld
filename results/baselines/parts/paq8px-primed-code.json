@@ -1,0 +1,68 @@
+{
+ "command": "/Users/agent/helloworld-jevzip/.venv/bin/python -m jevzip.baselines data/code/networkx.py.txt data/code/pydoc_topics.txt --corpus data/code/train.bin --only paq8px -8 primed --json results/baselines/parts/paq8px-primed-code.json",
+ "started": "2026-10-18T14:45:19+0300",
+ "environment": {
+  "python": "3.12.13",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "zstd": "v1.5.7",
+  "brotli": "brotli 1.2.0",
+  "xz": "xz (XZ Utils) 5.8.3",
+  "sevenzip": null,
+  "paq8px": "paq8px c84f576fc2c522194cd320743708652a154daf6b, cmake Release, Apple clang version 21.0.0 (clang-2100.3.34.2)",
+  "cmix": "cmix 194af9cd133b8b741d2a53afca13ed0ca453c276, -Ofast -mcpu=native -DP1_MODE=2 -DP3_BATCH -DP2_FASTMATH -DLSTM_QUANT=8, Apple clang version 21.0.0 (clang-2100.3.34.2)"
+ },
+ "results": [
+  {
+   "file": "data/code/networkx.py.txt",
+   "size": 1048576,
+   "sha256": "97ac83b301c24bde1903b3eb34fb131bb3c36b84acd470fdcbd28f869b0387f4",
+   "rows": [
+    {
+     "name": "paq8px -8 primed",
+     "kind": "marginal",
+     "bytes": 114525,
+     "verified": null,
+     "enc_s": 1475.097640991211,
+     "prefix_s": 1363.9563069343567,
+     "command": "|paq8px -8(P + x)| - |paq8px -8(P)|",
+     "ref_bytes": 16777216,
+     "ref": "P = the last 16777216 bytes of the corpus",
+     "note": "marginal (equivalent to a preset-dictionary coder up to a few bytes; not a standalone file)",
+     "prefix_compressed": 1321681,
+     "version": "paq8px c84f576fc2c522194cd320743708652a154daf6b, cmake Release, Apple clang version 21.0.0 (clang-2100.3.34.2)",
+     "bits_per_byte": 0.8737564086914062
+    }
+   ],
+   "corpus": "data/code/train.bin",
+   "corpus_size": 147802575,
+   "corpus_sha256": "ab86af3dab966b35c3e517566bbf4cc2f068f4c99d183a5dbe6af2fffc8c0fe7"
+  },
+  {
+   "file": "data/code/pydoc_topics.txt",
+   "size": 519592,
+   "sha256": "5b5a37bce813f6c12f10b00a5cb2b475d3b43ce0ee60f27149002dc8a656a299",
+   "rows": [
+    {
+     "name": "paq8px -8 primed",
+     "kind": "marginal",
+     "bytes": 58025,
+     "verified": null,
+     "enc_s": 1264.2975499629974,
+     "prefix_s": 0.005500316619873047,
+     "command": "|paq8px -8(P + x)| - |paq8px -8(P)|",
+     "ref_bytes": 16777216,
+     "ref": "P = the last 16777216 bytes of the corpus",
+     "note": "marginal (equivalent to a preset-dictionary coder up to a few bytes; not a standalone file)",
+     "prefix_compressed": 1321681,
+     "version": "paq8px c84f576fc2c522194cd320743708652a154daf6b, cmake Release, Apple clang version 21.0.0 (clang-2100.3.34.2)",
+     "bits_per_byte": 0.8933932778025836
+    }
+   ],
+   "corpus": "data/code/train.bin",
+   "corpus_size": 147802575,
+   "corpus_sha256": "ab86af3dab966b35c3e517566bbf4cc2f068f4c99d183a5dbe6af2fffc8c0fe7"
+  }
+ ],
+ "finished": "2026-10-18T15:53:42+0300"
+}

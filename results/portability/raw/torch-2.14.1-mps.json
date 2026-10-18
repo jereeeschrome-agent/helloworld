@@ -1,0 +1,210 @@
+{
+ "tag": "torch-2.14.1-mps",
+ "command": "/Users/agent/helloworld-jevzip/.venv/bin/python tools/portability.py run --pkg-root /private/tmp/claude-502/-Users-agent-helloworld/264cf11b-ad26-46ff-9f2a-33afb5990d45/scratchpad/agent-g/headpkg --ref-cache /private/tmp/claude-502/-Users-agent-helloworld/264cf11b-ad26-46ff-9f2a-33afb5990d45/scratchpad/agent-g/refcache --tag torch-2.14.1-mps --cases k32-fp32,k32-bf16 --variants mps --gpu-budget 45 --mps-calls 64 --mps-stop-after 64",
+ "started": "2026-10-18 13:36:06 +0300",
+ "platform": {
+  "python": "3.12.13",
+  "torch": "2.14.1",
+  "numpy": "2.5.4",
+  "os": "macOS-27.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "cpu": "Apple M4 Pro",
+  "blas": "?",
+  "cpu_capability": "DEFAULT",
+  "mps_available": true
+ },
+ "code": {
+  "pkg": "/private/tmp/claude-502/-Users-agent-helloworld/264cf11b-ad26-46ff-9f2a-33afb5990d45/scratchpad/agent-g/headpkg/jevzip",
+  "codec.py": "88b8fdddb75ba2aa60c433319d3b95c6f95058cc2541534bd98dc7fd5fd141b1",
+  "model.py": "47128c3fa1fcec94c6ca89603a3d5a8fd5f5b746d392598ed008bfd211fe5000",
+  "rans.py": "208600c9b005161eb7e9a2fb40dd5a5c2f6a33efaa4fd929d0e117628ab79c5c",
+  "schedule.py": "760c1b6aec2cd37117bbeb9875e66dd6416a723554405cd723236ccd72d8443e"
+ },
+ "inputs": {
+  "weights/jevzip-lanes-11m-code.pt": "548d8879cbfd42e6115f432c71f19f306504899676c5a844a27e59d685339684",
+  "runs/ref/networkx-64k.bin": "8a54b455d9196822d82ecbeb030f0947605855e9bc88ff690ef5ee5baaae51e1",
+  "runs/ref/networkx-64k-k32-fp32-t4.jz": "697c61df4ccba01847aec2902813f176e11bede009a698c059d5ca22daa8583e",
+  "runs/ref/networkx-64k-k32-bf16-t4.jz": "b08387a88f71b61a68dc5112b6adb6bdede1a965d130b9a7d9111100c378ed22"
+ },
+ "runs": [
+  {
+   "case": "k32-fp32",
+   "variant": "mps",
+   "threads": 4,
+   "device": "mps",
+   "bf16": false,
+   "header": {
+    "n": 65536,
+    "rounds": 32,
+    "streams": 16,
+    "threads": 4,
+    "bf16": 0
+   },
+   "code_bytes_at_bits": {
+    "24": 10293.53174478164,
+    "20": 10294.272372386746,
+    "16": 10320.714039479704,
+    "14": 10430.374365970098,
+    "12": 10926.155663894708,
+    "10": 13319.659342097108
+   },
+   "teacher_forced": {
+    "calls": 64,
+    "rows": 16384,
+    "cdf_entries_differ": 593341,
+    "rows_differ": 11026,
+    "rows_bitwise_equal": 0,
+    "interval_mismatches": 10569,
+    "first_interval_mismatch": {
+     "decode_index": 0,
+     "offset": 0,
+     "call": 0
+    },
+    "max_abs_dp": 1.1682510375976562e-05,
+    "first_call": {
+     "rows": 256,
+     "cdf_entries_differ_frac": 0.23676470588235293,
+     "max_abs_dp": 2.980232238769531e-07
+    },
+    "coarser": {
+     "24": {
+      "rows_differ": 11026,
+      "interval_mismatches": 10569
+     },
+     "20": {
+      "rows_differ": 6356,
+      "interval_mismatches": 5050
+     },
+     "16": {
+      "rows_differ": 714,
+      "interval_mismatches": 529
+     },
+     "14": {
+      "rows_differ": 192,
+      "interval_mismatches": 134
+     },
+     "12": {
+      "rows_differ": 49,
+      "interval_mismatches": 32
+     },
+     "10": {
+      "rows_differ": 9,
+      "interval_mismatches": 5
+     }
+    },
+    "cdf_entries_differ_frac": 0.14201827703737746,
+    "rows_differ_frac": 0.6729736328125,
+    "rows_bitwise_equal_frac": 0.0,
+    "mean_abs_dp": 4.341597926697841e-09,
+    "encode_identical": null,
+    "seconds": 3.95
+   },
+   "decode": {
+    "ok": false,
+    "seconds": 0.17,
+    "symbols_decoded": 69,
+    "of": 65536,
+    "wrong_bytes_seen": 55,
+    "first_wrong": {
+     "decode_index": 4,
+     "offset": 128,
+     "block": 0,
+     "in_block": 128
+    },
+    "error": "stopped: stopped 64 symbols after the first wrong byte",
+    "outcome": "stopped early"
+   },
+   "device_seconds": 3.58
+  },
+  {
+   "case": "k32-bf16",
+   "variant": "mps",
+   "threads": 4,
+   "device": "mps",
+   "bf16": true,
+   "header": {
+    "n": 65536,
+    "rounds": 32,
+    "streams": 16,
+    "threads": 4,
+    "bf16": 1
+   },
+   "code_bytes_at_bits": {
+    "24": 10293.653940146483,
+    "20": 10294.380252975247,
+    "16": 10320.737002173912,
+    "14": 10430.597840780572,
+    "12": 10926.672187494827,
+    "10": 13319.451923398652
+   },
+   "teacher_forced": {
+    "calls": 64,
+    "rows": 16384,
+    "cdf_entries_differ": 2076952,
+    "rows_differ": 15716,
+    "rows_bitwise_equal": 0,
+    "interval_mismatches": 15673,
+    "first_interval_mismatch": {
+     "decode_index": 0,
+     "offset": 0,
+     "call": 0
+    },
+    "max_abs_dp": 0.030223190784454346,
+    "first_call": {
+     "rows": 256,
+     "cdf_entries_differ_frac": 0.8112745098039216,
+     "max_abs_dp": 0.0003655552864074707
+    },
+    "coarser": {
+     "24": {
+      "rows_differ": 15716,
+      "interval_mismatches": 15673
+     },
+     "20": {
+      "rows_differ": 14576,
+      "interval_mismatches": 14526
+     },
+     "16": {
+      "rows_differ": 12842,
+      "interval_mismatches": 12735
+     },
+     "14": {
+      "rows_differ": 11789,
+      "interval_mismatches": 11516
+     },
+     "12": {
+      "rows_differ": 10418,
+      "interval_mismatches": 9703
+     },
+     "10": {
+      "rows_differ": 7834,
+      "interval_mismatches": 6567
+     }
+    },
+    "cdf_entries_differ_frac": 0.4971258425245098,
+    "rows_differ_frac": 0.959228515625,
+    "rows_bitwise_equal_frac": 0.0,
+    "mean_abs_dp": 1.1150991951673687e-05,
+    "encode_identical": null,
+    "seconds": 3.95
+   },
+   "decode": {
+    "ok": false,
+    "seconds": 0.19,
+    "symbols_decoded": 66,
+    "of": 65536,
+    "wrong_bytes_seen": 59,
+    "first_wrong": {
+     "decode_index": 1,
+     "offset": 32,
+     "block": 0,
+     "in_block": 32
+    },
+    "error": "stopped: stopped 64 symbols after the first wrong byte",
+    "outcome": "stopped early"
+   },
+   "device_seconds": 3.76
+  }
+ ],
+ "finished": "2026-10-18 13:36:15 +0300"
+}

@@ -1,0 +1,67 @@
+{
+ "label": "LLM codelength (arithmetic coding adds < 0.01%)",
+ "command": "/Users/agent/helloworld-jevzip/.venv/bin/python -I tools/llm_codelength.py data/code/networkx.py.txt --model qwen-0.5b --method window --window 4096 --stride 4096 --json results/llm/validation/consist-qwen-0.5b-networkx.py.txt-window.json --threads 1 --limit-bytes 2000",
+ "cwd": "/Users/agent/helloworld-jevzip",
+ "date": "2026-10-18 13:03:20 +0300",
+ "versions": {
+  "python": "3.12.13",
+  "torch": "2.14.1",
+  "transformers": "5.20.1",
+  "tokenizers": "0.23.3",
+  "numpy": "2.5.4",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "machine": "arm64"
+ },
+ "runs": [
+  {
+   "label": "LLM codelength (arithmetic coding adds up to 2.50%: flush per sequence)",
+   "file": "data/code/networkx.py.txt",
+   "file_bytes": 1048576,
+   "sha256": "97ac83b301c24bde1903b3eb34fb131bb3c36b84acd470fdcbd28f869b0387f4",
+   "slice_sha256": "eb647dbc07d49931ac86e6b2d0c116e9570944284933203b1ee9df438eee9b1b",
+   "model": {
+    "name": "qwen-0.5b",
+    "repo": "Qwen/Qwen2.5-0.5B",
+    "revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+    "type": "qwen2",
+    "params": 494032768,
+    "bytes_bf16": 988065536,
+    "vocab": 151936,
+    "weights": {
+     "model.safetensors": "88c142557820ccad55bb59756bfcfcf891de9cc6202816bd346445188a0ed342"
+    },
+    "tokenizer_sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "normalizer_removed": "NFC",
+    "separator": {
+     "id": 151643,
+     "text": "<|endoftext|>"
+    },
+    "load_seconds": 1.58
+   },
+   "method": "window",
+   "context": {
+    "window_tokens": 4096,
+    "stride_tokens": 4096,
+    "batch": 1,
+    "windows": 1
+   },
+   "complete": true,
+   "bytes": 2000,
+   "nfc_stable": true,
+   "tokens": 440,
+   "bytes_per_token": 4.5455,
+   "bits": 1282.074,
+   "bpb": 0.641037,
+   "codelength_bytes": 161,
+   "total_with_model_bf16_bytes": 988065697,
+   "coder_overhead_est_bits": 32.1,
+   "coder_overhead_est_rel": 0.0250296,
+   "device": "cpu",
+   "dtype": "fp32",
+   "threads": 1,
+   "seconds": 1.77,
+   "tokens_per_s": 248.6,
+   "forward_tokens_per_s": 248.6
+  }
+ ]
+}

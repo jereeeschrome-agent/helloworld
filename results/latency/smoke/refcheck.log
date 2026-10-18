@@ -1,0 +1,3 @@
+networkx-64k-k32-fp32-t4.jz identical 10334 10334 roundtrip True 31.2s 697c61df4ccba018
+networkx-64k-k128-fp32-t4.jz identical 8886 8886 roundtrip True 87.4s 7e03b604e2f6267c
+networkx-64k-k32-bf16-t4.jz identical 10334 10334 roundtrip skipped 114.3s b08387a88f71b61a

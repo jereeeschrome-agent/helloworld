@@ -1,0 +1,12 @@
+### data/code/networkx.py.txt (1048576 bytes)
+  paq8px -8L: 120654 B, 0.9205 bpb, enc 495.9s dec 489.5s
+### data/code/pydoc_topics.txt (519592 bytes)
+  paq8px -8L: 64533 B, 0.9936 bpb, enc 235.8s dec 239.0s
+### data/enwik8/test.bin (5000000 bytes)
+  paq8px -8L: 882938 B, 1.4127 bpb, enc 2373.2s dec 1513.5s
+### data/code/networkx.py.txt (1048576 bytes)
+  paq8px -8 primed: 114525 B, 0.8738 bpb +ref 16777216, enc 1475.1s dec 0.0s
+### data/code/pydoc_topics.txt (519592 bytes)
+  paq8px -8 primed: 58025 B, 0.8934 bpb +ref 16777216, enc 1264.3s dec 0.0s
+### data/enwik8/test.bin (5000000 bytes)
+  paq8px -8 primed: 805295 B, 1.2885 bpb +ref 16777216, enc 1715.1s dec 0.0s

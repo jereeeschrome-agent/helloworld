@@ -1,0 +1,92 @@
+{
+ "encoded_on": {
+  "python": "3.12.13",
+  "torch": "2.14.1",
+  "numpy": "2.5.4",
+  "os": "macOS-27.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "processor": "arm",
+  "cpu_capability": "DEFAULT"
+ },
+ "decoded_on": {
+  "python": "3.12.13",
+  "torch": "2.14.1",
+  "numpy": "2.5.4",
+  "os": "macOS-27.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "processor": "arm",
+  "cpu_capability": "DEFAULT"
+ },
+ "results": [
+  {
+   "fixture": "tiny-bitrev-a-k8-t1.jz",
+   "ok": true,
+   "mode": "ok",
+   "reencode_identical": true,
+   "seconds": 0.122
+  },
+  {
+   "fixture": "tiny-bitrev-a-k8-t4.jz",
+   "ok": true,
+   "mode": "ok",
+   "reencode_identical": true,
+   "seconds": 0.467
+  },
+  {
+   "fixture": "tiny-bitrev-a-k32-t1.jz",
+   "ok": true,
+   "mode": "ok",
+   "reencode_identical": true,
+   "seconds": 0.439
+  },
+  {
+   "fixture": "tiny-bitrev-a-k32-t4.jz",
+   "ok": true,
+   "mode": "ok",
+   "reencode_identical": true,
+   "seconds": 1.787
+  },
+  {
+   "fixture": "tiny-lanes-a-k8-t1.jz",
+   "ok": true,
+   "mode": "ok",
+   "reencode_identical": true,
+   "seconds": 0.14
+  },
+  {
+   "fixture": "tiny-lanes-a-k8-t4.jz",
+   "ok": true,
+   "mode": "ok",
+   "reencode_identical": true,
+   "seconds": 0.56
+  },
+  {
+   "fixture": "tiny-lanes-a-k32-t1.jz",
+   "ok": true,
+   "mode": "ok",
+   "reencode_identical": true,
+   "seconds": 0.312
+  },
+  {
+   "fixture": "tiny-lanes-a-k32-t4.jz",
+   "ok": true,
+   "mode": "ok",
+   "reencode_identical": true,
+   "seconds": 1.531
+  },
+  {
+   "fixture": "tiny-bitrev-b-k8-t1.jz",
+   "ok": true,
+   "mode": "ok",
+   "reencode_identical": true,
+   "seconds": 0.075
+  },
+  {
+   "fixture": "tiny-lanes-b-k32-t4.jz",
+   "ok": true,
+   "mode": "ok",
+   "reencode_identical": true,
+   "seconds": 1.597
+  }
+ ]
+}
